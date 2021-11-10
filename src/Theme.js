@@ -4,7 +4,11 @@ const theme = {
   naturalOne: "#666",
   naturalTwo: "#333",
   PrimarySix: "#1890FF",
-  CharacterPrimaryInvers: "#FFF"
+  CharacterPrimaryInvers: "#FFF",
+  CharacterPrimary: "#262626",
+  backgroundColorOne: "#001529",
+  backgroundColorTwo: "#000C17",
+  pageBackground: "#F0F2F5",
 };
 
 const Theme = ({ children }) => {
