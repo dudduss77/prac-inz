@@ -1,10 +1,11 @@
 import React from 'react'
+import { ReusableViewWrapper } from '../components/Reusable'
 
 const Login = () => {
   return (
-    <div>
+    <ReusableViewWrapper>
       Login
-    </div>
+    </ReusableViewWrapper>
   )
 }
 

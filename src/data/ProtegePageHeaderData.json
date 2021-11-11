@@ -1,0 +1,32 @@
+[
+  {
+    "pageHeaderPath": "/",
+    "pageHeaderPathName": "Dashboard /",
+    "pageHeaderTitle": "Witaj",
+    "pageHeaderDescription": "W tym miejscu możesz przeglądać swój trening, dietę na dany dzień oraz obserwować swój progress"
+  },
+  {
+    "pageHeaderPath": "/training",
+    "pageHeaderPathName": "Trening /",
+    "pageHeaderTitle": "Trening",
+    "pageHeaderDescription": "W tym miejscu możesz przeglądać cały swój trening oraz zgłosić uwagi."
+  },
+  {
+    "pageHeaderPath": "/history",
+    "pageHeaderPathName": "Historia /",
+    "pageHeaderTitle": "Historia",
+    "pageHeaderDescription": "W tym miejscu możesz przeglądać historie pomiarów, zdjęć czy raportów treningowych"
+  },
+  {
+    "pageHeaderPath": "/calendar",
+    "pageHeaderPathName": "Kalendarz /",
+    "pageHeaderTitle": "Kalendarz",
+    "pageHeaderDescription": "W tym miejscu możesz zarządzać swoim kalendarzem, planować treningi z podopiecznymi oraz własny czas"
+  },
+  {
+    "pageHeaderPath": "/diet",
+    "pageHeaderPathName": "Diety /",
+    "pageHeaderTitle": "Diety",
+    "pageHeaderDescription": "W tym miejscu możesz przeglądać całą swoją dietę oraz zgłosić uwagi."
+  }
+]

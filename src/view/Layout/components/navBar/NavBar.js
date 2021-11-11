@@ -10,6 +10,7 @@ import ProtegeNav from "./ProtegeNav";
 import TrainerNav from "./TrainerNav";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
 import NavBarLink from "./NavBarLink";
+import { selectUserType } from "../../../../features/UserSlice";
 
 const StyledNavBar = styled.div`
   background: ${({ theme }) => theme.backgroundColorOne};
@@ -35,7 +36,7 @@ const NavBar = () => {
   const menuStatus = useSelector(selectMenuStatus);
   const menuDispatch = useDispatch();
   const screenSize = useSelector(selectScreenSize);
-  const [isProtege, setIsProtege] = useState(false);
+  const userType = useSelector(selectUserType)
 
   useOutsideClick(ref, () => {
     if (screenSize === "mid" && !menuStatus)
@@ -56,7 +57,7 @@ const NavBar = () => {
 
   return (
     <StyledNavBar ref={ref} menuStatus={menuStatus}>
-      {isProtege ? <ProtegeNav /> : <TrainerNav />}
+      {userType ? <ProtegeNav /> : <TrainerNav />}
       <NavBarLink icon="sign-out-alt" path="/logout" title="Wyloguj" />
     </StyledNavBar>
   );

@@ -1,12 +1,12 @@
 import React from 'react'
 import { ReusableViewWrapper } from '../components/Reusable'
 
-const DietCreator = () => {
+const TempView = () => {
   return (
     <ReusableViewWrapper>
-      DietCreator
+      TempView
     </ReusableViewWrapper>
   )
 }
 
-export default DietCreator
+export default TempView
