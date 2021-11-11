@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isProtege: true,
+  isProtege: false,
 };
 
 export const userSlice = createSlice({

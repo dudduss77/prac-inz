@@ -19,14 +19,27 @@ const NavBarLinkWithSublinks = ({ mainIcon, mainTitle, subLinks }) => {
       />
       {showSublinks && (
         <>
-          {subLinks.map((link) => (
-            <NavBarLink
-              path={link.path}
-              icon={link.icon}
-              title={link.title}
-              isSublink={true}
-            />
-          ))}
+          {subLinks.map((link) => {
+            console.log(link.hasOwnProperty("customClick"));
+            if (link.hasOwnProperty("customClick")) {
+              return (
+                <NavBarLink
+                  customOnClick={link.customClick}
+                  icon={link.icon}
+                  title={link.title}
+                  isSublink={true}
+                />
+              );
+            } else
+              return (
+                <NavBarLink
+                  path={link.path}
+                  icon={link.icon}
+                  title={link.title}
+                  isSublink={true}
+                />
+              );
+          })}
         </>
       )}
     </StyledNavBarLinkWithSublinks>

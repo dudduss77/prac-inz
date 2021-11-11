@@ -29,10 +29,6 @@ const routes = (auth, isProtege = false) => [
         element: isProtege ? <Navigate to="/" /> : <DietCreator />,
       },
       {
-        path: "/newproteges",
-        element: isProtege ? <Navigate to="/" /> : <DietCreator />,
-      },
-      {
         path: "/calendar",
         element: isProtege ? <TempView /> : <DietCreator />,
       },
