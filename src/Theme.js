@@ -2,6 +2,8 @@ import { ThemeProvider } from "styled-components";
 
 const theme = {
   naturalOne: "#FFF",
+  naturalThree: "#F5F5F5",
+  naturalFive: "#D9D9D9",
   PrimarySix: "#1890FF",
   CharacterPrimaryInvers: "#FFF",
   CharacterPrimary: "#262626",

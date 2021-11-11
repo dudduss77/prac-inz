@@ -3,6 +3,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faCalendar,
   faCarrot,
+  faCheck,
   faEnvelope,
   faFile,
   faIndent,
@@ -27,5 +28,6 @@ library.add(
   faTasks,
   faUserPlus,
   faFile,
-  faSignOutAlt
+  faSignOutAlt,
+  faCheck
 );

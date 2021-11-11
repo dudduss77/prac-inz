@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Checkbox from "../components/Checkbox";
 import { ReusableViewWrapper } from "../components/Reusable";
 
 const TestDiv = styled.div`
@@ -11,6 +12,9 @@ const TestDiv = styled.div`
 const TrainerDashboard = () => {
   return (
     <ReusableViewWrapper isColumnLayout={true}>
+      <Checkbox label="test" disabled/>
+      <Checkbox label="test"/>
+      <Checkbox label="Testowy z większym label"/>
       <TestDiv />
       <TestDiv />
       <TestDiv />
