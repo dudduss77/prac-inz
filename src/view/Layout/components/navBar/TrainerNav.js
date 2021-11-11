@@ -3,9 +3,15 @@ import NavBarLink from "./NavBarLink";
 import NavBarLinkWithSublinks from "./NavBarLinkWithSublinks";
 
 const ProtegesSublinks = [
-  { path: "/browse", title: "Przeglądaj", icon:"file" },
-  { path: "/questionnaire", title: "Ankieta", icon:"tasks" },
-  { path: "/newproteges", title: "Dodaj nowego podopiecznego", icon:"user-plus" },
+  { path: "/browse", title: "Przeglądaj", icon: "file" },
+  { path: "/questionnaire", title: "Ankieta", icon: "tasks" },
+  {
+    title: "Dodaj nowego podopiecznego",
+    icon: "user-plus",
+    customClick: () => {
+      alert("Dodaj nowego podopiecznego");
+    },
+  },
 ];
 
 const TrainerNav = () => {
