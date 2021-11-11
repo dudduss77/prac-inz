@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useMediaPredicate } from "react-media-hook";
+import { selectScreenSize } from "../../../../features/ScreenSizeSlice";
 import {
   selectMenuStatus,
   changeOpenStateAction,
@@ -9,6 +9,7 @@ import styled from "styled-components";
 import ProtegeNav from "./ProtegeNav";
 import TrainerNav from "./TrainerNav";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
+import NavBarLink from "./NavBarLink";
 
 const StyledNavBar = styled.div`
   background: ${({ theme }) => theme.backgroundColorOne};
@@ -30,34 +31,33 @@ const StyledNavBar = styled.div`
 `;
 
 const NavBar = () => {
+  const ref = useRef();
   const menuStatus = useSelector(selectMenuStatus);
   const menuDispatch = useDispatch();
+  const screenSize = useSelector(selectScreenSize);
   const [isProtege, setIsProtege] = useState(false);
-  const smallScreen = useMediaPredicate("screen and (max-width: 900px)");
-  const bigScreen = useMediaPredicate("screen and (min-width: 1400px)");
-
-  const ref = useRef();
 
   useOutsideClick(ref, () => {
-    if (!smallScreen && !bigScreen && !menuStatus)
+    if (screenSize === "mid" && !menuStatus)
       menuDispatch(changeOpenStateAction(true));
   });
 
   useEffect(() => {
-    if (smallScreen) menuDispatch(changeOpenStateAction(false));
-  }, [smallScreen]);
+    if (screenSize === "small") menuDispatch(changeOpenStateAction(false));
+  }, [screenSize]);
 
   useEffect(() => {
-    if (bigScreen) menuDispatch(changeOpenStateAction(true));
-  }, [bigScreen]);
+    if (screenSize === "big") menuDispatch(changeOpenStateAction(true));
+  }, [screenSize]);
 
   useEffect(() => {
-    if (!smallScreen && !bigScreen) menuDispatch(changeOpenStateAction(true));
-  }, [smallScreen, bigScreen]);
+    if (screenSize === "mid") menuDispatch(changeOpenStateAction(true));
+  }, [screenSize]);
 
   return (
     <StyledNavBar ref={ref} menuStatus={menuStatus}>
       {isProtege ? <ProtegeNav /> : <TrainerNav />}
+      <NavBarLink icon="sign-out-alt" path="/logout" title="Wyloguj" />
     </StyledNavBar>
   );
 };

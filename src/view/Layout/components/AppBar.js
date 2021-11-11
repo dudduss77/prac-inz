@@ -2,13 +2,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectMenuStatus, changeOpenState } from "../../../features/MenuSlice";
+import { selectScreenSize } from "../../../features/ScreenSizeSlice";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import Logo from "../../../components/Logo";
 import UserLink from "../../../components/UserLink";
 import Avatar from "../../../assets/user.png";
 import Spacer from "../../../components/Spacer";
-import { useMediaPredicate } from "react-media-hook";
 
 const StyledAppBar = styled.div`
   width: calc(100% - 40px);
@@ -23,13 +23,10 @@ const StyledAppBar = styled.div`
 const AppBar = () => {
   const menuStatus = useSelector(selectMenuStatus);
   const menuDispatch = useDispatch();
-  const menuInverse = useMediaPredicate(
-    "screen and (max-width: 1400px) and (min-width: 900px)"
-  );
-  const smallScreen = useMediaPredicate("screen and (max-width: 900px)");
+  const screenSize = useSelector(selectScreenSize);
 
   const retIcon = () => {
-    if (menuInverse) {
+    if (screenSize === "mid") {
       return menuStatus ? (
         <FontAwesomeIcon icon="indent" />
       ) : (
@@ -48,7 +45,7 @@ const AppBar = () => {
     <StyledAppBar>
       <Logo isInvers>NoNameApp</Logo>
       <Spacer />
-      {!smallScreen && (
+      {screenSize !== "small" && (
         <>
           <UserLink imgSrc={Avatar} userName="Jan Kowalski" />
         </>

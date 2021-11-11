@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { useMediaPredicate } from "react-media-hook";
 import { useLocation, useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
+import { selectScreenSize } from "../../../../features/ScreenSizeSlice";
 import {
   selectMenuStatus,
   changeOpenState,
@@ -34,10 +34,7 @@ const StyledNavBarLink = styled.div`
 
 const NavBarLink = ({ path, icon, title, isSublink, customOnClick }) => {
   const menuStatus = useSelector(selectMenuStatus);
-  const smallScreen = useMediaPredicate("screen and (max-width: 900px)");
-  const midScreen = useMediaPredicate(
-    "screen and (min-width: 900px) and (max-width: 1400px)"
-  );
+  const screenSize = useSelector(selectScreenSize);
   const menuDispatch = useDispatch();
 
   let navigate = useNavigate();
@@ -45,8 +42,8 @@ const NavBarLink = ({ path, icon, title, isSublink, customOnClick }) => {
 
   const LinkClick = () => {
     navigate(path);
-    if (smallScreen) menuDispatch(changeOpenState());
-    if (midScreen && !menuStatus) menuDispatch(changeOpenState());
+    if (screenSize === "small") menuDispatch(changeOpenState());
+    if (screenSize === "mid" && !menuStatus) menuDispatch(changeOpenState());
   };
 
   return (
@@ -55,6 +52,7 @@ const NavBarLink = ({ path, icon, title, isSublink, customOnClick }) => {
       isMenuOpen={menuStatus}
       onClick={() => (customOnClick ? customOnClick() : LinkClick())}
       isSublink={isSublink}
+      title={title}
     >
       <Link menuStatus={menuStatus} icon={icon} title={title} />
     </StyledNavBarLink>
