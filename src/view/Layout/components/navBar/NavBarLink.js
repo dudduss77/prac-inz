@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import { selectScreenSize } from "../../../../features/ScreenSizeSlice";
+import { selectScreenSize } from "../../../../features/AppSlice";
 import {
   selectMenuStatus,
   changeOpenState,

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectScreenSize } from "../../../../features/ScreenSizeSlice";
+import { selectScreenSize } from "../../../../features/AppSlice";
 import {
   selectMenuStatus,
   changeOpenStateAction,
@@ -28,6 +28,7 @@ const StyledNavBar = styled.div`
     width: ${({ menuStatus }) => (menuStatus ? "100%" : "0")};
     height: calc(100% - 40px);
     position: absolute;
+    z-index: 2;
   }
 `;
 
@@ -36,7 +37,7 @@ const NavBar = () => {
   const menuStatus = useSelector(selectMenuStatus);
   const menuDispatch = useDispatch();
   const screenSize = useSelector(selectScreenSize);
-  const userType = useSelector(selectUserType)
+  const userType = useSelector(selectUserType);
 
   useOutsideClick(ref, () => {
     if (screenSize === "mid" && !menuStatus)

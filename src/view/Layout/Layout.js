@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setScreenSize } from "../../features/ScreenSizeSlice";
+import { selectModalState, setScreenSize } from "../../features/AppSlice";
 import { useMediaPredicate } from "react-media-hook";
 import styled from "styled-components";
 import AppBar from "./components/AppBar";
@@ -9,6 +9,7 @@ import NavBar from "./components/navBar/NavBar";
 import PageHeader from "../../components/PageHeader";
 import { selectUserType } from "../../features/UserSlice";
 import { useLocation } from "react-router";
+import Modal from "../../components/Modal/Modal";
 
 const StyledLayout = styled.div`
   display: flex;
@@ -34,6 +35,7 @@ const PageWrapper = styled.div`
 
 const Layout = () => {
   const screenDispatch = useDispatch();
+  const modalState = useSelector(selectModalState);
   const { pathname } = useLocation();
   const userType = useSelector(selectUserType);
   const smallScreen = useMediaPredicate("screen and (max-width: 900px)");
@@ -60,6 +62,7 @@ const Layout = () => {
           <Outlet />
         </PageWrapper>
       </ContentWrapper>
+      {modalState && <Modal />}
     </StyledLayout>
   );
 };

@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectMenuStatus, changeOpenState } from "../../../features/MenuSlice";
-import { selectScreenSize } from "../../../features/ScreenSizeSlice";
+import { selectScreenSize } from "../../../features/AppSlice";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import Logo from "../../../components/Logo";
