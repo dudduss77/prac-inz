@@ -17,7 +17,7 @@ const TrainerNav = () => {
         mainTitle="Podopieczni"
         subLinks={ProtegesSublinks}
       />
-      <NavBarLink path="/calender" icon="calendar" title="Kalendarz" />
+      <NavBarLink path="/calendar" icon="calendar" title="Kalendarz" />
       <NavBarLink path="/training" icon="running" title="Trening" />
       <NavBarLink path="/diet" icon="carrot" title="Diety" />
       <NavBarLink path="/messages" icon="envelope" title="Wiadomości" />

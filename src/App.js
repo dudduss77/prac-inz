@@ -3,6 +3,8 @@ import Theme from "./Theme";
 import "./fontConfig";
 import routes from "./routes";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { selectUserType } from "./features/UserSlice";
 
 const StyledApp = styled.div`
   color: ${({ theme }) => theme.CharacterPrimary};
@@ -14,7 +16,8 @@ const StyledApp = styled.div`
 `;
 
 function App() {
-  const routing = useRoutes(routes(false));
+  const userState = useSelector(selectUserType)
+  const routing = useRoutes(routes(false, userState));
   return (
     <StyledApp>
       <Theme>{routing}</Theme>

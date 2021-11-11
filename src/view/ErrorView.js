@@ -1,12 +1,12 @@
 import React from 'react'
 import { ReusableViewWrapper } from '../components/Reusable'
 
-const DietCreator = () => {
+const ErrorView = () => {
   return (
     <ReusableViewWrapper>
-      DietCreator
+      404
     </ReusableViewWrapper>
   )
 }
 
-export default DietCreator
+export default ErrorView

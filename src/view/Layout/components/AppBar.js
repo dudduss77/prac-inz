@@ -13,7 +13,7 @@ import Spacer from "../../../components/Spacer";
 const StyledAppBar = styled.div`
   width: calc(100% - 40px);
   padding: 0 20px;
-  height: 50px;
+  min-height: 50px;
   background: ${({ theme }) => theme.backgroundColorOne};
   display: flex;
   align-items: center;

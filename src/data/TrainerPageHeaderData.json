@@ -1,0 +1,50 @@
+[
+  {
+    "pageHeaderPath": "/",
+    "pageHeaderPathName": "Dashboard /",
+    "pageHeaderTitle": "Witaj",
+    "pageHeaderDescription": "W tym miejscu możesz zarządzać podstawowymi funkcjonalnościami train CRM"
+  },
+  {
+    "pageHeaderPath": "/questionnaire",
+    "pageHeaderPathName": "Podopieczni / Ankieta /",
+    "pageHeaderTitle": "Ankieta",
+    "pageHeaderDescription": "Miejsce gdzie wyświetlisz lub zmotyfikujesz ankietę"
+  },
+  {
+    "pageHeaderPath": "/browse",
+    "pageHeaderPathName": "Podopieczni / Przeglądaj /",
+    "pageHeaderTitle": "Przegląd podopiecznych",
+    "pageHeaderDescription": "W tym miejscu możesz przeglądać swoich podopiecznych, zarządzać nimi oraz wykonywać podstawowe operacje z tym związane"
+  },
+  {
+    "pageHeaderPath": "/newproteges",
+    "pageHeaderPathName": "Podopieczni / Dodaj /",
+    "pageHeaderTitle": "Dodaj podopiecznego",
+    "pageHeaderDescription": "W tym miejscu możesz dodać nowego podopieczego"
+  },
+  {
+    "pageHeaderPath": "/calendar",
+    "pageHeaderPathName": "Kalendarz / ",
+    "pageHeaderTitle": "Kalendarz",
+    "pageHeaderDescription": "W tym miejscu możesz zarządzać swoim kalendarzem, planować treningi z podopiecznymi oraz własny czas"
+  },
+  {
+    "pageHeaderPath": "/training",
+    "pageHeaderPathName": "Trening / ",
+    "pageHeaderTitle": "Trening",
+    "pageHeaderDescription": "W tym miejscu dodasz nowe treningi oraz zmodyfikujesz już istniejące."
+  },
+  {
+    "pageHeaderPath": "/diet",
+    "pageHeaderPathName": "Diety /",
+    "pageHeaderTitle": "Diety",
+    "pageHeaderDescription": "W tym miejscu dodasz nowe diety oraz zmodyfikujesz już istniejące."
+  },
+  {
+    "pageHeaderPath": "/messages",
+    "pageHeaderPathName": "Wiadomości /",
+    "pageHeaderTitle": "Wiadomości",
+    "pageHeaderDescription": "W tym miejscu możesz przeglądać swoich podopiecznych, zarządzać nimi oraz wykonywać podstawowe operacje z tym związane."
+  }
+]
