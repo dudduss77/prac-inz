@@ -47,8 +47,15 @@ const Layout = () => {
     else screenDispatch(setScreenSize("mid"));
   }, [smallScreen, bigScreen]);
 
+  console.log(pathname);
+
+  console.log(pathname.includes("/message/"));
+
   const retPageHeader = () => {
-    if ((pathname !== "/messages" && userType) || !userType)
+    if (
+      (pathname !== "/message" && userType) ||
+      (!pathname.includes("/message/") && !userType)
+    )
       return <PageHeader isProtege={userType} />;
   };
 

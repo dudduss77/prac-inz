@@ -4,9 +4,10 @@ import styled from "styled-components";
 const StyledUserLink = styled.div`
   display: flex;
   gap: 5px;
-  color: ${({ theme }) => theme.CharacterPrimaryInvers};
+  color: ${({ customColor, theme }) => customColor ? theme.PrimarySix : theme.CharacterPrimaryInvers};
   cursor: pointer;
   align-items: center;
+  min-width: ${({haveMinWidth}) => haveMinWidth ? '150px' : '0'};
 `;
 
 const Avatar = styled.img`
@@ -14,9 +15,9 @@ const Avatar = styled.img`
   height: 30px;
 `;
 
-const UserLink = ({ imgSrc, userName }) => {
+const UserLink = ({ imgSrc, userName, customColor, haveMinWidth }) => {
   return (
-    <StyledUserLink>
+    <StyledUserLink customColor={customColor} haveMinWidth={haveMinWidth}>
       <Avatar src={imgSrc} alt="Avatar" />
       {userName}
     </StyledUserLink>

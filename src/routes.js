@@ -42,6 +42,14 @@ const routes = (auth, isProtege = false) => [
         element: isProtege ? <TempView /> : <DietCreator />,
       },
       {
+        path: "/message",
+        element: isProtege ? <TempView /> : <Navigate to="/messages" />,
+      },
+      {
+        path: "/message/:id",
+        element: isProtege ? <Navigate to="/message" /> : <DietCreator />,
+      },
+      {
         path: "/history",
         element: isProtege ? <TempView /> : <Navigate to="/" />,
       },

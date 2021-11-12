@@ -8,7 +8,7 @@ const ProtegeNav = () => {
       <NavBarLink path="/calendar" icon="calendar" title="Kalendarz" />
       <NavBarLink path="/diet" icon="carrot" title="Dieta" />
       <NavBarLink path="/training" icon="running" title="Trening" />
-      <NavBarLink path="/messages" icon="envelope" title="Wiadomości" />
+      <NavBarLink path="/message" icon="envelope" title="Wiadomości" />
       <NavBarLink path="/history" icon="plus" title="Historia" />
     </>
   );
