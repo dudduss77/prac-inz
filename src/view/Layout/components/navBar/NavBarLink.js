@@ -2,11 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import { selectScreenSize } from "../../../../features/AppSlice";
-import {
-  selectMenuStatus,
-  changeOpenState,
-} from "../../../../features/MenuSlice";
+import { selectScreenSize, selectMenuStatus, changeOpenState } from "../../../../features/AppSlice";
 import Link from "./Link";
 
 const SelectBackground = (isSublink, isActive, theme) => {

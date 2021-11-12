@@ -5,10 +5,9 @@ import {
   selectScreenSize,
   setModalData,
 } from "../../../../features/AppSlice";
-import { changeOpenStateAction } from "../../../../features/MenuSlice";
+import { changeOpenStateAction } from "../../../../features/AppSlice";
 import NavBarLink from "./NavBarLink";
 import NavBarLinkWithSublinks from "./NavBarLinkWithSublinks";
-
 
 const TrainerNav = () => {
   const modalDispatch = useDispatch();
@@ -24,6 +23,7 @@ const TrainerNav = () => {
         modalDispatch(changeModalState());
         modalDispatch(setModalData("newprotege"));
         if (screenSize === "small") menuDispatch(changeOpenStateAction(false));
+        if (screenSize === "mid") menuDispatch(changeOpenStateAction(true));
       },
     },
   ];

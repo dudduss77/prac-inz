@@ -1,10 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectScreenSize } from "../../../../features/AppSlice";
-import {
-  selectMenuStatus,
-  changeOpenStateAction,
-} from "../../../../features/MenuSlice";
+import { selectScreenSize, selectMenuStatus, changeOpenStateAction } from "../../../../features/AppSlice";
 import styled from "styled-components";
 import ProtegeNav from "./ProtegeNav";
 import TrainerNav from "./TrainerNav";
