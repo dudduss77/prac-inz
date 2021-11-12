@@ -1,4 +1,4 @@
-import Login from "./view/Login";
+import Login from "./view/Login/Login";
 import Layout from "./view/Layout/Layout";
 import TrainerDashboard from "./view/TrainerDashboard";
 import DietCreator from "./view/DietCreator";
