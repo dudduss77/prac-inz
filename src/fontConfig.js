@@ -4,10 +4,13 @@ import {
   faCalendar,
   faCarrot,
   faCheck,
+  faChevronLeft,
   faEnvelope,
   faFile,
+  faFileImage,
   faIndent,
   faOutdent,
+  faPaperPlane,
   faPlus,
   faRunning,
   faSignOutAlt,
@@ -29,5 +32,8 @@ library.add(
   faUserPlus,
   faFile,
   faSignOutAlt,
-  faCheck
+  faCheck,
+  faChevronLeft,
+  faFileImage,
+  faPaperPlane
 );

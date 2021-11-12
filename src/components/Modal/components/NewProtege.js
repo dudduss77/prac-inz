@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../../Button";
+import {Button} from "../../Reusable";
 import { ModalHeader, ModalParagraph } from "./ModalReusable";
 
 const NewProtege = () => {

@@ -8,9 +8,29 @@ export const ReusableViewWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
+export const Button = styled.button`
+  border: none;
+  border-radius: ${({ isRounded }) => (isRounded ? "50px" : "5px")};
+  background: ${({ theme }) => theme.PrimarySix};
+  color: ${({ theme }) => theme.CharacterPrimaryInvers};
+  padding: ${({ pTB }) => (pTB ? pTB + "px" : "10px")} 20px;
+  font-size: 16px;
+  width: ${({ isWholeContent }) => (isWholeContent ? "100%" : "auto")};
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(95%);
+  }
+`;
+
+export const Spacer = styled.div`
+  flex: 1;
+`;
+
 export const Row = styled.div`
+  flex: ${({flexValue}) => flexValue};
   display: flex;
-  gap: 10px;
+  gap: ${({ isGap }) => (isGap ? "10px" : "0")};
 
   @media screen and (max-width: 900px) {
     flex-direction: column;
@@ -18,6 +38,7 @@ export const Row = styled.div`
 `;
 
 export const Column = styled.div`
+  flex: ${({flexValue}) => flexValue};
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -38,4 +59,13 @@ export const Box = styled.div`
   @media screen and (max-width: 900px) {
     width: 100%;
   }
+`;
+
+export const StyledTextarea = styled.textarea`
+  resize: none;
+  min-height: 100px;
+  padding: 5px;
+  flex: 1;
+  font-size: 1em;
+  border: 1px solid $${({ theme }) => theme.naturalFive};
 `;

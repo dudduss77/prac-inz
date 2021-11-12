@@ -5,6 +5,7 @@ import DietCreator from "./view/DietCreator";
 import { Navigate } from "react-router-dom";
 import TempView from "./view/TempView";
 import ErrorView from "./view/ErrorView";
+import Chat from "./view/Chat/Chat";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
@@ -43,11 +44,11 @@ const routes = (auth, isProtege = false) => [
       },
       {
         path: "/message",
-        element: isProtege ? <TempView /> : <Navigate to="/messages" />,
+        element: isProtege ? <Chat isProtege /> : <Navigate to="/messages" />,
       },
       {
         path: "/message/:id",
-        element: isProtege ? <Navigate to="/message" /> : <DietCreator />,
+        element: isProtege ? <Navigate to="/message" /> : <Chat />,
       },
       {
         path: "/history",

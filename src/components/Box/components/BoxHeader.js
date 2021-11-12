@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "../../Button";
-import Spacer from "../../Spacer";
+import {Button, Spacer} from "../..//Reusable";
 
 const StyledBoxHeader = styled.div`
   width: calc(100% - 20px);
@@ -11,17 +10,29 @@ const StyledBoxHeader = styled.div`
   color: ${({ theme }) => theme.CharacterPrimaryInvers};
   display: flex;
   align-items: center;
+  gap: 5px;
 `;
 
-const BoxHeader = ({ headerTitle, headerButtonTitle, headerOnClick }) => {
+const BoxHeader = ({
+  headerTitle,
+  headerButtonTitle,
+  headerOnClick,
+  children,
+}) => {
   return (
     <StyledBoxHeader>
-      {headerTitle}
-      <Spacer />
-      {headerButtonTitle && (
-        <Button onClick={headerOnClick} pTB="2">
-          {headerButtonTitle}
-        </Button>
+      {children ? (
+        children
+      ) : (
+        <>
+          {headerTitle}
+          <Spacer />
+          {headerButtonTitle && (
+            <Button onClick={headerOnClick} pTB="2">
+              {headerButtonTitle}
+            </Button>
+          )}
+        </>
       )}
     </StyledBoxHeader>
   );
