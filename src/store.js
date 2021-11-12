@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import menuReducer from "./features/MenuSlice";
-import screenReducer from "./features/ScreenSizeSlice";
+import appReducer from "./features/AppSlice";
 import userReducer from './features/UserSlice'
 
 export const store = configureStore({
   reducer: {
     menu: menuReducer,
-    screenSize: screenReducer,
+    app: appReducer,
     user: userReducer
   },
 });

@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeModalState,
+  selectScreenSize,
+  setModalData,
+} from "../../../../features/AppSlice";
+import { changeOpenStateAction } from "../../../../features/MenuSlice";
 import NavBarLink from "./NavBarLink";
 import NavBarLinkWithSublinks from "./NavBarLinkWithSublinks";
 
-const ProtegesSublinks = [
-  { path: "/browse", title: "Przeglądaj", icon: "file" },
-  { path: "/questionnaire", title: "Ankieta", icon: "tasks" },
-  {
-    title: "Dodaj nowego podopiecznego",
-    icon: "user-plus",
-    customClick: () => {
-      alert("Dodaj nowego podopiecznego");
-    },
-  },
-];
 
 const TrainerNav = () => {
+  const modalDispatch = useDispatch();
+  const menuDispatch = useDispatch();
+  const screenSize = useSelector(selectScreenSize);
+  const ProtegesSublinks = [
+    { path: "/browse", title: "Przeglądaj", icon: "file" },
+    { path: "/questionnaire", title: "Ankieta", icon: "tasks" },
+    {
+      title: "Dodaj nowego podopiecznego",
+      icon: "user-plus",
+      customClick: () => {
+        modalDispatch(changeModalState());
+        modalDispatch(setModalData("newprotege"));
+        if (screenSize === "small") menuDispatch(changeOpenStateAction(false));
+      },
+    },
+  ];
   return (
     <>
       <NavBarLink path="/" icon="plus" title="Dashboard" />
