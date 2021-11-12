@@ -13,8 +13,7 @@ const StyledBackground = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  //filter: blur(2px); //To nic nie daje
-  /* backdrop-filter: blur(2px); */ //To nie działa na firefox
+  backdrop-filter: blur(2px); //To nie działa na firefox napewno działa na chrome
 `;
 ///https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4 % przeźroczystości
 const StyledModal = styled.div`
