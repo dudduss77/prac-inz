@@ -1,4 +1,4 @@
-import Button from './../../components/Button';
+import {Button} from './../../components/Reusable';
 import Input from "./../../components/Input";
 
 import { ReactComponent as UserSVG } from './../../assets/user.svg';

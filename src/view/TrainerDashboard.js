@@ -7,7 +7,7 @@ import { Box, ReusableViewWrapper, Row } from "../components/Reusable";
 const TrainerDashboard = () => {
   return (
     <ReusableViewWrapper isColumnLayout={true}>
-      <Row>
+      <Row isGap>
         <Box width="30%">
           <BoxHeader headerTitle="Kalendarz" />
           <CalendarItem

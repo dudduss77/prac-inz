@@ -1,4 +1,4 @@
-import Button from './../../components/Button';
+import {Button} from './../../components/Reusable';
 import Checkbox from './../../components/Checkbox';
 import Input from "./../../components/Input";
 

@@ -3,11 +3,10 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectScreenSize, selectMenuStatus, changeOpenState } from "../../../features/AppSlice";
 import styled from "styled-components";
-import Button from "../../../components/Button";
+import {Button, Spacer} from "../../../components/Reusable";
 import Logo from "../../../components/Logo";
 import UserLink from "../../../components/UserLink";
 import Avatar from "../../../assets/user.png";
-import Spacer from "../../../components/Spacer";
 
 const StyledAppBar = styled.div`
   width: calc(100% - 40px);
