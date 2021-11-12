@@ -9,6 +9,7 @@ const StyledBackground = styled.div`
   width: 100vw;
   height: 100vh;
   position: absolute;
+  z-index: 3;
   background: ${({ theme }) => theme.backgroundColorThree + "66"};
   display: flex;
   justify-content: center;
