@@ -58,6 +58,10 @@ align-items: center;
 font-size: 14px;
 width: 360px;
 gap: 10px;
+
+@media screen and (max-width: 360px) {
+    height: 100%;
+}
 `;
 
 const MenuLogin__item = styled.div`

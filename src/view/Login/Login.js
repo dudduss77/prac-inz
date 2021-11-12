@@ -1,11 +1,4 @@
 import React, { useState } from 'react'
-import { ReusableViewWrapper } from '../../components/Reusable'
-import Input from "./../../components/Input";
-
-import { ReactComponent as UserSVG } from './../../assets/user.svg';
-import { ReactComponent as passSVG } from './../../assets/pass.svg';
-import Button from './../../components/Button';
-import Checkbox from './../../components/Checkbox';
 
 import {
   ImgBackground, 
@@ -14,11 +7,10 @@ import {
   LoginBox, 
   MenuLogin, 
   MenuLogin__item, 
-  RememberLost, 
-  RememberLost__item
 } from './styled'
+
 import LoginForm from './LoginForm';
-import RegisterForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 import ForgotForm from './ForgotForm';
 
 

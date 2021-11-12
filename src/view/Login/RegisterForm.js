@@ -14,8 +14,9 @@ import {
 
 const LoginForm = ({handleForgotClick}) => (
     <>
-      <Input placeholder="Email" icon={UserSVG} width="360px" />  
+      <Input placeholder="Email" icon={UserSVG} />  
       <Input placeholder="Hasło" icon={passSVG} />  
+      <Input placeholder="Imię i nazwisko" icon={UserSVG} />  
 
       <RememberLost>
         <RememberLost__item>
