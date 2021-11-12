@@ -1,5 +1,6 @@
 import React from "react";
 import BoxHeader from "../components/Box/components/BoxHeader";
+import CalendarItem from "../components/CalendarItem";
 import Message from "../components/Message/Message";
 import { Box, ReusableViewWrapper, Row } from "../components/Reusable";
 
@@ -9,7 +10,20 @@ const TrainerDashboard = () => {
       <Row>
         <Box width="30%">
           <BoxHeader headerTitle="Kalendarz" />
-          dsda
+          <CalendarItem
+            time="10:00 - 11:00"
+            description="Opis zadania aktualnego..."
+            color="#C4C4C4"
+          />
+          <CalendarItem
+            time="10:00 - 11:00"
+            description="Opis zadania aktualnego..."
+            color="#FF0000"
+          />
+          <CalendarItem
+            time="10:00 - 11:00"
+            description="Opis zadania aktualnego..."
+          />
         </Box>
         <Box width="70%" height="290px">
           <BoxHeader
