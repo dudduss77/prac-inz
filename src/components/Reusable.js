@@ -69,3 +69,7 @@ export const StyledTextarea = styled.textarea`
   font-size: 1em;
   border: 1px solid $${({ theme }) => theme.naturalFive};
 `;
+
+export const Icon = styled.div`
+  cursor: pointer;
+` 
