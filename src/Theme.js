@@ -1,6 +1,7 @@
 import { ThemeProvider } from "styled-components";
 
 const theme = {
+  black: "#000",
   naturalOne: "#FFFFFF",
   naturalThree: "#F5F5F5",
   naturalFour: "#F0F0F0",

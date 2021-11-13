@@ -6,6 +6,7 @@ import { ReactComponent as UserSVG } from './../assets/user.svg';
 import { ReactComponent as passSVG } from './../assets/pass.svg';
 import SearchInput from '../components/SearchInput';
 import Select from '../components/Select';
+import Pagination from '../components/Pagination';
 
 const DietCreator = () => {
   return (
@@ -26,6 +27,8 @@ const DietCreator = () => {
           "item5"
         ]}
       />  
+
+      <Pagination/>
     </ReusableViewWrapper>
   )
 }
