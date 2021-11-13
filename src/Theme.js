@@ -7,6 +7,7 @@ const theme = {
   naturalFour: "#F0F0F0",
   naturalFive: "#D9D9D9",
   naturalSeven: "#8C8C8C",
+  neutralOne: "#FAFAFA",
   PrimaryTwo: "#BAE7FF",
   PrimaryFour: "#69C0FF",
   PrimarySix: "#1890FF",

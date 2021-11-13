@@ -6,6 +6,7 @@ import { Navigate } from "react-router-dom";
 import TempView from "./view/TempView";
 import ErrorView from "./view/ErrorView";
 import Chat from "./view/Chat/Chat";
+import Browse from "./view/Browse";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
@@ -27,7 +28,7 @@ const routes = (auth, isProtege = false) => [
       },
       {
         path: "/browse",
-        element: isProtege ? <Navigate to="/" /> : <DietCreator />,
+        element: isProtege ? <Navigate to="/" /> : <Browse />,
       },
       {
         path: "/calendar",

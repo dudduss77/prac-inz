@@ -31,13 +31,16 @@ export const Row = styled.div`
   flex: ${({flexValue}) => flexValue};
   display: flex;
   gap: ${({ isGap }) => (isGap ? "10px" : "0")};
-
+  justify-content: ${({ justifyContent }) => justifyContent};
+  align-items: ${({ alignItems }) => alignItems};
+  padding: ${({ isPadding }) => isPadding ? "10px" : "0"};
   @media screen and (max-width: 900px) {
     flex-direction: column;
   }
 `;
 
 export const Column = styled.div`
+  width: ${({ width }) => width};
   flex: ${({flexValue}) => flexValue};
   display: flex;
   flex-direction: column;
