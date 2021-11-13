@@ -10,7 +10,7 @@ export const ReusableViewWrapper = styled.div`
 
 export const Button = styled.button`
   border: none;
-  border-radius: ${({ isRounded }) => (isRounded ? "50px" : "5px")};
+  border-radius: ${({ isRounded, isSquare }) => (isRounded ? "50px" : isSquare ? '0px' : "5px")};
   background: ${({ theme }) => theme.PrimarySix};
   color: ${({ theme }) => theme.CharacterPrimaryInvers};
   padding: ${({ pTB }) => (pTB ? pTB + "px" : "10px")} 20px;
