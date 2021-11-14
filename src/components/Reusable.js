@@ -10,7 +10,7 @@ export const ReusableViewWrapper = styled.div`
 
 export const Button = styled.button`
   border: none;
-  border-radius: ${({ isRounded }) => (isRounded ? "50px" : "5px")};
+  border-radius: ${({ isRounded, isSquare }) => (isRounded ? "50px" : isSquare ? '0px' : "5px")};
   background: ${({ theme }) => theme.PrimarySix};
   color: ${({ theme }) => theme.CharacterPrimaryInvers};
   padding: ${({ pTB }) => (pTB ? pTB + "px" : "10px")} 20px;
@@ -31,13 +31,16 @@ export const Row = styled.div`
   flex: ${({flexValue}) => flexValue};
   display: flex;
   gap: ${({ isGap }) => (isGap ? "10px" : "0")};
-
+  justify-content: ${({ justifyContent }) => justifyContent};
+  align-items: ${({ alignItems }) => alignItems};
+  padding: ${({ isPadding }) => isPadding ? "10px" : "0"};
   @media screen and (max-width: 900px) {
     flex-direction: column;
   }
 `;
 
 export const Column = styled.div`
+  width: ${({ width }) => width};
   flex: ${({flexValue}) => flexValue};
   display: flex;
   flex-direction: column;
