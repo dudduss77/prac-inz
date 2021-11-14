@@ -1,13 +1,21 @@
 import React from 'react'
 
-import { Box, Button, Column, ReusableViewWrapper, Row } from "../components/Reusable";
-import BoxHeader from "../components/Box/components/BoxHeader";
-import Pagination from '../components/Pagination';
-import SearchInput from '../components/SearchInput';
+import { Box, Button, Column, ReusableViewWrapper, Row } from "../../components/Reusable";
+import BoxHeader from "../../components/Box/components/BoxHeader";
+import Pagination from '../../components/Pagination';
+import SearchInput from '../../components/SearchInput';
 
-import { ReactComponent  as PlusSVG } from './../assets/plus.svg';
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  changeModalState,
+  setModalData,
+} from "./../../features/AppSlice";
+
+
+import { ReactComponent  as PlusSVG } from './../../assets/plus.svg';
 import styled from 'styled-components';
-import Table from '../components/Table';
+import ProtegeTable from './ProtegeTable';
 
 const StyledPlusSVG = styled.svg.attrs({ 
   width: '11px',
@@ -19,6 +27,13 @@ const StyledPlusSVG = styled.svg.attrs({
 `;
 
 const Browse = () => {
+  const modalDispatch = useDispatch();
+  
+  const handleClickNewProtege = () => {
+    modalDispatch(changeModalState());
+    modalDispatch(setModalData("newprotege"));
+  }
+
     return (
         <ReusableViewWrapper isColumnLayout={true}>
           <Box width="100%" isGap>
@@ -30,7 +45,9 @@ const Browse = () => {
                 placeholder="Szukaj..."
               />
 
-              <Button>
+              <Button
+                onClick={handleClickNewProtege}
+              >
                 <StyledPlusSVG as={PlusSVG}/>
                 Dodaj nowego
               </Button>
@@ -38,16 +55,7 @@ const Browse = () => {
             </Row>
 
             <Row isPadding>
-                <Table
-                  data={[
-                    ['Podopieczny', 'Podopieczny', 'Opis', 'Online'],
-                    ['content1', 'content2', 'content3', 'content4'],
-                    ['content1', 'content2', 'content3', 'content4'],
-                    ['content1', 'content2', 'content3', 'content4'],
-                    ['content1', 'content2', 'content3', 'content4'],
-                  ]}
-                >
-                </Table>
+                <ProtegeTable></ProtegeTable>
             </Row>
 
             <Row justifyContent="flex-end" isPadding>

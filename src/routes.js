@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 import TempView from "./view/TempView";
 import ErrorView from "./view/ErrorView";
 import Chat from "./view/Chat/Chat";
-import Browse from "./view/Browse";
+import Browse from "./view/Browse/Browse";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
