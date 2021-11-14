@@ -5,7 +5,8 @@ import {Button, Spacer} from "../..//Reusable";
 const StyledBoxHeader = styled.div`
   width: calc(100% - 20px);
   padding: 0 10px;
-  height: 35px;
+  min-height: 35px;
+  max-height: 35px;
   background: ${({ theme }) => theme.PrimaryFour};
   color: ${({ theme }) => theme.CharacterPrimaryInvers};
   display: flex;

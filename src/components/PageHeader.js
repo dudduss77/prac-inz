@@ -14,7 +14,11 @@ const StyledPageHeader = styled.div`
 const StyledPath = styled.h5`
   color: ${({ theme }) => theme.CharacterSecoundary};
 `;
-const PageHeader = ({isProtege}) => {
+
+const StyledHeader = styled.h3`
+  font-weight: 700;
+`;
+const PageHeader = ({ isProtege }) => {
   const { pathname } = useLocation();
   const [headerData, setHeaderData] = useState({});
 
@@ -22,11 +26,11 @@ const PageHeader = ({isProtege}) => {
     let currentData;
     if (isProtege) {
       [currentData] = ProtegePageHeaderData.filter(
-        (item) => item.pageHeaderPath === pathname
+        (item) => item.pageHeaderPath === pathname.replace(/[0-9]/g, "")
       );
     } else {
       [currentData] = TrainerPageHeaderData.filter(
-        (item) => item.pageHeaderPath === pathname
+        (item) => item.pageHeaderPath === pathname.replace(/[0-9]/g, "")
       );
     }
 
@@ -37,7 +41,7 @@ const PageHeader = ({isProtege}) => {
       {headerData && (
         <>
           <StyledPath>{headerData.pageHeaderPathName}</StyledPath>
-          <h3>{headerData.pageHeaderTitle}</h3>
+          <StyledHeader>{headerData.pageHeaderTitle}</StyledHeader>
           <h5>{headerData.pageHeaderDescription}</h5>
         </>
       )}
