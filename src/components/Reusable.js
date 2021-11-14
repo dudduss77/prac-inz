@@ -34,7 +34,7 @@ export const Row = styled.div`
   justify-content: ${({ justifyContent }) => justifyContent};
   align-items: ${({ alignItems }) => alignItems};
   padding: ${({ isPadding }) => isPadding ? "10px" : "0"};
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${({ mediaQueryPoint }) => mediaQueryPoint ?? '900px'}) {
     flex-direction: column;
   }
 `;

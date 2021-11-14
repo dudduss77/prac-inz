@@ -1,18 +1,10 @@
 import React from 'react'
 import styled from "styled-components";
 
-
-const Input = ({ 
-  icon,
-  placeholder = "",
-  width = '360px',
-  height = "42px",
-}) => {
-  const Icon = icon;
   const Container = styled.div`
     display: flex;
-    width: ${() =>  width};
-    height: ${() =>  height};
+    width: ${({ width }) =>  width};
+    height: ${({ height }) =>  height};
     background: ${({theme}) => theme.naturalOne};
     border: 1px solid ${({theme}) => theme.naturalFive};
     box-sizing: border-box;
@@ -24,9 +16,9 @@ const Input = ({
     }
   `;
 
-  const Input = styled.input`
+  const StyledInput = styled.input`
     height: 38px;
-    width: 100%;
+    width: 360px;
     border: none;
     padding: 0;
     padding-left: 10px;
@@ -45,6 +37,15 @@ const Input = ({
     align-items: center;
   `
 
+const Input = ({ 
+  icon,
+  placeholder = "",
+  width = '360px',
+  height = "42px",
+}) => {
+  const Icon = icon;
+
+
 
   return (
     <Container>
@@ -54,7 +55,11 @@ const Input = ({
         </StyledSVG>
       }
 
-      <Input placeholder={placeholder} />
+      <StyledInput 
+        placeholder={placeholder} 
+        width={width}
+        height={height}
+      />
     </Container>
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
 import Checkbox from '../../components/Checkbox';
 
@@ -7,7 +7,22 @@ import { ReactComponent  as CircleMenuSVG } from './../../assets/circleMenu.svg'
 
 import { StyledTable, StyledRow, StyledHeader, StyledCell } from './../../components/Table'
 import UserShortBox from '../../components/userShortBox';
+import { StyledContainer, StyledPosition } from '../../components/CircleMenu';
+
+const StyledCircleMenuSVG = styled(CircleMenuSVG)`
+  cursor: pointer;
+`;
+
 const ProtegeTable = () => {
+
+  const [circleMenuVisible, setCircleMenuVisible] = useState(false)
+
+  const handleCircleMenuToggle = () => setCircleMenuVisible(prev => !prev);
+
+  const handlerEdit = (e) => console.log('handlerEdit');
+  const handlerDiet = (e) => console.log('handlerDiet');
+  const handlerMessage = (e) => console.log('handlerMessage');
+  const handlerTrain = (e) => console.log('handlerTrain');
   return (
     <StyledTable>
     <StyledRow>
@@ -15,11 +30,11 @@ const ProtegeTable = () => {
           <Checkbox />
       </StyledHeader>     
       <StyledHeader>Podopieczny</StyledHeader>     
-      <StyledHeader>Opis</StyledHeader>     
-      <StyledHeader isSorted onSort={() => console.log('sortowanie')}>Online</StyledHeader>     
-      <StyledHeader>Współpraca od</StyledHeader>     
-      <StyledHeader>Współpraca do</StyledHeader>     
-      <StyledHeader>Akcja</StyledHeader>     
+      <StyledHeader showMinWidth="620px">Opis</StyledHeader>     
+      <StyledHeader showMinWidth="900px" isSorted onSort={() => console.log('sortowanie')}>Online</StyledHeader>     
+      <StyledHeader showMinWidth="900px">Współpraca od</StyledHeader>     
+      <StyledHeader showMinWidth="900px">Współpraca do</StyledHeader>     
+      <StyledHeader >Akcja</StyledHeader>     
     </StyledRow>
 
     <StyledRow>
@@ -33,56 +48,22 @@ const ProtegeTable = () => {
           img="/static/media/user.a6143582.png"
         />
       </StyledCell>     
-      <StyledCell>Vel cras auctor at tortor imperdiet amet id sed Vel cras auctor at tortor imperdiet amet id sed swdw...</StyledCell>     
-      <StyledCell>2021-02-05 08:28:36</StyledCell>     
-      <StyledCell>2021-02-05 08:28:36</StyledCell>     
-      <StyledCell>2021-02-05 08:28:36</StyledCell>     
+      <StyledCell showMinWidth="620px" >Vel cras auctor at tortor imperdiet amet id sed Vel cras auctor at tortor imperdiet amet id sed swdw...</StyledCell>     
+      <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
+      <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
+      <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
       <StyledCell>
-          <CircleMenuSVG/>
+          <StyledCircleMenuSVG onClick={handleCircleMenuToggle}/>
+          <StyledContainer isVisible={circleMenuVisible}>
+            <StyledPosition onClick={handlerEdit}>Edytuj</StyledPosition>
+            <StyledPosition onClick={handlerDiet}>Dieta</StyledPosition>
+            <StyledPosition onClick={handlerTrain}>Trening</StyledPosition>
+            <StyledPosition onClick={handlerMessage}>Wiadomość</StyledPosition>
+        </StyledContainer>
       </StyledCell>     
     </StyledRow>
 
-    <StyledRow>
-      <StyledCell>
-          <Checkbox />
-      </StyledCell>     
-      <StyledCell>Jarson</StyledCell>     
-      <StyledCell>Vel cras auctor at tortor imperdiet amet id sed Vel cras auctor at tortor imperdiet amet id sed swdw...</StyledCell>     
-      <StyledCell>2021-02-05 08:28:36</StyledCell>     
-      <StyledCell>2021-02-05 08:28:36</StyledCell>     
-      <StyledCell>2021-02-05 08:28:36</StyledCell>     
-      <StyledCell>
-          <CircleMenuSVG/>
-      </StyledCell>     
-    </StyledRow>
-
-    <StyledRow>
-      <StyledCell>
-          <Checkbox />
-      </StyledCell>     
-      <StyledCell>Jarson</StyledCell>     
-      <StyledCell>Vel cras auctor at tortor imperdiet amet id sed Vel cras auctor at tortor imperdiet amet id sed swdw...</StyledCell>     
-      <StyledCell>2021-02-05 08:28:36</StyledCell>     
-      <StyledCell>2021-02-05 08:28:36</StyledCell>     
-      <StyledCell>2021-02-05 08:28:36</StyledCell>     
-      <StyledCell>
-          <CircleMenuSVG/>
-      </StyledCell>     
-    </StyledRow>
-
-    <StyledRow>
-      <StyledCell>
-          <Checkbox />
-      </StyledCell>     
-      <StyledCell>Jarson</StyledCell>     
-      <StyledCell>Vel cras auctor at tortor imperdiet amet id sed Vel cras auctor at tortor imperdiet amet id sed swdw...</StyledCell>     
-      <StyledCell>2021-02-05 08:28:36</StyledCell>     
-      <StyledCell>2021-02-05 08:28:36</StyledCell>     
-      <StyledCell>2021-02-05 08:28:36</StyledCell>     
-      <StyledCell>
-          <CircleMenuSVG/>
-      </StyledCell>     
-    </StyledRow>
+  
   </StyledTable>
   )
 }

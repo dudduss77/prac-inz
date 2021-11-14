@@ -21,9 +21,7 @@ const StyledPlusSVG = styled.svg.attrs({
   width: '11px',
   height: '11px',
 })`
-  /* padding: 10px; */
   margin-right: 10px;
-  /* transform: rotate(-90deg); */
 `;
 
 const Browse = () => {
@@ -33,16 +31,16 @@ const Browse = () => {
     modalDispatch(changeModalState());
     modalDispatch(setModalData("newprotege"));
   }
-
     return (
         <ReusableViewWrapper isColumnLayout={true}>
           <Box width="100%" isGap>
 
             <BoxHeader headerTitle="Przegląd Podopiecznych" />
 
-            <Row justifyContent="space-between"  isPadding>
+            <Row justifyContent="space-between"  mediaQueryPoint="620px" isPadding isGap>
               <SearchInput
                 placeholder="Szukaj..."
+                mediaQueryPoint="620px"
               />
 
               <Button
@@ -61,7 +59,7 @@ const Browse = () => {
             <Row justifyContent="flex-end" isPadding>
               <Pagination
                 count={10}
-                active={1}
+                active={4}
               />
             </Row>
 

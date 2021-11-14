@@ -10,6 +10,7 @@ const StyledSearchContainer = styled.div`
     flex-direction: row;
 
 `;
+
 const SearchInput = () => {
     return (
         <StyledSearchContainer>
