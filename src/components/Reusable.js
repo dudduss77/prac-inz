@@ -5,7 +5,8 @@ export const ReusableViewWrapper = styled.div`
   flex-direction: ${({ isColumnLayout }) =>
     isColumnLayout ? "column" : "row"};
   gap: 10px;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
+  flex: ${({flexValue}) => flexValue};
 `;
 
 export const Button = styled.button`

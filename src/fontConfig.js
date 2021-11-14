@@ -5,6 +5,7 @@ import {
   faCarrot,
   faCheck,
   faChevronLeft,
+  faEllipsisH,
   faEnvelope,
   faFile,
   faFileImage,
@@ -35,5 +36,6 @@ library.add(
   faCheck,
   faChevronLeft,
   faFileImage,
-  faPaperPlane
+  faPaperPlane,
+  faEllipsisH
 );

@@ -7,6 +7,7 @@ import TempView from "./view/TempView";
 import ErrorView from "./view/ErrorView";
 import Chat from "./view/Chat/Chat";
 import Browse from "./view/Browse";
+import ProtegeView from "./view/Protege/ProtegeView";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
@@ -54,6 +55,10 @@ const routes = (auth, isProtege = false) => [
       {
         path: "/history",
         element: isProtege ? <TempView /> : <Navigate to="/" />,
+      },
+      {
+        path: "/protege/:id",
+        element: isProtege ? <TempView /> : <ProtegeView />,
       },
 
       {
