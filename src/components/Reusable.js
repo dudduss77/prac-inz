@@ -6,12 +6,13 @@ export const ReusableViewWrapper = styled.div`
     isColumnLayout ? "column" : "row"};
   gap: 10px;
   /* flex-wrap: wrap; */
-  flex: ${({flexValue}) => flexValue};
+  flex: ${({ flexValue }) => flexValue};
 `;
 
 export const Button = styled.button`
   border: none;
-  border-radius: ${({ isRounded, isSquare }) => (isRounded ? "50px" : isSquare ? '0px' : "5px")};
+  border-radius: ${({ isRounded, isSquare }) =>
+    isRounded ? "50px" : isSquare ? "0px" : "5px"};
   background: ${({ theme }) => theme.PrimarySix};
   color: ${({ theme }) => theme.CharacterPrimaryInvers};
   padding: ${({ pTB }) => (pTB ? pTB + "px" : "10px")} 20px;
@@ -29,12 +30,12 @@ export const Spacer = styled.div`
 `;
 
 export const Row = styled.div`
-  flex: ${({flexValue}) => flexValue};
+  flex: ${({ flexValue }) => flexValue};
   display: flex;
   gap: ${({ isGap }) => (isGap ? "10px" : "0")};
   justify-content: ${({ justifyContent }) => justifyContent};
   align-items: ${({ alignItems }) => alignItems};
-  padding: ${({ isPadding }) => isPadding ? "10px" : "0"};
+  padding: ${({ isPadding }) => (isPadding ? "10px" : "0")};
   @media screen and (max-width: 900px) {
     flex-direction: column;
   }
@@ -42,10 +43,12 @@ export const Row = styled.div`
 
 export const Column = styled.div`
   width: ${({ width }) => width};
-  flex: ${({flexValue}) => flexValue};
+  flex: ${({ flexValue }) => flexValue};
   display: flex;
   flex-direction: column;
+  padding: ${({ isPadding }) => (isPadding ? "10px" : "0")};
   gap: 10px;
+  overflow-y: ${({ isOverflow }) => (isOverflow ? "auto" : "")};
 `;
 
 export const Box = styled.div`
@@ -71,9 +74,9 @@ export const StyledTextarea = styled.textarea`
   padding: 5px;
   flex: 1;
   font-size: 1em;
-  border: 1px solid $${({ theme }) => theme.naturalFive};
+  border: 1px solid ${({ theme }) => theme.naturalFive};
 `;
 
 export const Icon = styled.div`
   cursor: pointer;
-` 
+`;

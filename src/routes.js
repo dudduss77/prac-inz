@@ -1,6 +1,6 @@
 import Login from "./view/Login/Login";
 import Layout from "./view/Layout/Layout";
-import TrainerDashboard from "./view/TrainerDashboard";
+import TrainerDashboard from "./view/TrainerDashboard/TrainerDashboard";
 import DietCreator from "./view/DietCreator";
 import { Navigate } from "react-router-dom";
 import TempView from "./view/TempView";
