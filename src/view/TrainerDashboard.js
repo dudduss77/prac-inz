@@ -1,10 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import BoxHeader from "../components/Box/components/BoxHeader";
 import CalendarItem from "../components/CalendarItem";
 import Message from "../components/Message/Message";
 import { Box, ReusableViewWrapper, Row } from "../components/Reusable";
+import { changeNotificationStateShow } from "../features/AppSlice";
 
 const TrainerDashboard = () => {
+  const notificationDispatch = useDispatch();
   return (
     <ReusableViewWrapper isColumnLayout={true}>
       <Row isGap>
@@ -29,6 +32,12 @@ const TrainerDashboard = () => {
           <BoxHeader
             headerTitle="Ostatnie wiadomości"
             headerButtonTitle="Wiadomości"
+            //placeHodler do zmiany tylko test
+            headerOnClick={() =>
+              notificationDispatch(
+                changeNotificationStateShow("Wiadomości nie ma")
+              )
+            }
           />
           <Message
             messageId={1}
