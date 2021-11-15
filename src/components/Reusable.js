@@ -31,6 +31,7 @@ export const Spacer = styled.div`
 
 export const Row = styled.div`
   flex: ${({ flexValue }) => flexValue};
+  overflow: ${({ isOverflow }) => (isOverflow ? "auto" : "hidden")};
   display: flex;
   gap: ${({ isGap }) => (isGap ? "10px" : "0")};
   justify-content: ${({ justifyContent }) => justifyContent};
@@ -79,4 +80,24 @@ export const StyledTextarea = styled.textarea`
 
 export const Icon = styled.div`
   cursor: pointer;
+`;
+
+export const GridLayout = styled.div`
+  display: grid;
+  grid-template-columns: ${({ gridTemplateColumns }) => gridTemplateColumns};
+  grid-template-rows: ${({ gridTemplateRows }) => gridTemplateRows};
+  gap: ${({ isGap }) => (isGap ? "10px" : "0")};
+  padding: ${({ isPadding }) => (isPadding ? "10px" : "0")};
+`;
+
+export const StyledTile = styled.div`
+  height: 125px;
+  box-shadow: 0px 0px 2px ${({ theme }) => theme.shadowOne};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  position: relative;
 `;
