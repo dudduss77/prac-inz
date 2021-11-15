@@ -101,3 +101,7 @@ export const StyledTile = styled.div`
   cursor: pointer;
   position: relative;
 `;
+
+export const BoldText = styled.span`
+  font-weight: 700;
+`

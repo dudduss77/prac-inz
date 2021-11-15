@@ -13,11 +13,11 @@ const ProtegeView = () => {
     <ReusableViewWrapper isColumnLayout={true}>
       <Row isGap>
         <SimpleInfo />
-        <ImageRaport />
+        <MeasurementRaport />
       </Row>
       <Row isGap>
         <Questionnaire />
-        <MeasurementRaport />
+        <ImageRaport />
       </Row>
       <Row isGap>
         <Diet />
