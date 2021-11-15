@@ -16,6 +16,7 @@ import {
   faRunning,
   faSignOutAlt,
   faTasks,
+  faTimes,
   faUserPlus,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
@@ -37,5 +38,6 @@ library.add(
   faChevronLeft,
   faFileImage,
   faPaperPlane,
-  faEllipsisH
+  faEllipsisH,
+  faTimes
 );
