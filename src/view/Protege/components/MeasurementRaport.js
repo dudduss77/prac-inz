@@ -16,7 +16,7 @@ const ContentValue = styled.h4`
 
 const MeasurementRaport = () => {
   return (
-    <Box width="30%">
+    <Box width="50%">
       <BoxHeader>
         Raport pomiarów 20.12.2021
         <Spacer />
