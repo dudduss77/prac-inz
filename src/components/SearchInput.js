@@ -9,12 +9,20 @@ const StyledSearchContainer = styled.div`
     display: flex;
     flex-direction: row;
 
+    @media screen and (max-width: ${({ mediaQueryPoint }) => mediaQueryPoint ?? '900px'}) {
+      width: 100%
+    }
+
 `;
-const SearchInput = () => {
+
+const SearchInput = ({
+    mediaQueryPoint
+}) => {
     return (
-        <StyledSearchContainer>
+        <StyledSearchContainer mediaQueryPoint={mediaQueryPoint}>
             <Input
                 placeholder="Szukaj..."
+                mediaQueryPoint={mediaQueryPoint}
             />
             <Button isSquare>
                 <SearchSVG/>

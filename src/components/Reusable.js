@@ -31,7 +31,7 @@ export const Spacer = styled.div`
 
 export const Row = styled.div`
   flex: ${({ flexValue }) => flexValue};
-  overflow: ${({ isOverflow }) => (isOverflow ? "auto" : "hidden")};
+  overflow: ${({ isOverflow }) => (isOverflow ? "visible" : "hidden")};
   display: flex;
   gap: ${({ isGap }) => (isGap ? "10px" : "0")};
   justify-content: ${({ justifyContent }) => justifyContent};

@@ -1,56 +1,67 @@
 import React from 'react'
 import styled from 'styled-components';
 
-const Table = ({ 
-  data  = [
-    ['nagłówke1', 'nagłówek2', 'nagłówek3', 'nagłówek4'],
-    ['content1', 'content2', 'content3', 'content4'],
-    ['content1', 'content2', 'content3', 'content4'],
-    ['content1', 'content2', 'content3', 'content4'],
-    ['content1', 'content2', 'content3', 'content4'],
-  ]
+import { ReactComponent  as SortSVG } from './../assets/sort.svg';
+
+const StyledTable = styled.table`
+  width: 100%;
+  border-bottom: 1px solid ${({ theme }) => theme.neutralOne};
+`;
+
+const StyledRow = styled.tr`
+`;
+
+const StyledCell = styled.td`
+  background-color: ${({ theme }) => theme.naturalOne};
+  height: 56px;
+  position: relative;
+  text-align: center;
+  padding: 10px;
+  font-weight: ${({ isBold }) => isBold ? 'bold' : 'normal'};
+
+
+  &::after {
+    content: '';
+    display: block;
+    border-right: 1px solid ${({ theme }) => theme.naturalFive};
+    height: 40%;
+    width: 20px;
+    position: absolute;
+    top: 30%;
+    right: 0px;
+  }
+  
+
+
+  @media screen and (max-width: ${({ showMinWidth }) => showMinWidth} ) {
+    display: ${({ showMinWidth }) => showMinWidth ? 'none' : 'table-cell'};
+  }
+
+`;
+
+
+const HeaderStyle = styled(StyledCell)`
+  background-color: ${({ theme }) => theme.neutralOne};
+  font-weight: bold;
+
+`;
+
+
+const StyledHeader = ({ 
+  onSort = () => {},
+  isSorted = false,
+  children, 
+  showMinWidth
 }) => {
 
-  const StyledTable = styled.div`
-    width: 100%;
-  `;
 
-  const StyledHeader = styled.div`
-    background-color: ${({ theme }) => theme.neutralOne};
-    height: 56px;
-    width: 100%;
-    line-height: 56px;
-  `;
-
-  const StyledRow = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: space-between;
-  `;
-
-  const StyledCell = styled.div`
-  
-  `;
   return (
-    <StyledTable>
-      <StyledRow>
-        <StyledHeader>wadwd</StyledHeader>     
-        <StyledHeader>wadwd</StyledHeader>     
-        <StyledHeader>wadwd</StyledHeader>     
-        <StyledHeader>wadwd</StyledHeader>     
-      </StyledRow>
-
-      <StyledRow>
-        <StyledCell>wadwd</StyledCell>     
-        <StyledCell>wadwd</StyledCell>     
-        <StyledCell>wadwd</StyledCell>     
-        <StyledCell>wadwd</StyledCell>     
-      </StyledRow>
-
-    </StyledTable>
+  <HeaderStyle as="th" showMinWidth={showMinWidth ?? false}>
+    {children}
+    {isSorted && <SortSVG onClick={onSort}/>}  
+  </HeaderStyle>  
   )
 }
 
-export default Table
+export { StyledTable, StyledRow, StyledHeader, StyledCell }
 

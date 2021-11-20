@@ -6,9 +6,10 @@ import { Navigate } from "react-router-dom";
 import TempView from "./view/TempView";
 import ErrorView from "./view/ErrorView";
 import Chat from "./view/Chat/Chat";
-import Browse from "./view/Browse";
+import Browse from "./view/Browse/Browse";
 import ProtegeView from "./view/Protege/ProtegeView";
 import TrainerDiet from "./view/TrainerDiet";
+import BrowseChat from "./view/Chat/BrowseChat";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
@@ -44,7 +45,7 @@ const routes = (auth, isProtege = false) => [
       { path: "/dietcreator", element: isProtege ? <TempView /> : <DietCreator /> },
       {
         path: "/messages",
-        element: isProtege ? <TempView /> : <DietCreator />,
+        element: isProtege ? <TempView /> : <BrowseChat />,
       },
       {
         path: "/message",

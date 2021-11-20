@@ -14,11 +14,16 @@ const Container = styled.div`
     outline-offset: 0px;
     outline: 2px solid #0000ff;
   }
+
+  @media screen and (max-width: ${({ mediaQueryPoint }) =>
+      mediaQueryPoint ?? "900px"}) {
+    width: 100%;
+  }
 `;
 
 const StyledInput = styled.input`
   height: 38px;
-  width: 100%;
+  width: 360px;
   border: none;
   padding: 0;
   padding-left: 10px;
@@ -26,6 +31,11 @@ const StyledInput = styled.input`
   &:focus-visible {
     outline: none;
     border: none;
+  }
+
+  @media screen and (max-width: ${({ mediaQueryPoint }) =>
+      mediaQueryPoint ?? "900px"}) {
+    width: 100%;
   }
 `;
 
@@ -42,19 +52,28 @@ const Input = ({
   placeholder = "",
   width = "360px",
   height = "42px",
+  mediaQueryPoint = "400px",
   useInput,
 }) => {
   const Icon = icon;
 
+  //dokoncz przekazywanie media query
+
   return (
-    <Container width={width} height={height}>
+    <Container width={width} height={height} mediaQueryPoint={mediaQueryPoint}>
       {icon && (
         <StyledSVG>
           <Icon />
         </StyledSVG>
       )}
 
-      <StyledInput {...useInput} placeholder={placeholder} />
+      <StyledInput
+        {...useInput}
+        placeholder={placeholder}
+        width={width}
+        height={height}
+        mediaQueryPoint={mediaQueryPoint}
+      />
     </Container>
   );
 };
