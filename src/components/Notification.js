@@ -8,7 +8,7 @@ import {
 } from "../features/AppSlice";
 
 const StyleNotification = styled.div`
-  position: absolute;
+  position: fixed;
   padding: 10px;
   width: 200px;
   background: ${({ theme }) => theme.backgroundColorFour};
@@ -17,6 +17,7 @@ const StyleNotification = styled.div`
   color: ${({ theme }) => theme.CharacterPrimaryInvers};
   transition: 1s;
   right: ${({ isShowed }) => (isShowed ? "20px" : "-220px")};
+  /* display: ${({ isShowed }) => (isShowed ? "block" : "none")}; */
 `;
 
 const Notification = () => {
@@ -25,10 +26,8 @@ const Notification = () => {
   const notificationDispatch = useDispatch();
 
   useEffect(() => {
-    console.log(notificationState);
     if (notificationState) {
       setTimeout(() => {
-        console.log("timeout");
         notificationDispatch(changeNotificationStateHidde());
       }, 2000);
     }

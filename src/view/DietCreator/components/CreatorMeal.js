@@ -34,7 +34,12 @@ const CreatorMeal = ({ dayId, mealId, mealsHeaderTitle, productsData }) => {
 
   const addMeal = () => {
     modalDispatch(changeModalState());
-    modalDispatch(setModalData("dietaddmeal"));
+    modalDispatch(
+      setModalData({
+        name: "dietaddmeal",
+        config: { dayId: dayId, mealId: mealId },
+      })
+    );
   };
 
   useEffect(() => {

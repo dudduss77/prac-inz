@@ -7,7 +7,10 @@ import {
   retNutritional,
   retNutritionalTwo,
 } from "../../../functions/NutritionalCalc";
-import { updateProductWeight } from "../../../features/DietCreatorSlice";
+import {
+  deleteProductFromMeal,
+  updateProductWeight,
+} from "../../../features/DietCreatorSlice";
 import { useDispatch } from "react-redux";
 
 const StyledProductItem = styled.div`
@@ -71,13 +74,23 @@ const ProductItem = ({
       })
     );
   }, [inputMealWeight.value]);
+
+  const deleteProduct = () => {
+    dietCreatorDispatch(
+      deleteProductFromMeal({
+        dayId: dayId,
+        mealId: mealId,
+        productId: productId,
+      })
+    );
+  };
   return (
     <StyledProductItem>
       {productName}
       <ProductNutritional>{nutritionalValue}</ProductNutritional>
       <Spacer />
       <ClickedInput primaryColor {...inputMealWeight} />
-      <Icon>
+      <Icon onClick={() => deleteProduct()}>
         <FontAwesomeIcon icon="times" />
       </Icon>
     </StyledProductItem>

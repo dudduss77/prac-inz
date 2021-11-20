@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { changeModalState, selectModalData } from "../../../features/AppSlice";
+import { addProductToMeal } from "../../../features/DietCreatorSlice";
 import { retNutritionalTwo } from "../../../functions/NutritionalCalc";
 import { useInput } from "../../../hooks/useInput";
 import Input from "../../Input";
@@ -30,6 +33,9 @@ const DietAddMealItem = ({
   carbohydratesOnHundredGrams,
   fatOnHundredGrams,
 }) => {
+  const modalData = useSelector(selectModalData);
+  const dietCreatorDispatch = useDispatch();
+  const modalDispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [nutritional, setNutritional] = useState("0kcal 0B 0T 0F");
   const { ...itemInput } = useInput("100g");
@@ -52,6 +58,25 @@ const DietAddMealItem = ({
     setNutritional(`${kcalValue}kcal ${pValue}B ${cValue}W ${fValue}T`);
   }, [itemInput.value]);
 
+  const addProduct = () => {
+    let product = {
+      name: itemName,
+      weight: parseInt(itemInput.value.replace("g", "")),
+      proteinOnHundredGrams: proteinOnHundredGrams,
+      carbohydratesOnHundredGrams: carbohydratesOnHundredGrams,
+      fatOnHundredGrams: fatOnHundredGrams,
+    };
+
+    dietCreatorDispatch(
+      addProductToMeal({
+        dayId: modalData.config.dayId,
+        mealId: modalData.config.mealId,
+        product,
+      })
+    );
+    modalDispatch(changeModalState());
+  };
+
   return (
     <StyledDietAddMealItem onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}>
       {itemName}
@@ -69,7 +94,7 @@ const DietAddMealItem = ({
           <Spacer />
           <h5>{nutritional}</h5>
           <Spacer />
-          <Button>Dodaj</Button>
+          <Button onClick={() => addProduct()}>Dodaj</Button>
         </IsOpen>
       )}
     </StyledDietAddMealItem>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { addProductToState } from "../../../features/TempProductSlice";
 import { useInput } from "../../../hooks/useInput";
 import Input from "../../Input";
 import { Button, ClickedInput, Row } from "../../Reusable";
@@ -21,9 +23,10 @@ const DietAddMealItemAdd = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [kcalValue, setKcalValue] = useState(0);
   const { ...nameInput } = useInput("", "nameInput");
-  const { ...proteinInput } = useInput("", 'proteinInput');
+  const { ...proteinInput } = useInput("", "proteinInput");
   const { ...carbohydratesInput } = useInput("", "carbohydratesInput");
   const { ...fatInput } = useInput("", "fatInput");
+  const tempProductDispatch = useDispatch();
 
   useEffect(() => {
     if (proteinInput.value && carbohydratesInput.value && fatInput.value) {
@@ -35,6 +38,17 @@ const DietAddMealItemAdd = () => {
       );
     }
   }, [proteinInput.value, carbohydratesInput.value, fatInput.value]);
+
+  const addProduct = () => {
+    let product = {
+      name: nameInput.value,
+      proteinOnHundredGrams: proteinInput.value,
+      carbohydratesOnHundredGrams: carbohydratesInput.value,
+      fatOnHundredGrams: fatInput.value,
+    };
+    tempProductDispatch(addProductToState({ ...product }));
+    setIsOpen(false);
+  };
 
   return (
     <StyldDietAddMealItemAdd>
@@ -53,10 +67,9 @@ const DietAddMealItemAdd = () => {
             placeholder="Węglowodany na 100g"
           />
           <Input useInput={fatInput} placeholder="Tłuszcz na 100g" />
-          {/* <input {...fatInput} placeholder="tse"/> */}
           <h4>{kcalValue} kcal na 100g</h4>
-          <Row isGap>
-            <Button>Dodaj</Button>
+          <Row isGap noMedia>
+            <Button onClick={() => addProduct()}>Dodaj</Button>
             <Button onClick={() => setIsOpen(false)}>Anuluj</Button>
           </Row>
         </>

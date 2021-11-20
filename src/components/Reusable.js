@@ -37,8 +37,9 @@ export const Row = styled.div`
   justify-content: ${({ justifyContent }) => justifyContent};
   align-items: ${({ alignItems }) => alignItems};
   padding: ${({ isPadding }) => (isPadding ? "10px" : "0")};
+  width: ${({ width }) => width};
   @media screen and (max-width: 900px) {
-    flex-direction: column;
+    ${({ noMedia }) => (noMedia ? "" : "flex-direction: column")}
   }
 `;
 
@@ -63,7 +64,7 @@ export const Box = styled.div`
   height: ${({ height }) => height};
   min-height: ${({ minHeight }) => minHeight};
   max-height: ${({ maxHeight }) => maxHeight};
-
+  overflow: ${({ isOverflow }) => (isOverflow ? "auto" : "hidden")};
   @media screen and (max-width: 900px) {
     width: 100%;
   }
@@ -116,7 +117,8 @@ export const ClickedInput = styled.input`
   border: none;
   font-size: 1em;
   background: rgba(255, 255, 255, 0);
-  color: ${({ theme, primaryColor }) => primaryColor ? theme.CharacterPrimary : theme.CharacterPrimaryInvers};
+  color: ${({ theme, primaryColor }) =>
+    primaryColor ? theme.CharacterPrimary : theme.CharacterPrimaryInvers};
   width: ${({ width }) => width};
 `;
 

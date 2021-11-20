@@ -117,6 +117,35 @@ const dietCreatorSlice = createSlice({
         } else return day;
       });
     },
+    addProductToMeal: (state, action) => {
+      state.items.map((day) => {
+        if (day.id === action.payload.dayId) {
+          day.meals.map((meal) => {
+            if (meal.id === action.payload.mealId) {
+              meal.products.push({
+                id: meal.products.length + 1,
+                ...action.payload.product,
+              });
+            }
+            return meal;
+          });
+        } else return day;
+      });
+    },
+    deleteProductFromMeal: (state, action) => {
+      state.items.map((day) => {
+        if (day.id === action.payload.dayId) {
+          day.meals.map((meal) => {
+            if (meal.id === action.payload.mealId) {
+              meal.products = meal.products.filter(
+                (product) => product.id !== action.payload.productId
+              );
+            }
+            return meal;
+          });
+        } else return day;
+      });
+    },
   },
 });
 
@@ -125,6 +154,8 @@ export const {
   deleteDietItems,
   updateProductWeight,
   updateMealsCount,
+  addProductToMeal,
+  deleteProductFromMeal,
 } = dietCreatorSlice.actions;
 
 export const selectDietCreatorItems = (state) => state.dietCreator.items;

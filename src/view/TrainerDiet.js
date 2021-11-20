@@ -5,7 +5,14 @@ import AddTile from "../components/AddTile";
 import { GridLayout, ReusableViewWrapper } from "../components/Reusable";
 import Tile from "../components/Tile";
 
-const GridLayoutWithMedia = styled(GridLayout)``;
+const GridLayoutWithMedia = styled(GridLayout)`
+@media screen and (max-width: 1400px) {
+  grid-template-columns: repeat(3, 1fr);
+}
+@media screen and (max-width: 900px) {
+  grid-template-columns: 1fr;
+}
+`;
 
 const TrainerDiet = () => {
   const navigate = useNavigate();

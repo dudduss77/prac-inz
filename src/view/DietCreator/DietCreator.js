@@ -60,7 +60,7 @@ const DietCreator = ({ isEdit }) => {
 
   const deleteDiet = () => {
     modalDispatch(changeModalState());
-    modalDispatch(setModalData("dietdelete"));
+    modalDispatch(setModalData({ name: "dietdelete" }));
   };
 
   const saveDiet = () => {

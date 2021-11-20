@@ -2,7 +2,6 @@ import React, { forwardRef, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { changeModalState, selectModalData } from "../../features/AppSlice";
-import useOutsideClick from "../../hooks/useOutsideClick";
 import DietAddMeal from "./components/DietAddMeal";
 import DietDelete from "./components/DietDelete";
 import NewProtege from "./components/NewProtege";
@@ -24,6 +23,7 @@ const StyledBackground = styled.div`
 const StyledModal = styled.div`
   position: absolute;
   width: max-content;
+  min-width: 500px;
   max-width: 500px;
   padding: 10px;
   max-height: 70%;
@@ -39,25 +39,25 @@ const StyledModal = styled.div`
   transform: translate(-50%);
 
   @media screen and (max-width: 900px) {
+    min-width: 90%;
     width: 90%;
   }
 `;
 
 const retModalData = (selectedData) => {
-  switch (selectedData) {
+  switch (selectedData.name) {
     case "newprotege":
       return <NewProtege />;
     case "dietdelete":
       return <DietDelete />;
     case "dietaddmeal":
-      return <DietAddMeal />;
+      return <DietAddMeal/>;
     default:
       return;
   }
 };
 
 const Modal = () => {
-  const modalRef = useRef();
   const modalDispatch = useDispatch();
   const selectedData = useSelector(selectModalData);
 

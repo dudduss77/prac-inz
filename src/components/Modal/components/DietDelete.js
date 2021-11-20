@@ -22,7 +22,7 @@ const DietDelete = () => {
   return (
     <>
       <ModalHeader>Czy na pewno chcesz usunąć?</ModalHeader>
-      <Row isGap>
+      <Row isGap noMedia>
         <RedButton onClick={() => deleteDiet()}>Tak</RedButton>
         <Button onClick={() => modalDispatch(changeModalState())}>Nie</Button>
       </Row>

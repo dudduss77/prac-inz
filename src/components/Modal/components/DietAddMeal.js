@@ -1,33 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../Input";
 import { ModalHeader } from "./ModalReusable";
 import { Box, Button, Row } from "../../Reusable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DietAddMealItem from "./DietAddMealItem";
 import DietAddMealItemAdd from "./DietAddMealItemAdd";
-
-const tempArr = [
-  {
-    id: 1,
-    name: "Bułka",
-    proteinOnHundredGrams: 5,
-    carbohydratesOnHundredGrams: 6,
-    fatOnHundredGrams: 1,
-  },
-];
+import { useSelector } from "react-redux";
+import { selectProduct } from "../../../features/TempProductSlice";
 
 const DietAddMeal = () => {
+  const product = useSelector(selectProduct);
   return (
     <>
       <ModalHeader>Dodaj produkt</ModalHeader>
-      <Row>
-        <Input />
+      <Row noMedia width="100%">
+        <Input width="100%" />
         <Button isSquare>
           <FontAwesomeIcon icon="search" />
         </Button>
       </Row>
-      <Box height="350px" width="100%">
-        {tempArr.map((item) => (
+      <Box height="350px" width="100%" isOverflow>
+        {product.map((item) => (
           <DietAddMealItem
             key={item.id}
             itemName={item.name}
