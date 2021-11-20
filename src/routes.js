@@ -8,6 +8,7 @@ import ErrorView from "./view/ErrorView";
 import Chat from "./view/Chat/Chat";
 import Browse from "./view/Browse/Browse";
 import ProtegeView from "./view/Protege/ProtegeView";
+import BrowseChat from "./view/Chat/BrowseChat";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
@@ -42,7 +43,7 @@ const routes = (auth, isProtege = false) => [
       { path: "/diet", element: isProtege ? <TempView /> : <DietCreator /> },
       {
         path: "/messages",
-        element: isProtege ? <TempView /> : <DietCreator />,
+        element: isProtege ? <TempView /> : <BrowseChat />,
       },
       {
         path: "/message",

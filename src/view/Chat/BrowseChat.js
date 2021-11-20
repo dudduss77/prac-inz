@@ -15,7 +15,7 @@ import {
 
 import { ReactComponent  as PlusSVG } from './../../assets/plus.svg';
 import styled from 'styled-components';
-import ProtegeTable from './ProtegeTable';
+import ChatTable from './components/ChatTable';
 
 const StyledPlusSVG = styled.svg.attrs({ 
   width: '11px',
@@ -24,7 +24,7 @@ const StyledPlusSVG = styled.svg.attrs({
   margin-right: 10px;
 `;
 
-const Browse = () => {
+const BrowseChat = () => {
   const modalDispatch = useDispatch();
   
   const handleClickNewProtege = () => {
@@ -35,7 +35,7 @@ const Browse = () => {
         <ReusableViewWrapper isColumnLayout={true}>
           <Box width="100%" isGap>
 
-            <BoxHeader headerTitle="Przegląd Podopiecznych" />
+            <BoxHeader headerTitle="Wiadomości" />
 
             <Row justifyContent="space-between"  mediaQueryPoint="620px" isPadding isGap>
               <SearchInput
@@ -43,17 +43,10 @@ const Browse = () => {
                 mediaQueryPoint="620px"
               />
 
-              <Button
-                onClick={handleClickNewProtege}
-              >
-                <StyledPlusSVG as={PlusSVG}/>
-                Dodaj nowego
-              </Button>
-
             </Row>
 
             <Row isPadding isOverflow>
-                <ProtegeTable></ProtegeTable>
+                <ChatTable></ChatTable>
             </Row>
 
             <Row justifyContent="flex-end" isPadding>
@@ -69,4 +62,4 @@ const Browse = () => {
     )
 }
 
-export default Browse
+export default BrowseChat

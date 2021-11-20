@@ -17,6 +17,7 @@ const StyledCell = styled.td`
   position: relative;
   text-align: center;
   padding: 10px;
+  font-weight: ${({ isBold }) => isBold ? 'bold' : 'normal'};
 
 
   &::after {
