@@ -10,6 +10,7 @@ import PageHeader from "../../components/PageHeader";
 import { selectUserType } from "../../features/UserSlice";
 import { useLocation } from "react-router";
 import Modal from "../../components/Modal/Modal";
+import Notification from "../../components/Notification";
 
 const StyledLayout = styled.div`
   display: flex;
@@ -21,6 +22,7 @@ const StyledLayout = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   height: calc(100% - 50px);
+  max-width: 100vw;
 `;
 
 const PageWrapper = styled.div`
@@ -47,16 +49,13 @@ const Layout = () => {
     else screenDispatch(setScreenSize("mid"));
   }, [smallScreen, bigScreen]);
 
-  console.log(pathname);
-
-  console.log(pathname.includes("/message/"));
-
   const retPageHeader = () => {
-    if (
-      (pathname !== "/message" && userType) ||
-      (!pathname.includes("/message/") && !userType)
-    )
-      return <PageHeader isProtege={userType} />;
+    if (userType) {
+      if (pathname !== "/message") return <PageHeader isProtege={userType} />;
+    } else {
+      if (pathname.includes("/message/")) return;
+      else return <PageHeader isProtege={userType} />;
+    }
   };
 
   return (
@@ -70,6 +69,7 @@ const Layout = () => {
         </PageWrapper>
       </ContentWrapper>
       {modalState && <Modal />}
+      <Notification />
     </StyledLayout>
   );
 };

@@ -17,7 +17,9 @@ const theme = {
   backgroundColorOne: "#001529",
   backgroundColorTwo: "#000C17",
   backgroundColorThree: "#001529",
+  backgroundColorFour: "#60D792",
   pageBackground: "#F0F2F5",
+  shadowOne: "#262626",
 };
 
 const Theme = ({ children }) => {

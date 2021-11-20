@@ -46,5 +46,11 @@
     "pageHeaderPathName": "Wiadomości /",
     "pageHeaderTitle": "Wiadomości",
     "pageHeaderDescription": "W tym miejscu możesz przeglądać swoich podopiecznych, zarządzać nimi oraz wykonywać podstawowe operacje z tym związane."
+  },
+  {
+    "pageHeaderPath": "/protege/",
+    "pageHeaderPathName": "Podopieczni / Przeglądaj / Podgląd podopiecznego",
+    "pageHeaderTitle": "Podgląd podopiecznego",
+    "pageHeaderDescription": "Profil twojego podopiecznego, z tego miejsca możesz np. dodać dietę, trening i kontrolować postępy."
   }
 ]

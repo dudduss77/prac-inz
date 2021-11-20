@@ -1,12 +1,13 @@
 import Login from "./view/Login/Login";
 import Layout from "./view/Layout/Layout";
-import TrainerDashboard from "./view/TrainerDashboard";
+import TrainerDashboard from "./view/TrainerDashboard/TrainerDashboard";
 import DietCreator from "./view/DietCreator";
 import { Navigate } from "react-router-dom";
 import TempView from "./view/TempView";
 import ErrorView from "./view/ErrorView";
 import Chat from "./view/Chat/Chat";
 import Browse from "./view/Browse/Browse";
+import ProtegeView from "./view/Protege/ProtegeView";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
@@ -54,6 +55,10 @@ const routes = (auth, isProtege = false) => [
       {
         path: "/history",
         element: isProtege ? <TempView /> : <Navigate to="/" />,
+      },
+      {
+        path: "/protege/:id",
+        element: isProtege ? <TempView /> : <ProtegeView />,
       },
 
       {

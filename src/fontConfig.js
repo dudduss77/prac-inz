@@ -5,6 +5,7 @@ import {
   faCarrot,
   faCheck,
   faChevronLeft,
+  faEllipsisH,
   faEnvelope,
   faFile,
   faFileImage,
@@ -15,6 +16,7 @@ import {
   faRunning,
   faSignOutAlt,
   faTasks,
+  faTimes,
   faUserPlus,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
@@ -35,5 +37,7 @@ library.add(
   faCheck,
   faChevronLeft,
   faFileImage,
-  faPaperPlane
+  faPaperPlane,
+  faEllipsisH,
+  faTimes
 );
