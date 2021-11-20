@@ -59,7 +59,7 @@ const Browse = () => {
             <Row justifyContent="flex-end" isPadding>
               <Pagination
                 count={10}
-                active={4}
+                _active={4}
               />
             </Row>
 
