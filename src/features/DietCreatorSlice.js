@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { current } from "immer";
-
+//Tutaj to bym zrobił tak że jeśli nowe to będzie initial state ustawiony na taki jaki ma być z pustymi tablicami itd.
+//Jeśli edycja to zrobimy thunk wczytujący z bazy i wtedy wszystko ładnie się aktualizuje 
+//I gdy klikamy zapisz wysyłamy cały state do bazy i już wszystko powinno działać 
 const initialState = {
   name: "Dieta test",
   kcalValue: "2000kcal",
