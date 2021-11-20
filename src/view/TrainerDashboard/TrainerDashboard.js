@@ -7,7 +7,7 @@ import NewProtege from "./components/NewProtege";
 const TrainerDashboard = () => {
   return (
     <ReusableViewWrapper isColumnLayout={true}>
-      <Row isGap>
+      <Row isGap isOverflow>
         <Calendar />
         <LastMessages />
       </Row>

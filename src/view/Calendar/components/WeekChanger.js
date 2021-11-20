@@ -62,8 +62,8 @@ const WeekChanger = ({
 
   const handlerOnMinusClick = () => {
     setDate(({from, to}) => ({
-      from: new Date(from.getTime() + numberOfDays*ONE_DAY_MS),
-      to: new Date(to.getTime() + numberOfDays*ONE_DAY_MS)
+      from: new Date(from.getTime() - numberOfDays*ONE_DAY_MS),
+      to: new Date(to.getTime() - numberOfDays*ONE_DAY_MS)
     }));
   }
 
