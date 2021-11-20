@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import { ReactComponent  as ArrowSVG } from './../assets/arrow.svg';
 
 const SelectContainer = styled.div`
-  width: 250px;
-  min-height: 42px;
+  min-width: 250px;
+  height: 42px;
   background-color: white;
   border-radius: 4px;
   border: 1px solid rgba(0,0,0,0.25);
@@ -13,10 +13,14 @@ const SelectContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 
   &:focus-within {
-      outline-offset: 0px;
-      outline: 2px solid #0000FF;
+    border-left: 2px solid #0000FF;
+    border-right: 2px solid #0000FF;
+    border-top: 2px solid #0000FF;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
   }
 
 `;
@@ -49,10 +53,22 @@ const StyledList = styled.div`
   width: 100%;
   overflow: scroll;
   display: ${({isVisible}) => isVisible ? 'block' : 'none'};
+  position: absolute;
+  top: 100%;
+  background-color: white;
+
+  border-left: 2px solid #0000FF;
+  border-right: 2px solid #0000FF;
+  border-bottom: 2px solid #0000FF;
+  border-radius: 4px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 
-const StyledList__item = styled.div`
+const StyledListItem = styled.div`
   width: 100%;
   height: 42px;
   padding-left: 20px;
@@ -83,7 +99,7 @@ const Select = ({
   }
 
   useEffect(() => {
-    onChange(inputValue)
+    onChange(inputValue);
   }, [inputValue])
 
     return (
@@ -98,11 +114,10 @@ const Select = ({
             value={inputValue}
             onChange={({target}) => setInputValue(target.value) }
           />
-
-          <StyledList isVisible={isVisible}>
+          <StyledList isVisible={isVisible }>
             {
-            // let regex  = new RegExp(inputValue, "i");
-            data.map(item => (new RegExp(inputValue, "i")).test(item) ? <StyledList__item onClick={handleItemClick}> {item}</StyledList__item> : "")
+            data.map((item, key) => (new RegExp(inputValue, "i")).test(item) ? <StyledListItem onClick={handleItemClick} key={key}>{item}</StyledListItem> : "")
+            
             }
           </StyledList>
         </SelectContainer>
