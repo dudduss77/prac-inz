@@ -3,7 +3,8 @@ import React from 'react'
 import { Box, ReusableViewWrapper, Row } from "../../components/Reusable";
 import BoxHeader from "../../components/Box/components/BoxHeader";
 import WeekChanger from './components/WeekChanger';
-
+import CalendarTable from './components/CalendarTable';
+import PlusButton from '../../components/PlusButton';
 
 const Calendar = () => {
     return (
@@ -12,14 +13,16 @@ const Calendar = () => {
 
             <BoxHeader headerTitle="Kalendarz" />
 
-            <Row justifyContent="space-between"  mediaQueryPoint="620px" isPadding isGap>
+            <Row justifyContent="space-between"  mediaQueryPoint="620px" isPadding isGap justifyContent="center">
                 <WeekChanger />
 
             </Row>
 
             <Row isPadding isOverflow>
-                tabelka
+                <CalendarTable />
             </Row>
+
+            <PlusButton />
           </Box>
 
       </ReusableViewWrapper>

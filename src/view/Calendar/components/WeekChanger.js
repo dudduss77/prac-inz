@@ -41,8 +41,9 @@ const StyledArrowLeftSVG = styled.svg.attrs({
   `;
 
 const ONE_DAY_MS = 86400000; //24*60*60*1000
+
 const WeekChanger = ({
-  numberOfDays = 7,
+  numberOfDays = 1,
   onChange = (e) => console.log(e)
 }) => {
 
@@ -74,7 +75,7 @@ const WeekChanger = ({
         <StyledContainer>
             <StyledArrowLeftSVG as={ArrowSVG} onClick={handlerOnMinusClick} />
             <StyledContent>
-              {getDateddmmyyy(date.from)} - {getDateddmmyyy(date.to)}               
+              {numberOfDays!==1 && (getDateddmmyyy(date.from) + " - ")} {getDateddmmyyy(date.to)}               
             </StyledContent>
 
             <StyledArrowRightSVG as={ArrowSVG} onClick={handlerOnPlusClick} />

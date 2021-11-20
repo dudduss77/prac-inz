@@ -10,7 +10,8 @@ const getLastMondayTime = () => {
     const a = new Date();
     const day = a.getDay();
     return a.getTime() - (day-1)*86400000 //*24*3600*1000
-  }
+}
+
 
 
 export { getDateddmmyyy, getLastMondayTime };
