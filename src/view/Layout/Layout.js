@@ -54,6 +54,7 @@ const Layout = () => {
       if (pathname !== "/message") return <PageHeader isProtege={userType} />;
     } else {
       if (pathname.includes("/message/")) return;
+      if (pathname.includes("dietcreator")) return;
       else return <PageHeader isProtege={userType} />;
     }
   };

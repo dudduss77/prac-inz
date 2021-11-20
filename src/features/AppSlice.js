@@ -3,7 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   screen: "big",
   isModalOpen: false,
-  modalData: "",
+  modalData: {
+    name: "",
+    config: {},
+  },
   isMenuOpen: true,
   showNotification: false,
   notificationMessage: "",
@@ -20,7 +23,8 @@ export const appSlice = createSlice({
       state.isModalOpen = !state.isModalOpen;
     },
     setModalData: (state, action) => {
-      state.modalData = action.payload;
+      state.modalData.name = action.payload.name;
+      state.modalData.config = action.payload.config;
     },
     changeOpenState: (state) => {
       state.isMenuOpen = !state.isMenuOpen;

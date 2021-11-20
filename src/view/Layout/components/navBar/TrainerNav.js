@@ -21,7 +21,7 @@ const TrainerNav = () => {
       icon: "user-plus",
       customClick: () => {
         modalDispatch(changeModalState());
-        modalDispatch(setModalData("newprotege"));
+        modalDispatch(setModalData({ name: "newprotege" }));
         if (screenSize === "small") menuDispatch(changeOpenStateAction(false));
         if (screenSize === "mid") menuDispatch(changeOpenStateAction(true));
       },

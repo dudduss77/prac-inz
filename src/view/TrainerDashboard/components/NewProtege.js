@@ -25,7 +25,7 @@ const NewProtege = () => {
           navigate("/browse");
         }}
       />
-      <Column isOverflow>
+      <Column isGap isOverflow>
         <Item>
           <UserLink
             customColor
