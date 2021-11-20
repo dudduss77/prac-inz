@@ -30,7 +30,6 @@ const DietAddMealItemAdd = () => {
 
   useEffect(() => {
     if (proteinInput.value && carbohydratesInput.value && fatInput.value) {
-      console.log(parseInt(proteinInput.value));
       setKcalValue(
         parseInt(proteinInput.value) * 4 +
           parseInt(carbohydratesInput.value) * 4 +

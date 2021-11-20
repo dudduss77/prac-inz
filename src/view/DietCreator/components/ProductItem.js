@@ -55,7 +55,6 @@ const ProductItem = ({
   const { ...inputMealWeight } = useInput(`${productWeight}g`);
   const [nutritionalValue, setNutritionalValue] = useState("");
 
-  console.log(dayId, mealId, productId);
 
   useEffect(() => {
     const { kcalValue, pValue, cValue, fValue } = retNutritionalTwo(

@@ -67,7 +67,6 @@ const CreatorDay = ({
 
     mealsData.forEach((meal) => {
       meal.products.forEach((product) => {
-        console.log("product", product)
         const { kcalValue, pValue, cValue, fValue } = retNutritionalTwo(
           product.weight,
           product.proteinOnHundredGrams,

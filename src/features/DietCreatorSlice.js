@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { current } from "immer";
 
 const initialState = {
-  name: "test",
+  name: "Dieta test",
   kcalValue: "2000kcal",
   mealsCount: 1,
   items: [
@@ -163,5 +163,7 @@ export const selectCurrentDayCount = (state) =>
   state.dietCreator.items.length + 1;
 
 export const selectMealsCount = (state) => state.dietCreator.mealsCount;
+export const selectDietName = (state) => state.dietCreator.name
+export const selectKcalValue = (state) => state.dietCreator.kcalValue
 
 export default dietCreatorSlice.reducer;

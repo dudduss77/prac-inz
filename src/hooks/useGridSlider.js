@@ -10,7 +10,6 @@ export const useGridSlider = (config) => {
     (a, b) => a.maxWidth - b.maxWidth
   );
   useEffect(() => {
-    console.log("resize")
     const handleResize = () => {
       let filterMediaQueries = sortMediaQueries.find(
         (item) => window.matchMedia(`(max-width: ${item.maxWidth}px)`).matches

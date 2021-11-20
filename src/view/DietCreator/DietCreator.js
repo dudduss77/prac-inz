@@ -70,7 +70,6 @@ const DietCreator = ({ isEdit }) => {
   const handleSelect = (event) => {
     setMealValue(parseInt(event.target.value));
   };
-  console.log("meal", mealValue);
 
   return (
     <ReusableViewWrapper flexValue="1">
