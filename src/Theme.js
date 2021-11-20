@@ -20,6 +20,7 @@ const theme = {
   backgroundColorFour: "#60D792",
   pageBackground: "#F0F2F5",
   shadowOne: "#262626",
+  DustRedSeven: "#CF1322"
 };
 
 const Theme = ({ children }) => {

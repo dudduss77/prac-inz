@@ -17,7 +17,7 @@ const Chat = ({ isProtege }) => {
       </BoxHeader>
       <Row flexValue="1">
         {!isProtege && <UserInfo />}
-        <Column flexValue="1">
+        <Column flexValue="1" isGap>
           <MessagesWrapper />
           <ChatToolbar />
         </Column>

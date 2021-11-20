@@ -48,7 +48,7 @@ export const Column = styled.div`
   display: flex;
   flex-direction: column;
   padding: ${({ isPadding }) => (isPadding ? "10px" : "0")};
-  gap: 10px;
+  gap: ${({ isGap }) => (isGap ? "10px" : "none")};
   overflow-y: ${({ isOverflow }) => (isOverflow ? "auto" : "")};
 `;
 
@@ -80,14 +80,19 @@ export const StyledTextarea = styled.textarea`
 
 export const Icon = styled.div`
   cursor: pointer;
+  font-size: ${({ fontSize }) => fontSize};
 `;
 
 export const GridLayout = styled.div`
+  flex: ${({ flexValue }) => flexValue};
   display: grid;
   grid-template-columns: ${({ gridTemplateColumns }) => gridTemplateColumns};
   grid-template-rows: ${({ gridTemplateRows }) => gridTemplateRows};
   gap: ${({ isGap }) => (isGap ? "10px" : "0")};
   padding: ${({ isPadding }) => (isPadding ? "10px" : "0")};
+  overflow: ${({ overflowValue }) => overflowValue};
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
 `;
 
 export const StyledTile = styled.div`
@@ -100,8 +105,34 @@ export const StyledTile = styled.div`
   gap: 5px;
   cursor: pointer;
   position: relative;
+  background: ${({ theme }) => theme.naturalOne};
 `;
 
 export const BoldText = styled.span`
   font-weight: 700;
-`
+`;
+
+export const ClickedInput = styled.input`
+  border: none;
+  font-size: 1em;
+  background: rgba(255, 255, 255, 0);
+  color: ${({ theme, primaryColor }) => primaryColor ? theme.CharacterPrimary : theme.CharacterPrimaryInvers};
+  width: ${({ width }) => width};
+`;
+
+export const AbsoluteIconWrapper = styled.div`
+  position: absolute;
+  height: 100%;
+  right: ${({ right }) => right};
+  left: ${({ left }) => left};
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const NoDataHeader = styled.h4`
+  color: ${({ theme }) => theme.CharacterSecoundary};
+  text-align: center;
+  padding: 10px 0;
+`;

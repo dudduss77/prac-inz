@@ -1,13 +1,14 @@
 import Login from "./view/Login/Login";
 import Layout from "./view/Layout/Layout";
 import TrainerDashboard from "./view/TrainerDashboard/TrainerDashboard";
-import DietCreator from "./view/DietCreator";
+import DietCreator from "./view/DietCreator/DietCreator";
 import { Navigate } from "react-router-dom";
 import TempView from "./view/TempView";
 import ErrorView from "./view/ErrorView";
 import Chat from "./view/Chat/Chat";
 import Browse from "./view/Browse";
 import ProtegeView from "./view/Protege/ProtegeView";
+import TrainerDiet from "./view/TrainerDiet";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
@@ -39,7 +40,8 @@ const routes = (auth, isProtege = false) => [
         path: "/training",
         element: isProtege ? <TempView /> : <DietCreator />,
       },
-      { path: "/diet", element: isProtege ? <TempView /> : <DietCreator /> },
+      { path: "/diet", element: isProtege ? <TempView /> : <TrainerDiet /> },
+      { path: "/dietcreator", element: isProtege ? <TempView /> : <DietCreator /> },
       {
         path: "/messages",
         element: isProtege ? <TempView /> : <DietCreator />,
