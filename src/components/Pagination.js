@@ -56,8 +56,12 @@ const Pagination = ({
     )
     const mappItems = () => {
       const tab = [];
-      for(let i = 1; i < count+1; i++) 
-        tab.push(itemTemplate(i, active == i));
+      
+      for(let i = (active-3<=1) ? 1 : (active-2); i <= ((active+3)>=count) ? count : (active+2); i++) {
+        console.log(i);
+        debugger
+      }
+        // tab.push(itemTemplate(i, active == i));
       return tab;
     }
 
@@ -74,3 +78,4 @@ const Pagination = ({
     )
 }
 export default Pagination
+
