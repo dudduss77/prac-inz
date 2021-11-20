@@ -9,6 +9,11 @@ const StyledContainer = styled.div`
 const StyledLeft = styled.div`
   margin: auto;
   white-space: nowrap;
+
+  & img {
+    width: 50px;
+  height: 50px;
+  }
 `;
 
 const StyledRight = styled.div`
@@ -26,7 +31,7 @@ const UserShortBox = ({
     return (
         <StyledContainer>
           <StyledLeft>
-            <img src={img} alt="Avatar" class="sc-dJjYzT MTPIL" /> 
+            <img src={img} alt="Avatar" className="sc-dJjYzT MTPIL" /> 
           </StyledLeft>
 
           <StyledRight>

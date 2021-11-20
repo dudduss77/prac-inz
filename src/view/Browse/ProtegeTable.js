@@ -7,7 +7,7 @@ import { ReactComponent  as CircleMenuSVG } from './../../assets/circleMenu.svg'
 
 import { StyledTable, StyledRow, StyledHeader, StyledCell } from './../../components/Table'
 import UserShortBox from '../../components/userShortBox';
-import { StyledContainer, StyledPosition } from '../../components/CircleMenu';
+import CircleMenu, { CircleMenuPosition, StyledContainer, StyledPosition } from '../../components/CircleMenu';
 
 const StyledCircleMenuSVG = styled(CircleMenuSVG)`
   cursor: pointer;
@@ -53,16 +53,89 @@ const ProtegeTable = () => {
       <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
       <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
       <StyledCell>
-          <StyledCircleMenuSVG onClick={handleCircleMenuToggle}/>
-          <StyledContainer isVisible={circleMenuVisible}>
-            <StyledPosition onClick={handlerEdit}>Edytuj</StyledPosition>
-            <StyledPosition onClick={handlerDiet}>Dieta</StyledPosition>
-            <StyledPosition onClick={handlerTrain}>Trening</StyledPosition>
-            <StyledPosition onClick={handlerMessage}>Wiadomość</StyledPosition>
-        </StyledContainer>
+          <CircleMenu >
+            <CircleMenuPosition onClick={handlerEdit}>Edytuj</CircleMenuPosition>
+            <CircleMenuPosition onClick={handlerDiet}>Dieta</CircleMenuPosition>
+            <CircleMenuPosition onClick={handlerTrain}>Trening</CircleMenuPosition>
+            <CircleMenuPosition onClick={handlerMessage}>Wiadomość</CircleMenuPosition>
+        </CircleMenu>
       </StyledCell>     
     </StyledRow>
 
+    <StyledRow>
+      <StyledCell>
+          <Checkbox />
+      </StyledCell>     
+      <StyledCell>
+        <UserShortBox
+          email="Biniox2@gmail.com"
+          name="Jarosław Bińczyk"
+          img="/static/media/user.a6143582.png"
+        />
+      </StyledCell>     
+      <StyledCell showMinWidth="620px" >Vel cras auctor at tortor imperdiet amet id sed Vel cras auctor at tortor imperdiet amet id sed swdw...</StyledCell>     
+      <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
+      <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
+      <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
+      <StyledCell>
+          <CircleMenu >
+            <CircleMenuPosition onClick={handlerEdit}>Edytuj</CircleMenuPosition>
+            <CircleMenuPosition onClick={handlerDiet}>Dieta</CircleMenuPosition>
+            <CircleMenuPosition onClick={handlerTrain}>Trening</CircleMenuPosition>
+            <CircleMenuPosition onClick={handlerMessage}>Wiadomość</CircleMenuPosition>
+        </CircleMenu>
+      </StyledCell>     
+    </StyledRow>
+
+    <StyledRow>
+      <StyledCell>
+          <Checkbox />
+      </StyledCell>     
+      <StyledCell>
+        <UserShortBox
+          email="Biniox2@gmail.com"
+          name="Jarosław Bińczyk"
+          img="/static/media/user.a6143582.png"
+        />
+      </StyledCell>     
+      <StyledCell showMinWidth="620px" >Vel cras auctor at tortor imperdiet amet id sed Vel cras auctor at tortor imperdiet amet id sed swdw...</StyledCell>     
+      <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
+      <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
+      <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
+      <StyledCell>
+          <CircleMenu >
+            <CircleMenuPosition onClick={handlerEdit}>Edytuj</CircleMenuPosition>
+            <CircleMenuPosition onClick={handlerDiet}>Dieta</CircleMenuPosition>
+            <CircleMenuPosition onClick={handlerTrain}>Trening</CircleMenuPosition>
+            <CircleMenuPosition onClick={handlerMessage}>Wiadomość</CircleMenuPosition>
+        </CircleMenu>
+      </StyledCell>     
+    </StyledRow>
+
+    <StyledRow>
+      <StyledCell>
+          <Checkbox />
+      </StyledCell>     
+      <StyledCell>
+        <UserShortBox
+          email="Biniox2@gmail.com"
+          name="Jarosław Bińczyk"
+          img="/static/media/user.a6143582.png"
+        />
+      </StyledCell>     
+      <StyledCell showMinWidth="620px" >Vel cras auctor at tortor imperdiet amet id sed Vel cras auctor at tortor imperdiet amet id sed swdw...</StyledCell>     
+      <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
+      <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
+      <StyledCell showMinWidth="900px">2021-02-05 08:28:36</StyledCell>     
+      <StyledCell>
+          <CircleMenu >
+            <CircleMenuPosition onClick={handlerEdit}>Edytuj</CircleMenuPosition>
+            <CircleMenuPosition onClick={handlerDiet}>Dieta</CircleMenuPosition>
+            <CircleMenuPosition onClick={handlerTrain}>Trening</CircleMenuPosition>
+            <CircleMenuPosition onClick={handlerMessage}>Wiadomość</CircleMenuPosition>
+        </CircleMenu>
+      </StyledCell>     
+    </StyledRow>
   
   </StyledTable>
   )

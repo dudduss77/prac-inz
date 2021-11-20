@@ -52,7 +52,7 @@ const Browse = () => {
 
             </Row>
 
-            <Row isPadding>
+            <Row isPadding isOverflow>
                 <ProtegeTable></ProtegeTable>
             </Row>
 
