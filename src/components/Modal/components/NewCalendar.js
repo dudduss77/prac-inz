@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { changeModalState } from "../../../features/AppSlice";
 import { Button, Row } from "../../Reusable";

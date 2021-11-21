@@ -27,7 +27,9 @@ const Calendar = () => {
   
   const handlerClickNewCalendarItem = () => {
     modalDispatch(changeModalState());
-    modalDispatch(setModalData({ name: "newCalendar" }));
+    modalDispatch(setModalData({ name: "newCalendar", config: {
+      
+    }}));
   }
 
     return (
