@@ -10,10 +10,10 @@ import UserInfo from "./components/UserInfo";
 const Chat = ({ isProtege }) => {
   const navigate = useNavigate();
   return (
-    <Box height="100%">
+    <Box maxHeight="100%" height="100%" isOverflow>
       <BoxHeader>
         <Icon><FontAwesomeIcon onClick={() => navigate(-1)} icon="chevron-left" /></Icon>
-        {isProtege ? "Czat z trenerem" : "Czat z użytkownikiem xyz"}
+        {isProtege ? "Czat z trenerem" : "Czat z użytkownikiem Jan Kowalski"}
       </BoxHeader>
       <Row flexValue="1">
         {!isProtege && <UserInfo />}

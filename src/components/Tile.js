@@ -20,10 +20,10 @@ const deleteSubmit = (event) => {
   alert("delete");
 };
 
-const Tile = ({ tileId, tileHeader, tileSmallHeader, tileOpenClick }) => {
+const Tile = ({ tileId, tileHeader, tileSmallHeader, tileOpenClick, tileHeight }) => {
   const userType = useSelector(selectUserType);
   return (
-    <StyledTile onClick={() => tileOpenClick()}>
+    <StyledTile height={tileHeight} onClick={() => tileOpenClick()}>
       {!userType && (
         <DeleteIcon onClick={deleteSubmit}>
           <FontAwesomeIcon icon="times" />
