@@ -4,8 +4,10 @@ import {
   faCalendar,
   faCarrot,
   faCheck,
+  faChevronDown,
   faChevronLeft,
   faChevronRight,
+  faChevronUp,
   faEllipsisH,
   faEnvelope,
   faFile,
@@ -47,5 +49,7 @@ library.add(
   faTrashAlt,
   faSave,
   faChevronRight,
-  faSearch
+  faSearch,
+  faChevronDown,
+  faChevronUp
 );
