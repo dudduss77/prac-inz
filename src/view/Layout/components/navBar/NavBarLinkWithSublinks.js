@@ -20,7 +20,6 @@ const NavBarLinkWithSublinks = ({ mainIcon, mainTitle, subLinks }) => {
       {showSublinks && (
         <>
           {subLinks.map((link) => {
-            console.log(link.hasOwnProperty("customClick"));
             if (link.hasOwnProperty("customClick")) {
               return (
                 <NavBarLink

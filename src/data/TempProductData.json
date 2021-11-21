@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "name": "Bułka",
+    "proteinOnHundredGrams": 5,
+    "carbohydratesOnHundredGrams": 6,
+    "fatOnHundredGrams": 1
+  }
+]

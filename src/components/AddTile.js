@@ -7,9 +7,9 @@ const StyledAddTile = styled(StyledTile)`
   font-size: 3.5em;
 `;
 
-const AddTile = () => {
+const AddTile = ({ addTileClick }) => {
   return (
-    <StyledAddTile>
+    <StyledAddTile onClick={addTileClick}>
       <FontAwesomeIcon icon="plus" />
     </StyledAddTile>
   );
