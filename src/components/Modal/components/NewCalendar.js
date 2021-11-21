@@ -7,6 +7,7 @@ import { Button, Row } from "../../Reusable";
 import { ModalHeader } from "./ModalReusable";
 import Select from './../../../components/Select'
 import Input from "../../Input";
+import DatePicker from "../../DatePicker";
 
 const RedButton = styled(Button)`
   background: ${({ theme }) => theme.DustRedSeven};
@@ -14,21 +15,11 @@ const RedButton = styled(Button)`
 
 const NewCalendar = () => {
   const modalDispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const deleteDiet = () => {
-    modalDispatch(changeModalState())
-  }
 
   return (
     <>
       <ModalHeader>Nowy wpis w kalendarzu</ModalHeader>
-
-        <Select 
-            data={["Poniedziałek 16.01.21", "Poniedziałek 16.01.21", "Poniedziałek 16.01.21"]} 
-            width="360px"
-            placeholder="Data"
-        />
+        <DatePicker />
         <Row isGap >
             <Input placeholder="10:00" width="50px" paddingLeft="5px" />
             <Input placeholder="10:00" width="50px" paddingLeft="5px" />
@@ -45,8 +36,8 @@ const NewCalendar = () => {
         <Input placeholder="Nazwa" />
         <Input as="textarea" placeholder="Opis..." height="100px" />
       <Row isGap noMedia>
-        <RedButton onClick={() => deleteDiet()}>Zapisz</RedButton>
-        <Button onClick={() => {}}>Usuń</Button>
+        <RedButton onClick={() => modalDispatch(changeModalState())}>Zapisz</RedButton>
+        <Button onClick={() => modalDispatch(changeModalState())}>Usuń</Button>
       </Row>
     </>
   );
