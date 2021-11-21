@@ -14,7 +14,7 @@ const CalendarItemStyled = styled.div`
     transition: all 0.4s ease;
 
     &:hover { 
-        transform: scale(1.2);
+        transform: scale(1.1);
         z-index:9999999999
     }
     
