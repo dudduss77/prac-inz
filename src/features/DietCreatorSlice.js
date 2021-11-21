@@ -4,6 +4,9 @@ import {
   createAsyncThunk,
 } from "@reduxjs/toolkit";
 
+//Tutaj to bym zrobił tak że jeśli nowe to będzie initial state ustawiony na taki jaki ma być z pustymi tablicami itd.
+//Jeśli edycja to zrobimy thunk wczytujący z bazy i wtedy wszystko ładnie się aktualizuje 
+//I gdy klikamy zapisz wysyłamy cały state do bazy i już wszystko powinno działać 
 const loadFromDatabase = createAsyncThunk(); //Do uzupełnienia jak juz będzie baza
 
 const initialState = {
