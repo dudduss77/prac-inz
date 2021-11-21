@@ -9,6 +9,7 @@ const Container = styled.div`
   border: 1px solid ${({ theme }) => theme.naturalFive};
   box-sizing: border-box;
   border-radius: 2px;
+  overflow: hidden;
 
   &:focus-within {
     outline-offset: 0px;
@@ -22,11 +23,11 @@ const Container = styled.div`
 `;
 
 const StyledInput = styled.input`
-  height: 38px;
-  width: 360px;
+  width: ${({ width }) => width ? width : "360px"};
+  height: ${({ height }) => height ? height : "42px"};
   border: none;
   padding: 0;
-  padding-left: 10px;
+  padding-left: ${({ paddingLeft }) => paddingLeft};
 
   &:focus-visible {
     outline: none;
@@ -54,10 +55,10 @@ const Input = ({
   height = "42px",
   mediaQueryPoint = "400px",
   useInput,
+  paddingLeft = "10px",
+  as = "Input"
 }) => {
   const Icon = icon;
-
-  //dokoncz przekazywanie media query
 
   return (
     <Container width={width} height={height} mediaQueryPoint={mediaQueryPoint}>
@@ -73,6 +74,8 @@ const Input = ({
         width={width}
         height={height}
         mediaQueryPoint={mediaQueryPoint}
+        paddingLeft={paddingLeft}
+        as={as}
       />
     </Container>
   );

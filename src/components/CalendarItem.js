@@ -7,6 +7,12 @@ const CalendarItemStyled = styled.div`
     margin: 10px;   
     padding: 10px;
     cursor: pointer;
+    transition: all 0.4s ease;
+
+    &:hover { 
+        transform: scale(1.2);
+        z-index:9999999999
+    }
     
 `;
 

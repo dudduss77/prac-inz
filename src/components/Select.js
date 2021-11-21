@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { ReactComponent  as ArrowSVG } from './../assets/arrow.svg';
 
 const SelectContainer = styled.div`
-  min-width: 250px;
+  min-width: ${({ width }) => width};
   height: ${({customHeight}) => customHeight ? customHeight : '42px'};
   background-color: white;
   color: ${({theme}) => theme.CharacterPrimary};
@@ -90,7 +90,10 @@ const Select = ({
   placeholder = "Select",
   customHeight,
   onChange = (val) => {},
-  initialValue = ""
+  initialValue = "",
+  width = "250px",
+  isFiltered = false,
+  isTypingEnable = false,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [inputValue, setInputValue] = useState(initialValue)
@@ -109,6 +112,7 @@ const Select = ({
         <SelectContainer 
           onBlur={() => setTimeout(handleToggleMenu, 70)}
           customHeight={customHeight}
+          width={width}
         >
           <StyledSVG as={ArrowSVG} />
           <StyledInput 
@@ -116,11 +120,11 @@ const Select = ({
             type="text" 
             placeholder={placeholder}
             value={inputValue}
-            onChange={({target}) => setInputValue(target.value) }
+            onChange={({target}) => isTypingEnable ? setInputValue(target.value) : "" }
           />
           <StyledList isVisible={isVisible }>
             {
-            data.map((item, key) => (new RegExp(inputValue, "i")).test(item) ? <StyledListItem onClick={handleItemClick} key={key}>{item}</StyledListItem> : "")
+            data.map((item, key) => (!isFiltered || (new RegExp(inputValue, "i")).test(item)) ? <StyledListItem onClick={handleItemClick} key={key}>{item}</StyledListItem> : "")
             
             }
           </StyledList>

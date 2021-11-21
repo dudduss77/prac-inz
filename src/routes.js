@@ -10,6 +10,7 @@ import Browse from "./view/Browse/Browse";
 import ProtegeView from "./view/Protege/ProtegeView";
 import TrainerDiet from "./view/TrainerDiet";
 import BrowseChat from "./view/Chat/BrowseChat";
+import Calendar from "./view/Calendar/Calendar";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
@@ -35,7 +36,7 @@ const routes = (auth, isProtege = false) => [
       },
       {
         path: "/calendar",
-        element: isProtege ? <TempView /> : <DietCreator />,
+        element: isProtege ? <TempView /> : <Calendar />,
       },
       {
         path: "/training",

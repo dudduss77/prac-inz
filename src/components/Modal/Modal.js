@@ -2,6 +2,8 @@ import React, { forwardRef, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { changeModalState, selectModalData } from "../../features/AppSlice";
+import useOutsideClick from "../../hooks/useOutsideClick";
+import NewCalendar from "./components/NewCalendar";
 import DietAddMeal from "./components/DietAddMeal";
 import DietCopyTo from "./components/DietCopyTo";
 import DietDelete from "./components/DietDelete";
@@ -49,6 +51,8 @@ const retModalData = (selectedData) => {
   switch (selectedData.name) {
     case "newprotege":
       return <NewProtege />;
+    case "newCalendar":
+      return <NewCalendar />;
     case "dietdelete":
       return <DietDelete />;
     case "dietaddmeal":
