@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CalendarItem from '../../../components/CalendarItem';
-
+import { ONE_DAY_MS } from '../../../constants';
+import { getDayNameFromDate, getDateddmmyyy, getNextDay } from '../../../helpers';
 
 const StyledContainer = styled.div`
     border-left: 1px solid #079AE5;
@@ -23,141 +24,59 @@ const StyledHeader = styled.div`
     border-bottom: 1px solid #079AE5;
     height: 50px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 `;
 
-const CalendarTable = () => {
+const CalendarTable = ({
+  date = null
+}) => {
+
+  const [mappedDays, setMappedDays] = useState([])
+
+    useEffect(() => {
+      const { from, to } = date;
+      if(!from || !to) return;
+      console.log(date);
+      console.log(getDayNameFromDate(from))
+      console.log(getDayNameFromDate(to));
+
+      const tab = [];
+      let actualDate = from;
+      while(actualDate.getTime() <= to.getTime()) {
+        tab.push(
+          <StyledColumn>
+          <StyledHeader>
+            <p>{getDayNameFromDate(actualDate)}</p>  
+            <p>{getDateddmmyyy(actualDate)}</p>
+          </StyledHeader>
+          <CalendarItem
+            time="10:00 - 11:00"
+            description="Opis zadania aktualnego..."
+            color="#C4C4C4"
+          />
+          <CalendarItem
+            time="10:00 - 11:00"
+            description="Opis zadania aktualnego..."
+            color="#FF0000"
+          />
+          <CalendarItem
+            time="10:00 - 11:00"
+            description="Opis zadania aktualnego..."
+          />
+        </StyledColumn>
+        )
+
+        actualDate = getNextDay(actualDate)
+      }
+      setMappedDays(tab)
+      console.log(tab)
+    }, [date]);
 
     return (
         <StyledContainer>
-          
-          <StyledColumn>
-            <StyledHeader>Poniedziałek</StyledHeader>
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#C4C4C4"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#FF0000"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-            />
-          </StyledColumn>
-          
-          <StyledColumn>
-            <StyledHeader>Wtorek</StyledHeader>
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#C4C4C4"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#FF0000"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-            />
-          </StyledColumn>
-          
-          <StyledColumn>
-            <StyledHeader>Środa</StyledHeader>
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#C4C4C4"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#FF0000"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-            />
-          </StyledColumn>
-          
-          <StyledColumn>
-            <StyledHeader>Czwartek</StyledHeader>
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#C4C4C4"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#FF0000"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-            />
-          </StyledColumn>
-          
-          <StyledColumn>
-            <StyledHeader>Piątek</StyledHeader>
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#C4C4C4"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#FF0000"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-            />
-          </StyledColumn>
-          
-          <StyledColumn>
-            <StyledHeader>Sobota</StyledHeader>
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#C4C4C4"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#FF0000"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-            />
-          </StyledColumn>
-          
-          <StyledColumn>
-            <StyledHeader>Niedziela</StyledHeader>
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#C4C4C4"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-              color="#FF0000"
-            />
-            <CalendarItem
-              time="10:00 - 11:00"
-              description="Opis zadania aktualnego..."
-            />
-          </StyledColumn>
-
+          {mappedDays}
         </StyledContainer>
     )
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
+import { ONE_DAY_MS } from '../../../constants';
 import { getDateddmmyyy, getLastMondayTime } from '../../../helpers';
 
 import { ReactComponent  as ArrowSVG } from './../../../assets/arrow.svg';
@@ -40,7 +41,6 @@ const StyledArrowLeftSVG = styled.svg.attrs({
     font-weight: bold;
   `;
 
-const ONE_DAY_MS = 86400000; //24*60*60*1000
 
 const WeekChanger = ({
   numberOfDays = 1,

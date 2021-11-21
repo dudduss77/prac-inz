@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { changeModalState, selectModalData } from "../../features/AppSlice";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import NewCalendar from "./components/NewCalendar";
 import NewProtege from "./components/NewProtege";
 
 const StyledBackground = styled.div`
@@ -39,6 +40,8 @@ const retModalData = (selectedData) => {
   switch (selectedData) {
     case "newprotege":
       return <NewProtege />;
+    case "newCalendar":
+      return <NewCalendar />;
     default:
       return;
   }
