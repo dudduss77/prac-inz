@@ -10,6 +10,8 @@ import ProductItem from "./ProductItem";
 import { useDispatch } from "react-redux";
 import { changeModalState, setModalData } from "../../../features/AppSlice";
 import { retNutritionalTwo } from "../../../functions/NutritionalCalc";
+import CircleMenu, { CircleMenuPosition } from "../../../components/CircleMenu";
+import { passProductToMeal } from "../../../features/DietCreatorSlice";
 
 const StyledCreatorMeal = styled.div`
   height: 100%;
@@ -30,6 +32,7 @@ const MealHeader = styled.div`
 
 const CreatorMeal = ({ dayId, mealId, mealsHeaderTitle, productsData }) => {
   const modalDispatch = useDispatch();
+  const creatorDietDispatch = useDispatch();
   const [nutritional, setNutritional] = useState("0kcal 0B 0T 0F");
 
   const addMeal = () => {
@@ -63,6 +66,23 @@ const CreatorMeal = ({ dayId, mealId, mealsHeaderTitle, productsData }) => {
 
     setNutritional(`${tempKcal}kcal ${tempP}B ${tempC}W ${tempF}T`);
   }, [productsData]);
+
+  const copyTo = () => {
+    modalDispatch(changeModalState());
+    modalDispatch(
+      setModalData({
+        name: "dietcopyto",
+        config: { dayId: dayId, mealId: mealId },
+      })
+    );
+  };
+
+  const deleteAllProduct = () => {
+    creatorDietDispatch(
+      passProductToMeal({ dayId: dayId, mealId: mealId, products: [] })
+    );
+  };
+
   return (
     <StyledCreatorMeal>
       <MealHeader>
@@ -72,14 +92,18 @@ const CreatorMeal = ({ dayId, mealId, mealsHeaderTitle, productsData }) => {
           <Icon onClick={() => addMeal()}>
             <FontAwesomeIcon icon="plus" />
           </Icon>
-          <Icon>
-            <FontAwesomeIcon icon="ellipsis-h" />
-          </Icon>
+          <CircleMenu width="150px">
+            <CircleMenuPosition onClick={copyTo}>Skopiuj do</CircleMenuPosition>
+            <CircleMenuPosition onClick={deleteAllProduct}>
+              Usuń wszystko
+            </CircleMenuPosition>
+          </CircleMenu>
         </AbsoluteIconWrapper>
       </MealHeader>
       <Column>
         {productsData.map((item) => (
           <ProductItem
+            key={item.id}
             dayId={dayId}
             mealId={mealId}
             productId={item.id}

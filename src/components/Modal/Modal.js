@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { changeModalState, selectModalData } from "../../features/AppSlice";
 import DietAddMeal from "./components/DietAddMeal";
+import DietCopyTo from "./components/DietCopyTo";
 import DietDelete from "./components/DietDelete";
 import NewProtege from "./components/NewProtege";
 
@@ -52,6 +53,8 @@ const retModalData = (selectedData) => {
       return <DietDelete />;
     case "dietaddmeal":
       return <DietAddMeal/>;
+    case "dietcopyto":
+      return <DietCopyTo/>;
     default:
       return;
   }

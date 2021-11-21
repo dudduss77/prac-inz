@@ -1,11 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { current } from "immer";
+import {
+  createSlice,
+  createSelector,
+  createAsyncThunk,
+} from "@reduxjs/toolkit";
+
 //Tutaj to bym zrobił tak że jeśli nowe to będzie initial state ustawiony na taki jaki ma być z pustymi tablicami itd.
 //Jeśli edycja to zrobimy thunk wczytujący z bazy i wtedy wszystko ładnie się aktualizuje 
 //I gdy klikamy zapisz wysyłamy cały state do bazy i już wszystko powinno działać 
+const loadFromDatabase = createAsyncThunk(); //Do uzupełnienia jak juz będzie baza
+
 const initialState = {
-  name: "Dieta test",
-  kcalValue: "2000kcal",
+  name: "Brak nazwy",
+  kcalValue: "Kaloryczność",
   mealsCount: 1,
   items: [
     {
@@ -13,67 +19,8 @@ const initialState = {
       meals: [
         {
           id: 1,
-          products: [
-            {
-              id: 1,
-              name: "Bułka",
-              weight: 100,
-              proteinOnHundredGrams: 5,
-              carbohydratesOnHundredGrams: 6,
-              fatOnHundredGrams: 1,
-            },
-          ],
-        },
-        // {
-        //   id: 2,
-        //   products: [
-        //     {
-        //       id: 1,
-        //       name: "Bułka",
-        //       weight: 100,
-        //       proteinOnHundredGrams: 5,
-        //       carbohydratesOnHundredGrams: 6,
-        //       fatOnHundredGrams: 1,
-        //     },
-        //   ],
-        // },
-        // {
-        //   id: 3,
-        //   products: [],
-        // },
-        // {
-        //   id: 4,
-        //   products: [],
-        // },
-        // {
-        //   id: 5,
-        //   products: [],
-        // },
-      ],
-    },
-    {
-      id: 2,
-      meals: [
-        {
-          id: 1,
           products: [],
         },
-        // {
-        //   id: 2,
-        //   products: [],
-        // },
-        // {
-        //   id: 3,
-        //   products: [],
-        // },
-        // {
-        //   id: 4,
-        //   products: [],
-        // },
-        // {
-        //   id: 5,
-        //   products: [],
-        // },
       ],
     },
   ],
@@ -83,9 +30,22 @@ const dietCreatorSlice = createSlice({
   name: "dietCreator",
   initialState,
   reducers: {
-    addDietItems: (state, action) => {
+    updateDietName: (state, action) => {
+      state.name = action.payload;
+    },
+    updateDietKcalValue: (state, action) => {
+      state.kcalValue = action.payload;
+    },
+    addDietItems: (state) => {
       const newId = state.items[state.items.length - 1].id + 1;
-      state.items.push({ id: newId, ...action.payload });
+      let item = {
+        meals: [],
+      };
+
+      for (let i = 0; i < state.mealsCount; i++) {
+        item.meals.push({ id: i + 1, products: [] });
+      }
+      state.items.push({ id: newId, ...item });
     },
     deleteDietItems: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
@@ -134,6 +94,18 @@ const dietCreatorSlice = createSlice({
         } else return day;
       });
     },
+    passProductToMeal: (state, action) => {
+      state.items.map((day) => {
+        if (day.id === action.payload.dayId) {
+          day.meals.map((meal) => {
+            if (meal.id === action.payload.mealId) {
+              meal.products = action.payload.products;
+            }
+            return meal;
+          });
+        } else return day;
+      });
+    },
     deleteProductFromMeal: (state, action) => {
       state.items.map((day) => {
         if (day.id === action.payload.dayId) {
@@ -158,14 +130,29 @@ export const {
   updateMealsCount,
   addProductToMeal,
   deleteProductFromMeal,
+  passProductToMeal,
+  updateDietName,
+  updateDietKcalValue,
 } = dietCreatorSlice.actions;
 
 export const selectDietCreatorItems = (state) => state.dietCreator.items;
-export const selectCurrentDayCount = (state) =>
-  state.dietCreator.items.length + 1;
+export const selectCurrentDayCount = (state) => state.dietCreator.items.length;
 
 export const selectMealsCount = (state) => state.dietCreator.mealsCount;
-export const selectDietName = (state) => state.dietCreator.name
-export const selectKcalValue = (state) => state.dietCreator.kcalValue
+export const selectDietName = (state) => state.dietCreator.name;
+export const selectKcalValue = (state) => state.dietCreator.kcalValue;
+
+export const selectAllProductInMeal = createSelector(
+  (state) => state.dietCreator.items,
+  (_, dayId) => dayId,
+  (_, mealId) => mealId,
+  (items, dayId, mealId) =>
+    items
+      .find((day) => day.id === dayId)
+      .meals.find((meal) => meal.id === mealId).products
+);
+
+export const selectLastDayId = (state) =>
+  state.dietCreator.items[state.dietCreator.items.length - 1].id;
 
 export default dietCreatorSlice.reducer;

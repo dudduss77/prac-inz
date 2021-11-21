@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   AbsoluteIconWrapper,
@@ -9,6 +9,7 @@ import {
 } from "../../../components/Reusable";
 import {
   deleteDietItems,
+  selectCurrentDayCount,
   updateMealsCount,
 } from "../../../features/DietCreatorSlice";
 import CreatorMeal from "./CreatorMeal";
@@ -53,6 +54,7 @@ const CreatorDay = ({
   mealsData = [{}, {}, {}, {}],
 }) => {
   const creatorDietDispatch = useDispatch();
+  const dayCount = useSelector(selectCurrentDayCount);
   const [nutritional, setNutritional] = useState("0kcal 0B 0T 0F");
 
   const deleteDay = () => {
@@ -85,11 +87,14 @@ const CreatorDay = ({
   return (
     <StyledCreatorDay>
       <Header>
-        <AbsoluteIconWrapper left="10px">
-          <Icon onClick={() => deleteDay()}>
-            <FontAwesomeIcon icon="times" />
-          </Icon>
-        </AbsoluteIconWrapper>
+        {dayCount > 1 && (
+          <AbsoluteIconWrapper left="10px">
+            <Icon onClick={() => deleteDay()}>
+              <FontAwesomeIcon icon="times" />
+            </Icon>
+          </AbsoluteIconWrapper>
+        )}
+
         <h4>{dayHeaderTitle}</h4>
         <h5>{nutritional}</h5>
       </Header>
@@ -99,6 +104,7 @@ const CreatorDay = ({
       >
         {mealsData.map((item, index) => (
           <CreatorMeal
+            key={item.id}
             dayId={dayId}
             mealId={item.id}
             mealsHeaderTitle={MealsData[index]}

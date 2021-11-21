@@ -5,8 +5,9 @@ import { ReactComponent  as ArrowSVG } from './../assets/arrow.svg';
 
 const SelectContainer = styled.div`
   min-width: 250px;
-  height: 42px;
+  height: ${({customHeight}) => customHeight ? customHeight : '42px'};
   background-color: white;
+  color: ${({theme}) => theme.CharacterPrimary};
   border-radius: 4px;
   border: 1px solid rgba(0,0,0,0.25);
   position: relative;
@@ -51,7 +52,7 @@ const StyledInput = styled.input`
 const StyledList = styled.div`
   max-height: 150px;
   width: 100%;
-  overflow: scroll;
+  overflow-y: auto;
   display: ${({isVisible}) => isVisible ? 'block' : 'none'};
   position: absolute;
   top: 100%;
@@ -61,6 +62,7 @@ const StyledList = styled.div`
   border-right: 2px solid #0000FF;
   border-bottom: 2px solid #0000FF;
   border-radius: 4px;
+  z-index: 20;
 
   &::-webkit-scrollbar {
     display: none;
@@ -69,7 +71,7 @@ const StyledList = styled.div`
 
 
 const StyledListItem = styled.div`
-  width: 100%;
+  width: calc(100% - 20px);
   height: 42px;
   padding-left: 20px;
   cursor: pointer;
@@ -86,11 +88,12 @@ const StyledListItem = styled.div`
 const Select = ({
   data = [], 
   placeholder = "Select",
+  customHeight,
   onChange = (val) => {},
-
+  initialValue = ""
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [inputValue, setInputValue] = useState("")
+  const [inputValue, setInputValue] = useState(initialValue)
 
   const handleToggleMenu = () => setIsVisible(prev => !prev);
 
@@ -105,6 +108,7 @@ const Select = ({
     return (
         <SelectContainer 
           onBlur={() => setTimeout(handleToggleMenu, 70)}
+          customHeight={customHeight}
         >
           <StyledSVG as={ArrowSVG} />
           <StyledInput 

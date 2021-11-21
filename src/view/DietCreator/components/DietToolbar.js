@@ -36,15 +36,7 @@ const DietToolbar = ({ sliderArrowConfig }) => {
   const notificationDispatch = useDispatch();
 
   const addDay = () => {
-    let item = {
-      meals: [],
-    };
-
-    for (let i = 0; i < mealsCount; i++) {
-      item.meals.push({ id: i, products: [] });
-    }
-
-    if (currentDayCount <= 7) creatorDietDispatch(addDietItems(item));
+    if (currentDayCount < 7) creatorDietDispatch(addDietItems());
     else
       notificationDispatch(
         changeNotificationStateShow("Osiągnięto maksymalną ilość dni")

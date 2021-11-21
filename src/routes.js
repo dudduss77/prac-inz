@@ -43,6 +43,7 @@ const routes = (auth, isProtege = false) => [
       },
       { path: "/diet", element: isProtege ? <TempView /> : <TrainerDiet /> },
       { path: "/dietcreator", element: isProtege ? <TempView /> : <DietCreator /> },
+      { path: "/dietcreator/:id", element: isProtege ? <TempView /> : <DietCreator isEdit={true}/> },
       {
         path: "/messages",
         element: isProtege ? <TempView /> : <BrowseChat />,
