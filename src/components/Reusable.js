@@ -97,7 +97,8 @@ export const GridLayout = styled.div`
 `;
 
 export const StyledTile = styled.div`
-  height: 125px;
+  height: ${({height = '125px'}) => height};
+  min-height: ${({height = '125px'}) => height};
   box-shadow: 0px 0px 2px ${({ theme }) => theme.shadowOne};
   display: flex;
   flex-direction: column;
