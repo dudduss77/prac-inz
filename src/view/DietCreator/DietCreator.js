@@ -15,7 +15,11 @@ import CreatorDay from "./components/CreatorDay";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectDietCreatorItems,
+  selectDietName,
+  selectKcalValue,
   selectMealsCount,
+  updateDietKcalValue,
+  updateDietName,
   updateMealsCount,
 } from "../../features/DietCreatorSlice";
 import GridSlider from "../../components/GridSlider/GridSlider";
@@ -28,12 +32,15 @@ import {
   changeNotificationStateShow,
   setModalData,
 } from "../../features/AppSlice";
+import { useParams } from "react-router";
 
-const DietCreator = ({ isEdit }) => {
+const DietCreator = ({ isEdit = false }) => {
+  const { id } = useParams();
   const [mealValue, setMealValue] = useState(1);
-
-  const { ...dietName } = useInput("Brak nazwy"); //Jeśli edycja to zmienić na ładowanie danych z bazy
-  const { ...kcalValue } = useInput("Kaloryczność"); //Jeśli edycja to zmienić na ładowanie danych z bazy
+  const dietName = useSelector(selectDietName);
+  const dietKcalValue = useSelector(selectKcalValue);
+  const { ...dietNameInput } = useInput(dietName); //Jeśli edycja to zmienić na ładowanie danych z bazy
+  const { ...kcalValueInput } = useInput(dietKcalValue); //Jeśli edycja to zmienić na ładowanie danych z bazy
   const items = useSelector(selectDietCreatorItems);
   const modalDispatch = useDispatch();
   const notificationDispatch = useDispatch();
@@ -54,6 +61,22 @@ const DietCreator = ({ isEdit }) => {
     ],
   });
 
+  // Do uzupełnenia gdy bedą dane
+  useEffect(() => {
+    if (isEdit) {
+      alert("Uzupełni jak baza będzie");
+      console.log(id);
+    }
+  }, [isEdit]);
+
+  useEffect(() => {
+    creatorDietDispatch(updateDietName(dietNameInput.value));
+  }, [dietNameInput.value]);
+
+  useEffect(() => {
+    creatorDietDispatch(updateDietKcalValue(kcalValueInput.value));
+  }, [kcalValueInput.value]);
+
   useEffect(() => {
     creatorDietDispatch(updateMealsCount(mealValue));
   }, [mealValue]);
@@ -67,8 +90,8 @@ const DietCreator = ({ isEdit }) => {
     notificationDispatch(changeNotificationStateShow("Zapisano"));
   };
 
-  const handleSelect = (event) => {
-    setMealValue(parseInt(event.target.value));
+  const handleSelect = (val) => {
+    if (val) setMealValue(parseInt(val));
   };
 
   return (
@@ -78,15 +101,14 @@ const DietCreator = ({ isEdit }) => {
           <Icon>
             <FontAwesomeIcon icon="chevron-left" />
           </Icon>
-          <ClickedInput {...dietName} title="Zmień nazwę diety" />
-          <ClickedInput {...kcalValue} title="Nadaj kaloryczność diety" />
-          <select onChange={handleSelect}>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
+          <ClickedInput {...dietNameInput} title="Zmień nazwę diety" />
+          <ClickedInput {...kcalValueInput} title="Nadaj kaloryczność diety" />
+          <Select
+            initialValue={mealValue}
+            customHeight="30px"
+            onChange={handleSelect}
+            data={["1", "2", "3", "4", "5"]}
+          />
           <Spacer />
           <Icon onClick={() => saveDiet()} fontSize="1.3em">
             <FontAwesomeIcon icon="save" />

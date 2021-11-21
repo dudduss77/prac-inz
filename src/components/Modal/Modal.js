@@ -5,6 +5,7 @@ import { changeModalState, selectModalData } from "../../features/AppSlice";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import NewCalendar from "./components/NewCalendar";
 import DietAddMeal from "./components/DietAddMeal";
+import DietCopyTo from "./components/DietCopyTo";
 import DietDelete from "./components/DietDelete";
 import NewProtege from "./components/NewProtege";
 
@@ -56,6 +57,8 @@ const retModalData = (selectedData) => {
       return <DietDelete />;
     case "dietaddmeal":
       return <DietAddMeal/>;
+    case "dietcopyto":
+      return <DietCopyTo/>;
     default:
       return;
   }
