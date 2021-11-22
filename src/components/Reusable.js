@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const ReusableViewWrapper = styled.div`
   display: flex;
@@ -7,6 +7,7 @@ export const ReusableViewWrapper = styled.div`
   gap: 10px;
   /* flex-wrap: wrap; */
   flex: ${({ flexValue }) => flexValue};
+  min-height: ${({minHeight}) => minHeight};
 `;
 
 export const Button = styled.button`
@@ -45,6 +46,7 @@ export const Row = styled.div`
 
 export const Column = styled.div`
   width: ${({ width }) => width};
+  min-height: ${({minHeight}) => minHeight};
   flex: ${({ flexValue }) => flexValue};
   display: flex;
   flex-direction: column;
