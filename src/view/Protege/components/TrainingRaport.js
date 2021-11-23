@@ -7,11 +7,11 @@ const TrainingRaport = () => {
     <Box width="100%" minHeight="300px">
       <BoxHeader headerTitle="Raport Treningowy"/>
       <Column>
-        <TrainingRaportItem raportTitle="Raport z dnia 05.11.2021" realizedStatus="entire"/>
-        <TrainingRaportItem raportTitle="Raport z dnia 03.11.2021" realizedStatus="at-all"/>
-        <TrainingRaportItem raportTitle="Raport z dnia 03.11.2021" realizedStatus="at-all"/>
-        <TrainingRaportItem raportTitle="Raport z dnia 03.11.2021" realizedStatus="at-all"/>
-        <TrainingRaportItem raportTitle="Raport z dnia 03.11.2021" realizedStatus="partly"/>
+        <TrainingRaportItem raportTitle="Raport z dnia 05.11.2021" realizedStatus="entire" messages="No nie udało się"/>
+        <TrainingRaportItem raportTitle="Raport z dnia 03.11.2021" realizedStatus="at-all" messages="No nie udało się"/>
+        <TrainingRaportItem raportTitle="Raport z dnia 03.11.2021" realizedStatus="at-all" messages="No nie udało się"/>
+        <TrainingRaportItem raportTitle="Raport z dnia 03.11.2021" realizedStatus="at-all" messages="No nie udało się"/>
+        <TrainingRaportItem raportTitle="Raport z dnia 03.11.2021" realizedStatus="partly" messages="No nie udało się"/>
       </Column>
     </Box>
   )
