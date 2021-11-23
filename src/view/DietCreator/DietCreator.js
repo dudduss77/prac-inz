@@ -17,7 +17,6 @@ import {
   selectDietCreatorItems,
   selectDietName,
   selectKcalValue,
-  selectMealsCount,
   updateDietKcalValue,
   updateDietName,
   updateMealsCount,
@@ -44,7 +43,6 @@ const DietCreator = ({ isEdit = false }) => {
   const items = useSelector(selectDietCreatorItems);
   const modalDispatch = useDispatch();
   const notificationDispatch = useDispatch();
-  const mealsCount = useSelector(selectMealsCount);
   const creatorDietDispatch = useDispatch();
   const grid = useGridSlider({
     data: items,
@@ -95,8 +93,8 @@ const DietCreator = ({ isEdit = false }) => {
   };
 
   return (
-    <ReusableViewWrapper flexValue="1">
-      <Box width="100%" height={`${mealsCount * 50}%`} minHeight="100%">
+    <ReusableViewWrapper flexValue="1" minHeight="0">
+      <Box width="100%" maxHeight="100%" minHeight="100%">
         <BoxHeader>
           <Icon>
             <FontAwesomeIcon icon="chevron-left" />
@@ -118,7 +116,7 @@ const DietCreator = ({ isEdit = false }) => {
           </Icon>
         </BoxHeader>
         <DietToolbar sliderArrowConfig={grid} />
-        <GridSlider gridConfig={grid}>
+        <GridSlider minHeight="0" gridConfig={grid}>
           {items.length > 0 ? (
             items.map((item, index) => (
               <CreatorDay
