@@ -14,7 +14,7 @@ import CircleMenu, { CircleMenuPosition } from "../../../components/CircleMenu";
 import { passProductToMeal } from "../../../features/DietCreatorSlice";
 
 const StyledCreatorMeal = styled.div`
-  height: 100%;
+  min-height: ${({isMinHeight}) => isMinHeight ? '250px' : '100%'};
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@ const MealHeader = styled.div`
   }
 `;
 
-const CreatorMeal = ({ dayId, mealId, mealsHeaderTitle, productsData }) => {
+const CreatorMeal = ({ dayId, mealId, mealsHeaderTitle, productsData, isMinHeight }) => {
   const modalDispatch = useDispatch();
   const creatorDietDispatch = useDispatch();
   const [nutritional, setNutritional] = useState("0kcal 0B 0T 0F");
@@ -84,7 +84,7 @@ const CreatorMeal = ({ dayId, mealId, mealsHeaderTitle, productsData }) => {
   };
 
   return (
-    <StyledCreatorMeal>
+    <StyledCreatorMeal isMinHeight={isMinHeight}>
       <MealHeader>
         <h4>{mealsHeaderTitle}</h4>
         <h5>{nutritional}</h5>

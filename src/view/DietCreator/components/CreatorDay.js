@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import {
   AbsoluteIconWrapper,
   GridLayout,
@@ -23,6 +23,7 @@ const StyledCreatorDay = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   border-right: 2px solid ${({ theme }) => theme.naturalFive};
+  min-height: 0;
   &:last-child {
     border: none;
   }
@@ -46,6 +47,11 @@ const Header = styled.div`
   h5 {
     color: ${({ theme }) => theme.CharacterSecoundary};
   }
+`;
+
+const Wrapper = styled.div`
+  overflow: auto;
+  min-height: 100%;
 `;
 
 const CreatorDay = ({
@@ -98,20 +104,18 @@ const CreatorDay = ({
         <h4>{dayHeaderTitle}</h4>
         <h5>{nutritional}</h5>
       </Header>
-      <GridLayout
-        flexValue="1"
-        gridTemplateRows={`repeat(${mealsData.length}, 1fr)`}
-      >
-        {mealsData.map((item, index) => (
+      <Wrapper>
+        {mealsData.map((item, index, arr) => (
           <CreatorMeal
             key={item.id}
             dayId={dayId}
             mealId={item.id}
+            isMinHeight={arr.length > 2}
             mealsHeaderTitle={MealsData[index]}
             productsData={item.products}
           />
         ))}
-      </GridLayout>
+      </Wrapper>
     </StyledCreatorDay>
   );
 };
