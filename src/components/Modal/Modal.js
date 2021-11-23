@@ -12,6 +12,7 @@ import TrainingAddExercise from "./components/TrainingAddExercise";
 import TrainingEditExercise from "./components/TrainingEditExercise";
 import TrainingCopyTo from "./components/TrainingCopyTo";
 import TrainingDelete from "./components/TrainingDelete";
+import SendNote from "./components/SendNote";
 
 const StyledBackground = styled.div`
   width: 100vw;
@@ -71,6 +72,8 @@ const retModalData = (selectedData) => {
       return <TrainingCopyTo />
     case "trainingdelete":
       return <TrainingDelete />
+      case "sendnote":
+      return <SendNote />
     default:
       return;
   }

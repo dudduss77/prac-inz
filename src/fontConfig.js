@@ -11,6 +11,7 @@ import {
   faEdit,
   faEllipsisH,
   faEnvelope,
+  faExclamation,
   faFile,
   faFileImage,
   faIndent,
@@ -57,5 +58,6 @@ library.add(
   faChevronUp,
   faEdit,
   faPlusCircle,
-  faMinusCircle
+  faMinusCircle,
+  faExclamation
 );

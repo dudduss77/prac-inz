@@ -13,6 +13,7 @@ import BrowseChat from "./view/Chat/BrowseChat";
 import Calendar from "./view/Calendar/Calendar";
 import TrainerTraining from "./view/TrainerTraining";
 import TrainingCreator from "./view/TrainingCreator/TrainingCreator";
+import ProtegeDiet from "./view/ProtegeDiet";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
@@ -52,7 +53,7 @@ const routes = (auth, isProtege = false) => [
         path: "/trainingcreator/:id",
         element: isProtege ? <TempView /> : <TrainingCreator />,
       },
-      { path: "/diet", element: isProtege ? <TempView /> : <TrainerDiet /> },
+      { path: "/diet", element: isProtege ? <ProtegeDiet /> : <TrainerDiet /> },
       {
         path: "/dietcreator",
         element: isProtege ? <TempView /> : <DietCreator />,

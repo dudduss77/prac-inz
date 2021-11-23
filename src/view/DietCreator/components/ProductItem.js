@@ -11,7 +11,8 @@ import {
   deleteProductFromMeal,
   updateProductWeight,
 } from "../../../features/DietCreatorSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserType } from "../../../features/UserSlice";
 
 const StyledProductItem = styled.div`
   width: calc(100% - 20px);
@@ -51,10 +52,10 @@ const ProductItem = ({
   carbohydratesOnHundred,
   fatOnHundred,
 }) => {
+  const isProtege = useSelector(selectUserType);
   const dietCreatorDispatch = useDispatch();
   const { ...inputMealWeight } = useInput(`${productWeight}g`);
   const [nutritionalValue, setNutritionalValue] = useState("");
-
 
   useEffect(() => {
     const { kcalValue, pValue, cValue, fValue } = retNutritionalTwo(
@@ -89,9 +90,11 @@ const ProductItem = ({
       <ProductNutritional>{nutritionalValue}</ProductNutritional>
       <Spacer />
       <ClickedInput primaryColor {...inputMealWeight} />
-      <Icon onClick={() => deleteProduct()}>
-        <FontAwesomeIcon icon="times" />
-      </Icon>
+      {!isProtege && (
+        <Icon onClick={() => deleteProduct()}>
+          <FontAwesomeIcon icon="times" />
+        </Icon>
+      )}
     </StyledProductItem>
   );
 };
