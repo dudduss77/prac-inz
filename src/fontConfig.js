@@ -14,6 +14,7 @@ import {
   faExclamation,
   faFile,
   faFileImage,
+  faHistory,
   faIndent,
   faMinusCircle,
   faOutdent,
@@ -59,5 +60,6 @@ library.add(
   faEdit,
   faPlusCircle,
   faMinusCircle,
-  faExclamation
+  faExclamation,
+  faHistory
 );
