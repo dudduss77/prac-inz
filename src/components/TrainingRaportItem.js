@@ -58,7 +58,7 @@ const StatusMessage = styled.div`
   flex-direction: column;
 `;
 
-const TrainingRaportItem = ({ raportTitle, realizedStatus = "at-all" }) => {
+const TrainingRaportItem = ({ raportTitle, realizedStatus = "at-all", messages }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <StyledTrainingRaportItem>
@@ -86,7 +86,7 @@ const TrainingRaportItem = ({ raportTitle, realizedStatus = "at-all" }) => {
               {statusMap.find((item) => item.name === realizedStatus).status}
             </HideHeader>
           </Row>
-          <StatusMessage>No nie udało się</StatusMessage>
+          <StatusMessage>{messages}</StatusMessage>
         </Column>
       )}
     </StyledTrainingRaportItem>

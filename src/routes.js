@@ -15,6 +15,7 @@ import TrainerTraining from "./view/TrainerTraining";
 import TrainingCreator from "./view/TrainingCreator/TrainingCreator";
 import ProtegeDiet from "./view/ProtegeDiet";
 import ProtegeTraining from "./view/ProtegeTraining";
+import ProtegeHistory from "./view/ProtegeHistory/ProtegeHistory";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
@@ -77,7 +78,7 @@ const routes = (auth, isProtege = false) => [
       },
       {
         path: "/history",
-        element: isProtege ? <TempView /> : <Navigate to="/" />,
+        element: isProtege ? <ProtegeHistory /> : <Navigate to="/" />,
       },
       {
         path: "/protege/:id",
