@@ -100,6 +100,7 @@ export const GridLayout = styled.div`
   overflow: ${({ overflowValue }) => overflowValue};
   width: ${({ width }) => width};
   height: ${({ height }) => height};
+  align-items: ${({alignItems}) => alignItems};
 `;
 
 export const StyledTile = styled.div`

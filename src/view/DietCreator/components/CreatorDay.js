@@ -121,13 +121,6 @@ const CreatorDay = ({
             </AbsoluteIconWrapper>
           )
         )}
-        {/* {dayCount > 1 && (
-          <AbsoluteIconWrapper left="10px">
-            <Icon onClick={() => deleteDay()}>
-              <FontAwesomeIcon icon="times" />
-            </Icon>
-          </AbsoluteIconWrapper>
-        )} */}
 
         <h4>{dayHeaderTitle}</h4>
         <h5>{nutritional}</h5>
