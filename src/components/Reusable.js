@@ -82,6 +82,7 @@ export const StyledTextarea = styled.textarea`
   flex: 1;
   font-size: 1em;
   border: 1px solid ${({ theme }) => theme.naturalFive};
+  width: ${({width}) => width}
 `;
 
 export const Icon = styled.div`

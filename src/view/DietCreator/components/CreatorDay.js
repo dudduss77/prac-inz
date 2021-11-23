@@ -15,6 +15,8 @@ import {
 import CreatorMeal from "./CreatorMeal";
 import { MealsData } from "../../../data/DietCreator";
 import { retNutritionalTwo } from "../../../functions/NutritionalCalc";
+import { selectUserType } from "../../../features/UserSlice";
+import { changeModalState, setModalData } from "../../../features/AppSlice";
 
 const StyledCreatorDay = styled.div`
   width: 100%;
@@ -59,12 +61,19 @@ const CreatorDay = ({
   dayHeaderTitle,
   mealsData = [{}, {}, {}, {}],
 }) => {
+  const isProtege = useSelector(selectUserType);
+  const modalDispatch = useDispatch();
   const creatorDietDispatch = useDispatch();
   const dayCount = useSelector(selectCurrentDayCount);
   const [nutritional, setNutritional] = useState("0kcal 0B 0T 0F");
 
   const deleteDay = () => {
     creatorDietDispatch(deleteDietItems(dayId));
+  };
+
+  const sendNote = () => {
+    modalDispatch(changeModalState());
+    modalDispatch(setModalData({ name: "sendnote", config: { dayId: dayId } }));
   };
 
   useEffect(() => {
@@ -74,18 +83,20 @@ const CreatorDay = ({
     let tempF = 0;
 
     mealsData.forEach((meal) => {
-      meal.products.forEach((product) => {
-        const { kcalValue, pValue, cValue, fValue } = retNutritionalTwo(
-          product.weight,
-          product.proteinOnHundredGrams,
-          product.carbohydratesOnHundredGrams,
-          product.fatOnHundredGrams
-        );
-        tempKcal += kcalValue;
-        tempP += pValue;
-        tempC += cValue;
-        tempF += fValue;
-      });
+      if (meal.products) {
+        meal.products.forEach((product) => {
+          const { kcalValue, pValue, cValue, fValue } = retNutritionalTwo(
+            product.weight,
+            product.proteinOnHundredGrams,
+            product.carbohydratesOnHundredGrams,
+            product.fatOnHundredGrams
+          );
+          tempKcal += kcalValue;
+          tempP += pValue;
+          tempC += cValue;
+          tempF += fValue;
+        });
+      }
     });
     setNutritional(`${tempKcal}kcal ${tempP}B ${tempC}W ${tempF}T`);
   }, [mealsData]);
@@ -93,28 +104,44 @@ const CreatorDay = ({
   return (
     <StyledCreatorDay>
       <Header>
-        {dayCount > 1 && (
+        {isProtege ? (
+          <AbsoluteIconWrapper left="10px">
+            <Icon onClick={() => sendNote()}>
+              <FontAwesomeIcon icon="exclamation" />
+            </Icon>
+          </AbsoluteIconWrapper>
+        ) : (
+          dayCount > 1 && (
+            <AbsoluteIconWrapper left="10px">
+              <Icon onClick={() => deleteDay()}>
+                <FontAwesomeIcon icon="times" />
+              </Icon>
+            </AbsoluteIconWrapper>
+          )
+        )}
+        {/* {dayCount > 1 && (
           <AbsoluteIconWrapper left="10px">
             <Icon onClick={() => deleteDay()}>
               <FontAwesomeIcon icon="times" />
             </Icon>
           </AbsoluteIconWrapper>
-        )}
+        )} */}
 
         <h4>{dayHeaderTitle}</h4>
         <h5>{nutritional}</h5>
       </Header>
       <Wrapper>
-        {mealsData.map((item, index, arr) => (
-          <CreatorMeal
-            key={item.id}
-            dayId={dayId}
-            mealId={item.id}
-            isMinHeight={arr.length > 2}
-            mealsHeaderTitle={MealsData[index]}
-            productsData={item.products}
-          />
-        ))}
+        {mealsData &&
+          mealsData.map((item, index, arr) => (
+            <CreatorMeal
+              key={item.id}
+              dayId={dayId}
+              mealId={item.id}
+              isMinHeight={arr.length > 2}
+              mealsHeaderTitle={MealsData[index]}
+              productsData={item.products}
+            />
+          ))}
       </Wrapper>
     </StyledCreatorDay>
   );
