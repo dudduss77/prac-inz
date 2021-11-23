@@ -11,6 +11,8 @@ import ProtegeView from "./view/Protege/ProtegeView";
 import TrainerDiet from "./view/TrainerDiet";
 import BrowseChat from "./view/Chat/BrowseChat";
 import Calendar from "./view/Calendar/Calendar";
+import TrainerTraining from "./view/TrainerTraining";
+import TrainingCreator from "./view/TrainingCreator/TrainingCreator";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
@@ -40,11 +42,25 @@ const routes = (auth, isProtege = false) => [
       },
       {
         path: "/training",
-        element: isProtege ? <TempView /> : <DietCreator />,
+        element: isProtege ? <TempView /> : <TrainerTraining />,
+      },
+      {
+        path: "/trainingcreator",
+        element: isProtege ? <TempView /> : <TrainingCreator />,
+      },
+      {
+        path: "/trainingcreator/:id",
+        element: isProtege ? <TempView /> : <TrainingCreator />,
       },
       { path: "/diet", element: isProtege ? <TempView /> : <TrainerDiet /> },
-      { path: "/dietcreator", element: isProtege ? <TempView /> : <DietCreator /> },
-      { path: "/dietcreator/:id", element: isProtege ? <TempView /> : <DietCreator isEdit={true}/> },
+      {
+        path: "/dietcreator",
+        element: isProtege ? <TempView /> : <DietCreator />,
+      },
+      {
+        path: "/dietcreator/:id",
+        element: isProtege ? <TempView /> : <DietCreator isEdit={true} />,
+      },
       {
         path: "/messages",
         element: isProtege ? <TempView /> : <BrowseChat />,

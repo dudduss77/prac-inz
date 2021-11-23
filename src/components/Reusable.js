@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const ReusableViewWrapper = styled.div`
   display: flex;
@@ -7,6 +7,7 @@ export const ReusableViewWrapper = styled.div`
   gap: 10px;
   /* flex-wrap: wrap; */
   flex: ${({ flexValue }) => flexValue};
+  min-height: ${({ minHeight }) => minHeight};
 `;
 
 export const Button = styled.button`
@@ -45,6 +46,7 @@ export const Row = styled.div`
 
 export const Column = styled.div`
   width: ${({ width }) => width};
+  min-height: ${({ minHeight }) => minHeight};
   flex: ${({ flexValue }) => flexValue};
   display: flex;
   flex-direction: column;
@@ -54,17 +56,20 @@ export const Column = styled.div`
 `;
 
 export const Box = styled.div`
-  width: ${({ width }) => width};
+  width: ${({ width, isPadding }) =>
+    isPadding ? `calc(${width} - 20px)` : width};
   min-width: ${({ minWidth }) => minWidth};
   max-width: ${({ maxWidth }) => maxWidth};
   display: flex;
   flex-direction: column;
   gap: ${({ isGap }) => (isGap ? "10px" : "0")};
   background: ${({ theme }) => theme.naturalOne};
-  height: ${({ height }) => height};
+  height: ${({ height, isPadding }) =>
+    isPadding ? `calc(${height} - 20px)` : height};
   min-height: ${({ minHeight }) => minHeight};
   max-height: ${({ maxHeight }) => maxHeight};
   overflow: ${({ isOverflow }) => (isOverflow ? "auto" : "hidden")};
+  padding: ${({ isPadding }) => (isPadding ? "10px" : "0")};
   @media screen and (max-width: 900px) {
     width: 100%;
   }
@@ -97,8 +102,8 @@ export const GridLayout = styled.div`
 `;
 
 export const StyledTile = styled.div`
-  height: ${({height = '125px'}) => height};
-  min-height: ${({height = '125px'}) => height};
+  height: ${({ height = "125px" }) => height};
+  min-height: ${({ height = "125px" }) => height};
   box-shadow: 0px 0px 2px ${({ theme }) => theme.shadowOne};
   display: flex;
   flex-direction: column;

@@ -8,14 +8,17 @@ import {
   faChevronLeft,
   faChevronRight,
   faChevronUp,
+  faEdit,
   faEllipsisH,
   faEnvelope,
   faFile,
   faFileImage,
   faIndent,
+  faMinusCircle,
   faOutdent,
   faPaperPlane,
   faPlus,
+  faPlusCircle,
   faRunning,
   faSave,
   faSearch,
@@ -51,5 +54,8 @@ library.add(
   faChevronRight,
   faSearch,
   faChevronDown,
-  faChevronUp
+  faChevronUp,
+  faEdit,
+  faPlusCircle,
+  faMinusCircle
 );
