@@ -3,7 +3,11 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import BoxHeader from "../../../components/Box/components/BoxHeader";
 import { Box, NoDataHeader } from "../../../components/Reusable";
-import { changeModalState, setModalData } from "../../../features/AppSlice";
+import {
+  changeModalState,
+  changeNotificationStateShow,
+  setModalData,
+} from "../../../features/AppSlice";
 import TrainingType from "../../TrainingCreator/components/TrainingType";
 
 const Wrapper = styled.div`
@@ -47,11 +51,14 @@ const CurrentTraining = () => {
     // },
   ]);
   const modalDispatch = useDispatch();
+  const notificationDispatch = useDispatch();
 
   const addTrainingRaport = () => {
-    modalDispatch(changeModalState());
-    modalDispatch(setModalData({ name: "addtrainingraport" }));
-    //Wysłanie raportu treningowego wiąże się z zakończeniem tego treningu i pokazaniem następnego
+    if (currentTraining.length > 0) {
+      modalDispatch(changeModalState());
+      modalDispatch(setModalData({ name: "addtrainingraport" }));
+      //Wysłanie raportu treningowego wiąże się z zakończeniem tego treningu i pokazaniem następnego
+    } else notificationDispatch(changeNotificationStateShow("Brak treningu"));
   };
   return (
     <Box width="50%" minHeight="600px">
