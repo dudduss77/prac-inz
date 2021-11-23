@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Icon, Spacer } from "../../../components/Reusable";
 import { changeModalState, setModalData } from "../../../features/AppSlice";
 import { deleteExercise } from "../../../features/TrainingCreatorSlice";
+import { selectUserType } from "../../../features/UserSlice";
 import ExerciseItem from "./ExerciseItem";
 
 const HiddenIcon = styled(Icon)``;
@@ -40,6 +41,7 @@ const TrainingExercise = ({
   exerciseName,
   exerciseSeriesData = [],
 }) => {
+  const isProtege = useSelector(selectUserType);
   const trainingCreatorDispatch = useDispatch();
   const modalDispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
@@ -50,7 +52,7 @@ const TrainingExercise = ({
     );
   };
   const edit = () => {
-    console.log('test', dayId, typeId, exerciseId)
+    console.log("test", dayId, typeId, exerciseId);
     modalDispatch(
       setModalData({
         name: "trainingeditexercise",
@@ -64,12 +66,17 @@ const TrainingExercise = ({
       <Header>
         {exerciseName}
         <Spacer />
-        <HiddenIcon>
-          <FontAwesomeIcon onClick={edit} icon="edit" />
-        </HiddenIcon>
-        <HiddenIcon>
-          <FontAwesomeIcon onClick={removeExercise} icon="times" />
-        </HiddenIcon>
+        {!isProtege && (
+          <>
+            <HiddenIcon>
+              <FontAwesomeIcon onClick={edit} icon="edit" />
+            </HiddenIcon>
+            <HiddenIcon>
+              <FontAwesomeIcon onClick={removeExercise} icon="times" />
+            </HiddenIcon>
+          </>
+        )}
+
         <Icon onClick={() => setIsOpen(!isOpen)}>
           {!isOpen && <FontAwesomeIcon icon="chevron-down" />}
           {isOpen && <FontAwesomeIcon icon="chevron-up" />}

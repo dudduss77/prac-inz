@@ -73,7 +73,9 @@ const CreatorDay = ({
 
   const sendNote = () => {
     modalDispatch(changeModalState());
-    modalDispatch(setModalData({ name: "sendnote", config: { dayId: dayId } }));
+    modalDispatch(
+      setModalData({ name: "sendnote", config: { type: "diet", dayId: dayId } })
+    );
   };
 
   useEffect(() => {
