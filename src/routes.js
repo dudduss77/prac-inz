@@ -14,6 +14,7 @@ import Calendar from "./view/Calendar/Calendar";
 import TrainerTraining from "./view/TrainerTraining";
 import TrainingCreator from "./view/TrainingCreator/TrainingCreator";
 import ProtegeDiet from "./view/ProtegeDiet";
+import ProtegeTraining from "./view/ProtegeTraining";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
@@ -43,7 +44,7 @@ const routes = (auth, isProtege = false) => [
       },
       {
         path: "/training",
-        element: isProtege ? <TempView /> : <TrainerTraining />,
+        element: isProtege ? <ProtegeTraining /> : <TrainerTraining />,
       },
       {
         path: "/trainingcreator",

@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Icon, AbsoluteIconWrapper } from "../../../components/Reusable";
 import CircleMenu, { CircleMenuPosition } from "../../../components/CircleMenu";
 import TrainingExercise from "./TrainingExercise";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeModalState, setModalData } from "../../../features/AppSlice";
 import { deleteAllExercise } from "../../../features/TrainingCreatorSlice";
+import { selectUserType } from "../../../features/UserSlice";
 
 const StyledTrainingType = styled.div`
   min-height: 200px;
@@ -32,6 +33,7 @@ const TrainingType = ({
   trainingTypeName,
   trainingExercisesData = [],
 }) => {
+  const isProtege = useSelector(selectUserType);
   const modalDispatch = useDispatch();
   const trainingCreatorDispatch = useDispatch();
   const addExercise = () => {
@@ -62,17 +64,21 @@ const TrainingType = ({
     <StyledTrainingType>
       <TypeHeader>
         <h4>{trainingTypeName}</h4>
-        <AbsoluteIconWrapper right="10px">
-          <Icon onClick={() => addExercise()}>
-            <FontAwesomeIcon icon="plus" />
-          </Icon>
-          <CircleMenu width="150px">
-            <CircleMenuPosition onClick={copyTo}>Skopiuj do</CircleMenuPosition>
-            <CircleMenuPosition onClick={removeAll}>
-              Usuń wszystko
-            </CircleMenuPosition>
-          </CircleMenu>
-        </AbsoluteIconWrapper>
+        {!isProtege && (
+          <AbsoluteIconWrapper right="10px">
+            <Icon onClick={() => addExercise()}>
+              <FontAwesomeIcon icon="plus" />
+            </Icon>
+            <CircleMenu width="150px">
+              <CircleMenuPosition onClick={copyTo}>
+                Skopiuj do
+              </CircleMenuPosition>
+              <CircleMenuPosition onClick={removeAll}>
+                Usuń wszystko
+              </CircleMenuPosition>
+            </CircleMenu>
+          </AbsoluteIconWrapper>
+        )}
       </TypeHeader>
       {trainingExercisesData.map((exercise) => (
         <TrainingExercise

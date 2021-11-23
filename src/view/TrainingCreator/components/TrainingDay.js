@@ -8,6 +8,8 @@ import {
   deleteDay,
   selectTrainingDayCount,
 } from "../../../features/TrainingCreatorSlice";
+import { selectUserType } from "../../../features/UserSlice";
+import { changeModalState, setModalData } from "../../../features/AppSlice";
 
 const StyledTrainingDay = styled.div`
   width: 100%;
@@ -47,22 +49,42 @@ const Wrapper = styled.div`
 `;
 
 const TrainingDay = ({ dayId, dayIndex, trainingTypesData = [] }) => {
+  const isProtege = useSelector(selectUserType);
+  const modalDispatch = useDispatch();
   const trainingDayCount = useSelector(selectTrainingDayCount);
   const trainingCreatorDispatch = useDispatch();
 
   const deleteTrainingDay = () => {
     trainingCreatorDispatch(deleteDay(dayId));
   };
+
+  const sendNote = () => {
+    modalDispatch(changeModalState());
+    modalDispatch(
+      setModalData({
+        name: "sendnote",
+        config: { type: "training", dayId: dayId },
+      })
+    );
+  };
   return (
     <StyledTrainingDay>
       <Header>
-        <AbsoluteIconWrapper left="10px">
-          {trainingDayCount > 1 && (
-            <Icon onClick={deleteTrainingDay}>
-              <FontAwesomeIcon icon="times" />
+        {isProtege ? (
+          <AbsoluteIconWrapper left="10px">
+            <Icon onClick={sendNote}>
+              <FontAwesomeIcon icon="exclamation" />
             </Icon>
-          )}
-        </AbsoluteIconWrapper>
+          </AbsoluteIconWrapper>
+        ) : (
+          <AbsoluteIconWrapper left="10px">
+            {trainingDayCount > 1 && (
+              <Icon onClick={deleteTrainingDay}>
+                <FontAwesomeIcon icon="times" />
+              </Icon>
+            )}
+          </AbsoluteIconWrapper>
+        )}
         <h4>{`Trening ${String.fromCharCode(64 + dayIndex + 1)}`}</h4>
       </Header>
       <Wrapper>
