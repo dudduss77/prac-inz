@@ -14,9 +14,11 @@ import {
   faFile,
   faFileImage,
   faIndent,
+  faMinusCircle,
   faOutdent,
   faPaperPlane,
   faPlus,
+  faPlusCircle,
   faRunning,
   faSave,
   faSearch,
@@ -53,5 +55,7 @@ library.add(
   faSearch,
   faChevronDown,
   faChevronUp,
-  faEdit
+  faEdit,
+  faPlusCircle,
+  faMinusCircle
 );

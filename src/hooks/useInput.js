@@ -9,6 +9,10 @@ export const useInput = (initialValue, key, initialWidth = "100px") => {
   };
 
   useEffect(() => {
+    setValue(initialValue)
+  }, [initialValue])
+
+  useEffect(() => {
     setWidth(`${((value.length) * 9 )}px`);
   }, [value]);
 

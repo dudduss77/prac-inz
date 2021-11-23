@@ -1,7 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Icon, Spacer } from "../../../components/Reusable";
+import { changeModalState, setModalData } from "../../../features/AppSlice";
+import { deleteExercise } from "../../../features/TrainingCreatorSlice";
 import ExerciseItem from "./ExerciseItem";
 
 const HiddenIcon = styled(Icon)``;
@@ -13,8 +16,6 @@ const StyledTrainingExercise = styled.div`
   position: relative;
 
   border-bottom: 2px solid ${({ theme }) => theme.naturalFive};
-
- 
 
   ${HiddenIcon} {
     display: none;
@@ -32,18 +33,42 @@ const Header = styled.div`
   display: flex;
 `;
 
-const TrainingExercise = ({ exerciseName, exerciseSeriesData = [] }) => {
+const TrainingExercise = ({
+  dayId,
+  typeId,
+  exerciseId,
+  exerciseName,
+  exerciseSeriesData = [],
+}) => {
+  const trainingCreatorDispatch = useDispatch();
+  const modalDispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+
+  const removeExercise = () => {
+    trainingCreatorDispatch(
+      deleteExercise({ dayId: dayId, typeId: typeId, exerciseId: exerciseId })
+    );
+  };
+  const edit = () => {
+    console.log('test', dayId, typeId, exerciseId)
+    modalDispatch(
+      setModalData({
+        name: "trainingeditexercise",
+        config: { dayId: dayId, typeId: typeId, exerciseId: exerciseId },
+      })
+    );
+    modalDispatch(changeModalState());
+  };
   return (
     <StyledTrainingExercise>
       <Header>
         {exerciseName}
         <Spacer />
         <HiddenIcon>
-          <FontAwesomeIcon icon="edit" />
+          <FontAwesomeIcon onClick={edit} icon="edit" />
         </HiddenIcon>
         <HiddenIcon>
-          <FontAwesomeIcon icon="times" />
+          <FontAwesomeIcon onClick={removeExercise} icon="times" />
         </HiddenIcon>
         <Icon onClick={() => setIsOpen(!isOpen)}>
           {!isOpen && <FontAwesomeIcon icon="chevron-down" />}

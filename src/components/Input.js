@@ -23,8 +23,8 @@ const Container = styled.div`
 `;
 
 const StyledInput = styled.input`
-  width: ${({ width }) => width ? width : "360px"};
-  height: ${({ height }) => height ? height : "42px"};
+  width: ${({ width }) => (width ? width : "360px")};
+  height: ${({ height }) => (height ? height : "42px")};
   border: none;
   padding: 0;
   padding-left: ${({ paddingLeft }) => paddingLeft};
@@ -56,7 +56,7 @@ const Input = ({
   mediaQueryPoint = "400px",
   useInput,
   paddingLeft = "10px",
-  as = "Input"
+  as = "Input",
 }) => {
   const Icon = icon;
 

@@ -4,6 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components/macro";
 import { AbsoluteIconWrapper, Icon } from "../../../components/Reusable";
 import TrainingType from "./TrainingType";
+import {
+  deleteDay,
+  selectTrainingDayCount,
+} from "../../../features/TrainingCreatorSlice";
 
 const StyledTrainingDay = styled.div`
   width: 100%;
@@ -42,22 +46,31 @@ const Wrapper = styled.div`
   overflow: auto;
 `;
 
-const TrainingDay = ({ dayId, trainingTypesData = [] }) => {
+const TrainingDay = ({ dayId, dayIndex, trainingTypesData = [] }) => {
+  const trainingDayCount = useSelector(selectTrainingDayCount);
+  const trainingCreatorDispatch = useDispatch();
+
+  const deleteTrainingDay = () => {
+    trainingCreatorDispatch(deleteDay(dayId));
+  };
   return (
     <StyledTrainingDay>
       <Header>
         <AbsoluteIconWrapper left="10px">
-          <Icon>
-            <FontAwesomeIcon icon="times" />
-          </Icon>
+          {trainingDayCount > 1 && (
+            <Icon onClick={deleteTrainingDay}>
+              <FontAwesomeIcon icon="times" />
+            </Icon>
+          )}
         </AbsoluteIconWrapper>
-        <h4>{`Trening ${String.fromCharCode(64 + dayId)}`}</h4>
+        <h4>{`Trening ${String.fromCharCode(64 + dayIndex + 1)}`}</h4>
       </Header>
       <Wrapper>
         {trainingTypesData.map((type) => (
           <TrainingType
             key={type.name}
             dayId={dayId}
+            typeId={type.id}
             trainingTypeName={type.name}
             trainingExercisesData={type.exercises}
           />

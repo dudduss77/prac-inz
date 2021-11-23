@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Icon, AbsoluteIconWrapper } from "../../../components/Reusable";
 import CircleMenu, { CircleMenuPosition } from "../../../components/CircleMenu";
 import TrainingExercise from "./TrainingExercise";
+import { useDispatch } from "react-redux";
+import { changeModalState, setModalData } from "../../../features/AppSlice";
+import { deleteAllExercise } from "../../../features/TrainingCreatorSlice";
 
 const StyledTrainingType = styled.div`
   min-height: 200px;
@@ -23,12 +26,38 @@ const TypeHeader = styled.div`
   }
 `;
 
-const addExercise = () => {};
+const TrainingType = ({
+  dayId,
+  typeId,
+  trainingTypeName,
+  trainingExercisesData = [],
+}) => {
+  const modalDispatch = useDispatch();
+  const trainingCreatorDispatch = useDispatch();
+  const addExercise = () => {
+    modalDispatch(changeModalState());
+    modalDispatch(
+      setModalData({
+        name: "trainingaddexercise",
+        config: { dayId: dayId, typeId: typeId },
+      })
+    );
+  };
 
-const copyTo = () => {};
-const deleteAllExercise = () => {};
-
-const TrainingType = ({ trainingTypeName, trainingExercisesData = [] }) => {
+  const copyTo = () => {
+    modalDispatch(changeModalState());
+    modalDispatch(
+      setModalData({
+        name: "trainingcopyto",
+        config: { dayId: dayId, typeId: typeId },
+      })
+    );
+  };
+  const removeAll = () => {
+    trainingCreatorDispatch(
+      deleteAllExercise({ dayId: dayId, typeId: typeId })
+    );
+  };
   return (
     <StyledTrainingType>
       <TypeHeader>
@@ -39,7 +68,7 @@ const TrainingType = ({ trainingTypeName, trainingExercisesData = [] }) => {
           </Icon>
           <CircleMenu width="150px">
             <CircleMenuPosition onClick={copyTo}>Skopiuj do</CircleMenuPosition>
-            <CircleMenuPosition onClick={deleteAllExercise}>
+            <CircleMenuPosition onClick={removeAll}>
               Usuń wszystko
             </CircleMenuPosition>
           </CircleMenu>
@@ -48,6 +77,9 @@ const TrainingType = ({ trainingTypeName, trainingExercisesData = [] }) => {
       {trainingExercisesData.map((exercise) => (
         <TrainingExercise
           key={exercise.id}
+          dayId={dayId}
+          typeId={typeId}
+          exerciseId={exercise.id}
           exerciseName={exercise.name}
           exerciseSeriesData={exercise.series}
         />
