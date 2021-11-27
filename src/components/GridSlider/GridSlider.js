@@ -1,10 +1,11 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const StyledGridSlider = styled.div`
   flex: 1;
   width: 100%;
   overflow: clip;
+  min-height: ${({minHeight}) => minHeight};
 `;
 
 const Grid = styled.div`
@@ -18,9 +19,9 @@ const Grid = styled.div`
   transition: transform 1s;
 `;
 
-const GridSlider = ({ children, gridConfig }) => {
+const GridSlider = ({ children, gridConfig, minHeight }) => {
   return (
-    <StyledGridSlider>
+    <StyledGridSlider minHeight={minHeight}>
       <Grid
         gridTemplateColumns={gridConfig.gridTemplateColumns}
         width={gridConfig.gridWidth}

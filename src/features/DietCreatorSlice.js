@@ -144,12 +144,13 @@ export const selectKcalValue = (state) => state.dietCreator.kcalValue;
 
 export const selectAllProductInMeal = createSelector(
   (state) => state.dietCreator.items,
+  (state) => state.app.modalData.config,
   (_, dayId) => dayId,
   (_, mealId) => mealId,
-  (items, dayId, mealId) =>
+  (items, modaldata) =>
     items
-      .find((day) => day.id === dayId)
-      .meals.find((meal) => meal.id === mealId).products
+      .find((day) => day.id === modaldata.dayId)
+      .meals.find((meal) => meal.id === modaldata.mealId).products
 );
 
 export const selectLastDayId = (state) =>

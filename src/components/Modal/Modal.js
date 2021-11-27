@@ -8,6 +8,14 @@ import DietAddMeal from "./components/DietAddMeal";
 import DietCopyTo from "./components/DietCopyTo";
 import DietDelete from "./components/DietDelete";
 import NewProtege from "./components/NewProtege";
+import TrainingAddExercise from "./components/TrainingAddExercise";
+import TrainingEditExercise from "./components/TrainingEditExercise";
+import TrainingCopyTo from "./components/TrainingCopyTo";
+import TrainingDelete from "./components/TrainingDelete";
+import SendNote from "./components/SendNote";
+import AddMeasurment from "./components/AddMeasurment";
+import AddImage from "./components/AddImage";
+import AddTrainingRaport from "./components/AddTrainingRaport";
 
 const StyledBackground = styled.div`
   width: 100vw;
@@ -56,9 +64,25 @@ const retModalData = (selectedData) => {
     case "dietdelete":
       return <DietDelete />;
     case "dietaddmeal":
-      return <DietAddMeal/>;
+      return <DietAddMeal />;
     case "dietcopyto":
-      return <DietCopyTo/>;
+      return <DietCopyTo />;
+    case "trainingaddexercise":
+      return <TrainingAddExercise />;
+    case "trainingeditexercise":
+      return <TrainingEditExercise />;
+    case "trainingcopyto":
+      return <TrainingCopyTo />;
+    case "trainingdelete":
+      return <TrainingDelete />;
+    case "sendnote":
+      return <SendNote />;
+    case "addmeasurment":
+      return <AddMeasurment />;
+    case "addimage":
+      return <AddImage />;
+    case "addtrainingraport":
+      return <AddTrainingRaport />;
     default:
       return;
   }

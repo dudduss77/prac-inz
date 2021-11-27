@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import avatar from "../assets/user.png";
 
 const StyledUserLink = styled.div`
   display: flex;
   gap: 5px;
-  color: ${({ customColor, theme }) => customColor ? theme.PrimarySix : theme.CharacterPrimaryInvers};
+  color: ${({ customColor, theme }) =>
+    customColor ? theme.PrimarySix : theme.CharacterPrimaryInvers};
   cursor: pointer;
   align-items: center;
-  min-width: ${({haveMinWidth}) => haveMinWidth ? '150px' : '0'};
+  min-width: ${({ haveMinWidth }) => (haveMinWidth ? "150px" : "0")};
 `;
 
 const Avatar = styled.img`
@@ -15,7 +17,7 @@ const Avatar = styled.img`
   height: 30px;
 `;
 
-const UserLink = ({ imgSrc, userName, customColor, haveMinWidth }) => {
+const UserLink = ({ imgSrc = avatar, userName, customColor, haveMinWidth }) => {
   return (
     <StyledUserLink customColor={customColor} haveMinWidth={haveMinWidth}>
       <Avatar src={imgSrc} alt="Avatar" />

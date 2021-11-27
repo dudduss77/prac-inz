@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { selectMessages } from "../../../features/ChatSlice";
@@ -10,7 +10,8 @@ const StyledMessagesWrapper = styled.div`
   display: flex;
   gap: 10px;
   flex-direction: column;
-  justify-content: flex-end;
+  overflow: auto;
+  /* justify-content: flex-end; */
 `;
 
 const ChatBubble = styled.div`
@@ -24,6 +25,10 @@ const ChatBubble = styled.div`
   padding: 5px 10px;
   display: flex;
   flex-direction: column;
+
+  &:first-child {
+    margin-top: auto;
+  }
 `;
 
 const ChatBubbleDate = styled.h6`
@@ -44,10 +49,17 @@ const retDate = (timestamp) => {
 };
 
 const MessagesWrapper = () => {
+  const ref = useRef();
   const userId = useSelector(selectUserId);
   const messages = useSelector(selectMessages);
+
+  useEffect(() => {
+    console.log(ref.current);
+    ref.current.scrollTop = ref.current.scrollHeight;
+  }, [messages]);
+
   return (
-    <StyledMessagesWrapper>
+    <StyledMessagesWrapper ref={ref}>
       {messages.map((message) => (
         <>
           <ChatBubble

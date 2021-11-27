@@ -11,6 +11,12 @@ import ProtegeView from "./view/Protege/ProtegeView";
 import TrainerDiet from "./view/TrainerDiet";
 import BrowseChat from "./view/Chat/BrowseChat";
 import Calendar from "./view/Calendar/Calendar";
+import TrainerTraining from "./view/TrainerTraining";
+import TrainingCreator from "./view/TrainingCreator/TrainingCreator";
+import ProtegeDiet from "./view/ProtegeDiet";
+import ProtegeTraining from "./view/ProtegeTraining";
+import ProtegeHistory from "./view/ProtegeHistory/ProtegeHistory";
+import ProtegeDashboard from "./view/ProotegeDashboard/ProtegeDashboard";
 
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
@@ -21,7 +27,7 @@ const routes = (auth, isProtege = false) => [
     path: "/",
     element: <Layout />,
     children: [
-      { path: "/", element: isProtege ? <TempView /> : <TrainerDashboard /> },
+      { path: "/", element: isProtege ? <ProtegeDashboard /> : <TrainerDashboard /> },
       {
         path: "/questionnaire",
         element: isProtege ? (
@@ -40,11 +46,25 @@ const routes = (auth, isProtege = false) => [
       },
       {
         path: "/training",
+        element: isProtege ? <ProtegeTraining /> : <TrainerTraining />,
+      },
+      {
+        path: "/trainingcreator",
+        element: isProtege ? <TempView /> : <TrainingCreator />,
+      },
+      {
+        path: "/trainingcreator/:id",
+        element: isProtege ? <TempView /> : <TrainingCreator />,
+      },
+      { path: "/diet", element: isProtege ? <ProtegeDiet /> : <TrainerDiet /> },
+      {
+        path: "/dietcreator",
         element: isProtege ? <TempView /> : <DietCreator />,
       },
-      { path: "/diet", element: isProtege ? <TempView /> : <TrainerDiet /> },
-      { path: "/dietcreator", element: isProtege ? <TempView /> : <DietCreator /> },
-      { path: "/dietcreator/:id", element: isProtege ? <TempView /> : <DietCreator isEdit={true}/> },
+      {
+        path: "/dietcreator/:id",
+        element: isProtege ? <TempView /> : <DietCreator isEdit={true} />,
+      },
       {
         path: "/messages",
         element: isProtege ? <TempView /> : <BrowseChat />,
@@ -59,7 +79,7 @@ const routes = (auth, isProtege = false) => [
       },
       {
         path: "/history",
-        element: isProtege ? <TempView /> : <Navigate to="/" />,
+        element: isProtege ? <ProtegeHistory /> : <Navigate to="/" />,
       },
       {
         path: "/protege/:id",

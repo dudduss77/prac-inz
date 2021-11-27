@@ -31,7 +31,6 @@ const MeasurementRaport = () => {
         <ContentValue>Obwód talii: 70cm</ContentValue>
         <ContentValue>Obwód uda: 70cm</ContentValue>
         <ContentValue>Obwód ramienia: 70cm</ContentValue>
-        <ContentValue></ContentValue>
       </ContentWrapper>
     </Box>
   );
