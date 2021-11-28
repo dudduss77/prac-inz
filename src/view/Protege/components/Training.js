@@ -18,13 +18,7 @@ const GridLayoutWithMedia = styled(GridLayout)`
 const Training = () => {
   return (
     <Box width="50%">
-      <BoxHeader>
-        Trening
-        <Spacer />
-        <Icon>
-          <FontAwesomeIcon icon="ellipsis-h" />
-        </Icon>
-      </BoxHeader>
+      <BoxHeader>Trening</BoxHeader>
       <GridLayoutWithMedia isGap isPadding gridTemplateColumns="repeat(3, 1fr)">
         <AddTile />
         <Tile tileHeader="Trening A" />

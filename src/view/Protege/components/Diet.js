@@ -18,13 +18,7 @@ const GridLayoutWithMedia = styled(GridLayout)`
 const Diet = () => {
   return (
     <Box width="50%">
-      <BoxHeader>
-        Dieta
-        <Spacer />
-        <Icon>
-          <FontAwesomeIcon icon="ellipsis-h" />
-        </Icon>
-      </BoxHeader>
+      <BoxHeader>Dieta</BoxHeader>
       <GridLayoutWithMedia isGap isPadding gridTemplateColumns="repeat(3, 1fr)">
         <AddTile />
         <Tile tileHeader="Dieta standard" />

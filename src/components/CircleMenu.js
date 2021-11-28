@@ -35,13 +35,21 @@ const StyledCircleMenuSVG = styled(CircleMenuSVG)`
   cursor: pointer;
 `;
 
-const CircleMenu = ({ TriggerElement = StyledCircleMenuSVG, width = '120px', children }) => {
+const CircleMenu = ({
+  TriggerElement = StyledCircleMenuSVG,
+  width = "120px",
+  children,
+}) => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
     <>
       <TriggerElement onClick={() => setIsVisible((prev) => !prev)} />
-      <StyledContainer width={width} isVisible={isVisible} positionCounts={children.length}>
+      <StyledContainer
+        width={width}
+        isVisible={isVisible}
+        positionCounts={children.length}
+      >
         {isVisible && children}
       </StyledContainer>
     </>
