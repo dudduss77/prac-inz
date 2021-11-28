@@ -12,6 +12,7 @@ const StyledBoxHeader = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
+  /* position: relative; */
 `;
 
 const BoxHeader = ({
