@@ -8,6 +8,7 @@ import {
   faChevronLeft,
   faChevronRight,
   faChevronUp,
+  faComment,
   faEdit,
   faEllipsisH,
   faEnvelope,
@@ -61,5 +62,6 @@ library.add(
   faPlusCircle,
   faMinusCircle,
   faExclamation,
-  faHistory
+  faHistory,
+  faComment
 );
