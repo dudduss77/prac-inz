@@ -37,6 +37,7 @@ const PageHeader = ({ isProtege }) => {
     setHeaderData(currentData);
   }, [pathname, isProtege]);
   return (
+
     <StyledPageHeader>
       {headerData && (
         <>

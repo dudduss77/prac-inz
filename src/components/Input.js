@@ -57,6 +57,9 @@ const Input = ({
   useInput,
   paddingLeft = "10px",
   as = "Input",
+  isDisabled = false,
+  value = "",
+  onValueChange = () => {}
 }) => {
   const Icon = icon;
 
@@ -76,6 +79,9 @@ const Input = ({
         mediaQueryPoint={mediaQueryPoint}
         paddingLeft={paddingLeft}
         as={as}
+        disabled={isDisabled}
+        value={value}
+        onChange={({target}) => onValueChange(target.value)}
       />
     </Container>
   );

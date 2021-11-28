@@ -53,9 +53,13 @@ const Layout = () => {
     if (userType) {
       if (pathname !== "/message") return <PageHeader isProtege={userType} />;
     } else {
-      if (pathname.includes("/message/")) return;
-      if (pathname.includes("dietcreator")) return;
-      if (pathname.includes("trainingcreator")) return;
+      if ([
+        "/message/", 
+        "dietcreator",
+        "trainingcreator",
+        "questionnaire/new",
+
+      ].some(v => pathname.includes(v))) return
       else return <PageHeader isProtege={userType} />;
     }
   };

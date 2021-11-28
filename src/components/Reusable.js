@@ -53,6 +53,7 @@ export const Column = styled.div`
   padding: ${({ isPadding }) => (isPadding ? "10px" : "0")};
   gap: ${({ isGap }) => (isGap ? "10px" : "none")};
   overflow-y: ${({ isOverflow }) => (isOverflow ? "auto" : "")};
+  align-items: ${({ alignItems }) => alignItems};
 `;
 
 export const Box = styled.div`
@@ -68,8 +69,10 @@ export const Box = styled.div`
     isPadding ? `calc(${height} - 20px)` : height};
   min-height: ${({ minHeight }) => minHeight};
   max-height: ${({ maxHeight }) => maxHeight};
-  overflow: ${({ isOverflow }) => (isOverflow ? "auto" : "hidden")};
+  overflow: ${({ isOverflow }) => (isOverflow ? "visible" : "hidden")};
   padding: ${({ isPadding }) => (isPadding ? "10px" : "0")};
+  position: ${({ isRelative }) => (isRelative ? "relative" : "")};
+  margin-top: ${({ marginTop }) => marginTop};
   @media screen and (max-width: 900px) {
     width: 100%;
   }

@@ -17,7 +17,8 @@ import ProtegeDiet from "./view/ProtegeDiet";
 import ProtegeTraining from "./view/ProtegeTraining";
 import ProtegeHistory from "./view/ProtegeHistory/ProtegeHistory";
 import ProtegeDashboard from "./view/ProotegeDashboard/ProtegeDashboard";
-
+import Questionnaire from "./view/Questionnaire/Questionnaire";
+import QuestionnaireNew from "./view/Questionnaire/QuestionnaireNew";
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
   { path: "/login", element: <Login /> },
@@ -33,7 +34,15 @@ const routes = (auth, isProtege = false) => [
         element: isProtege ? (
           <Navigate to="/protegequestionnaire" />
         ) : (
-          <DietCreator />
+          <Questionnaire />
+        ),
+      },
+      {
+        path: "/questionnaire/new",
+        element: isProtege ? (
+          <Navigate to="/protegequestionnaire" />
+        ) : (
+          <QuestionnaireNew />
         ),
       },
       {
