@@ -22,8 +22,10 @@ const AddTrainingRaport = () => {
   const [selectedDone, setSelectedDone] = useState();
 
   const mapSelectValue = (value) => {
-    let temp = statusMap.find((item) => item.status === value);
-    setSelectedDone(temp.name);
+    if (value) {
+      let temp = statusMap.find((item) => item.status === value);
+      setSelectedDone(temp.name);
+    }
   };
 
   return (
