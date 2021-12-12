@@ -1,9 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Input from '../../../components/Input';
 import { Box, Row } from '../../../components/Reusable'
 import Select from '../../../components/Select';
+import { deleteQuestion, updateQuestion } from '../../../features/QuestionaireSlice';
 import { ReactComponent  as CloseSVG } from './../../../assets/close.svg';
+import CheckBoxAnswer from './types/CheckBoxAnswer';
+import LongAnswer from './types/LongAnswer';
 import ShortAnswer from './types/ShortAnswer';
 
 const StyledClose = styled.svg.attrs({ 
@@ -32,33 +37,49 @@ const questionTypes = [
 
 const QuestionItem = ({
 	onMouseMove = () => {},
-	onClose = () => {},
-	index = null,
-	value = {},
-	onValueChange = () => {}
+	indx = null,
 }) => {
+	const initialState = useSelector((state) => state.questionaire[indx] ?? null);
+	const dispatch = useDispatch();
+
 	const [type, setType] = useState(null);
 	const [answer, setAnswer] = useState("");
+	const [question, setQuestion] = useState("");
+
+	useEffect(() => {
+		console.log(initialState);
+		setType(initialState.type ?? null);
+		setQuestion(initialState.question ?? "");
+	}, [initialState])
+
 	const BoxRef = useRef();
 	const handleOnSelectChange = val => {
-		// debugger
-		onValueChange({
-			...value,
+		dispatch(updateQuestion({ 
+			id: indx,
 			type: questionTypes.indexOf(val)
-		}, index)
+		}))
 
 	}
 
 	const handleMouseMove = () => {
 		const {right, top } = BoxRef.current.getBoundingClientRect();
-		onMouseMove({right, top, key: index})
+		onMouseMove({right, top, key: indx})
 
 	}
 
 	useEffect(() => {
-		switch(value.type) {
+		switch(type) {
 			case 0:
 				setAnswer(<ShortAnswer />)
+			break;
+			case 1:
+				setAnswer(<LongAnswer />)
+			break;
+			case 2:
+				setAnswer(<CheckBoxAnswer indx={indx}/>)
+			break;
+			case 3:
+				setAnswer(<CheckBoxAnswer indx={indx}/>)
 			break;
 
 			default:
@@ -66,27 +87,30 @@ const QuestionItem = ({
 			break;
 		
 		}
-	}, [value.type])
+	}, [type])
 
 	const handlerOnQuestionChange = question => {
-		// debugger
-		onValueChange({
-			...value,
-			question
-		}, index)
+		dispatch(updateQuestion({ 
+			id: indx,
+			question: question
+		}))
+	}
+
+	const handleOnClose = () => {
+		dispatch(deleteQuestion({ 
+			id: indx,
+		}))
 	}
     return (
         <Box onMouseMove={handleMouseMove} ref={BoxRef} width="60vw" marginTop="20px" isRelative isPadding isOverflow>
-          <StyledClose as={CloseSVG} onClick={() => onClose(index)} />
+          <StyledClose as={CloseSVG} onClick={handleOnClose} />
 					<Row isGap isOverflow>
-						<Input placeholder="Pytanie" width="60%" value={value.question} onValueChange={handlerOnQuestionChange} />
-						<Select placeholder="typ" width="30%" data={questionTypes} initialValue={questionTypes[value.type]} onChange={handleOnSelectChange}/>
+						<Input placeholder="Pytanie" width="60%" value={question} onValueChange={handlerOnQuestionChange} />
+						<Select placeholder="typ" width="30%" data={questionTypes} initialValue={questionTypes[type ?? 0]} onChange={handleOnSelectChange}/>
 					</Row>
 
 					<StyledLine />
-					<Row>
 						{answer}
-					</Row>
         </Box>
     )
 }

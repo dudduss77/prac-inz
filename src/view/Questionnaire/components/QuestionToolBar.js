@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useSelector, useDispatch } from "react-redux";
+import { addQuestion, copyQuestion, swapQuestion } from "../../../features/QuestionaireSlice";
+
 import { Column } from '../../../components/Reusable'
 
 import { ReactComponent  as ArrowSVG } from './../../../assets/arrowBold.svg';
@@ -38,21 +41,40 @@ const StyledArrowDown = styled(StyledSVG)`
   }
 `;
 
-  
+
 const QuestionToolBar = ({
     top = "-100",
     left = "-100", 
-    onPlusClick = () => {},
-    onCopyClick = () => {},
-    onArrowUpClick = () => {},
-    onArrowDownClick = () => {},
+    toolBarPosition = {}
 }) => {
+
+    const dispatch = useDispatch();
+    const questionList = useSelector((state) => state.questionaire)
+    
+    const handlerOnPlusClick = () => {
+        dispatch(addQuestion());
+    }
+      
+    const handlerOnCopyClick = () => {
+        console.log('kopiuje')
+        dispatch(copyQuestion({ id: toolBarPosition.key}));
+        // setQuestionList(prev => [...prev, prev[toolBarPosition.key]])
+    }
+  
+    const handlerMoveUp = e => {
+        dispatch(swapQuestion([toolBarPosition.key, toolBarPosition.key === 0 ? 0 : toolBarPosition.key-1]));
+    }
+  
+      const handlerMoveDown = () => {
+        dispatch(swapQuestion([toolBarPosition.key, questionList.length-1 === toolBarPosition.key ? questionList.length-1 : toolBarPosition.key+1]));
+      }
+
     return (
         <StyledColumn top={top} left={left}>
-            <StyledSVG as={ArrowSVG} onClick={onArrowUpClick}/>
-            <StyledSVG as={FileSVG} onClick={onCopyClick} />
-            <StyledSVG as={PlusSVG} onClick={onPlusClick} />
-            <StyledArrowDown as={ArrowSVG} onClick={onArrowDownClick}/>
+            <StyledSVG as={ArrowSVG} onClick={handlerMoveUp}/>
+            <StyledSVG as={FileSVG} onClick={handlerOnCopyClick} />
+            <StyledSVG as={PlusSVG} onClick={handlerOnPlusClick} />
+            <StyledArrowDown as={ArrowSVG} onClick={handlerMoveDown}/>
         </StyledColumn>
     )
 }

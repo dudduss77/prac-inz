@@ -6,6 +6,7 @@ import chatReducer from "./features/ChatSlice";
 import dietCreatorReducer from "./features/DietCreatorSlice";
 import tempProduc from "./features/TempProductSlice";
 import trainingCreatorReducer from "./features/TrainingCreatorSlice";
+import questionaireReducer from "./features/QuestionaireSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,5 +16,6 @@ export const store = configureStore({
     dietCreator: dietCreatorReducer,
     temp: tempProduc,
     trainingCreator: trainingCreatorReducer,
+    questionaire: questionaireReducer,
   },
 });
