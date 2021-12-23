@@ -10,6 +10,7 @@ import { ReactComponent  as CloseSVG } from './../../../assets/close.svg';
 import CheckBoxAnswer from './types/CheckBoxAnswer';
 import LongAnswer from './types/LongAnswer';
 import ShortAnswer from './types/ShortAnswer';
+import FileUpload from './types/FileUpload';
 
 const StyledClose = styled.svg.attrs({ 
   width: '15px',
@@ -80,6 +81,9 @@ const QuestionItem = ({
 			break;
 			case 3:
 				setAnswer(<CheckBoxAnswer indx={indx}/>)
+			break;
+			case 4:
+				setAnswer(<FileUpload indx={indx}/>)
 			break;
 
 			default:

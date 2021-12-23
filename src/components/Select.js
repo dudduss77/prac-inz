@@ -101,6 +101,7 @@ const Select = ({
   const handleToggleMenu = () => setIsVisible(prev => !prev);
 
   const handleItemClick = ({ target }) => {
+    handleToggleMenu();
     setInputValue(target.textContent);
   }
 
@@ -110,7 +111,7 @@ const Select = ({
 
     return (
         <SelectContainer 
-          onBlur={() => setTimeout(handleToggleMenu, 70)}
+          // onBlur={() => setTimeout(handleToggleMenu, 70)}
           customHeight={customHeight}
           width={width}
         >
