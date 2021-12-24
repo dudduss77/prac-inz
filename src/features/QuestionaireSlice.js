@@ -9,7 +9,7 @@ const swapArrayElements = (arr, indexA, indexB) => {
 
 const initialState = [
     {
-      type: 0,
+      type: 3,
       question: "Przykładowe pytanie1",
     },
     {
