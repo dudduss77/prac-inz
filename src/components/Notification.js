@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   changeNotificationStateHidde,
+  changeNotificationStateShow,
   selectNotificationMessage,
   selectNotificationStatus,
 } from "../features/AppSlice";
@@ -39,5 +40,6 @@ const Notification = () => {
     </StyleNotification>
   );
 };
+
 
 export default Notification;

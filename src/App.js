@@ -5,6 +5,7 @@ import routes from "./routes";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { selectUserType } from "./features/UserSlice";
+import Notification from "./components/Notification";
 
 const StyledApp = styled.div`
   color: ${({ theme }) => theme.CharacterPrimary};
@@ -20,7 +21,10 @@ function App() {
   const routing = useRoutes(routes(false, userState));
   return (
     <StyledApp>
-      <Theme>{routing}</Theme>
+      <Theme>
+        {routing}
+        <Notification />
+      </Theme>
     </StyledApp>
   );
 }

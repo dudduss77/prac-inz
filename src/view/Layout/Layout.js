@@ -10,7 +10,6 @@ import PageHeader from "../../components/PageHeader";
 import { selectUserType } from "../../features/UserSlice";
 import { useLocation } from "react-router";
 import Modal from "../../components/Modal/Modal";
-import Notification from "../../components/Notification";
 
 const StyledLayout = styled.div`
   display: flex;
@@ -75,7 +74,6 @@ const Layout = () => {
         </PageWrapper>
       </ContentWrapper>
       {modalState && <Modal />}
-      <Notification />
     </StyledLayout>
   );
 };

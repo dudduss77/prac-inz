@@ -72,6 +72,8 @@ const Input = ({
       )}
 
       <StyledInput
+        value={value}
+        onChange={({target}) => onValueChange(target.value)}
         {...useInput}
         placeholder={placeholder}
         width={width}
@@ -80,8 +82,6 @@ const Input = ({
         paddingLeft={paddingLeft}
         as={as}
         disabled={isDisabled}
-        value={value}
-        onChange={({target}) => onValueChange(target.value)}
       />
     </Container>
   );
