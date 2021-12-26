@@ -5,12 +5,16 @@ const auth = getAuth();
 
 const createUser = async (email, pass, err = console.log) => {
     try {
+        console.log(email, pass)
         const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
         return userCredential
     } catch(error) {
         switch(error.code) {
             case "auth/email-already-in-use": 
                 err("Podany adres email jest już zajęty!");
+            break;
+            case "auth/missing-email": 
+                err("Adres Email jest niepoprawny");
             break;
             default:
                 err(error.code);

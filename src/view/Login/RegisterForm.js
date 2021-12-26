@@ -15,6 +15,7 @@ import {
 
 import { useInput } from '../../hooks/useInput';
 import { useNotification } from '../../hooks/useNotification';
+import { useNavigate } from 'react-router';
 
 const schema = yup.object().shape({
   name: yup.string().required("Imię i nazwisko jest wymagane"),
@@ -26,29 +27,34 @@ const schema = yup.object().shape({
 });
 const RegisterForm = ({handleForgotClick}) => {
 
-  const email = useInput("", "email");
-  const pass = useInput("", "pass");
-  const name = useInput("", "name");
+  const emailInput = useInput("", "email");
+  const passInput = useInput("", "pass");
+  const nameInput = useInput("", "name");
 
+  const navigate = useNavigate();
   const notification = useNotification();
 
-  const { ...nameInput } = useInput("", "nameInput");
-
   const handleOnSubmit = () => {
-    console.log({ name: name.value, email: email.value, pass: pass.value})
+    let {value : email} = emailInput
+    const {value : pass} = passInput
+    const {value : name} = nameInput
+
+    console.log({ name, pass, email});
     schema
-    .validate({ name: name.value, email: email.value, pass: pass.value})
-    .then((valid) => {
-      notification.show('sukces')
-      console.log(" adw")
-    }).catch(console.log)
+    .validate({ name, pass, email})
+    .then(async (valid) => {
+      const user = await createUser(email, pass, notification.showError);
+      if(user) navigate('/')
+    }).catch(err => {
+      notification.showError(err.errors[0])
+    })
   }
 
   return (
     <>
-      <Input useInput={email} width="360px" placeholder="Email" icon={UserSVG} />  
-      <Input useInput={pass}  width="360px" placeholder="Hasło" icon={passSVG} />  
-      <Input useInput={name}  width="360px" placeholder="Imię i nazwisko" icon={UserSVG} />  
+      <Input useInput={emailInput} width="360px" placeholder="Email" icon={UserSVG} />  
+      <Input useInput={passInput}  width="360px" placeholder="Hasło" icon={passSVG} />  
+      <Input useInput={nameInput}  width="360px" placeholder="Imię i nazwisko" icon={UserSVG} />  
 
       <RememberLost>
         <RememberLost__item>

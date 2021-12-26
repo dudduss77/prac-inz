@@ -7,8 +7,16 @@ const useNotification = () => {
     const show = (mess) => {
       dispatch(changeNotificationStateShow(mess));
     }
+    
+    const showError = (mess) => {
+      dispatch(changeNotificationStateShow(mess));
+    }
+    
+    const showWarning = (mess) => {
+      dispatch(changeNotificationStateShow(mess));
+    }
   
-    return { show };
+    return { show, showError, showWarning};
     
   }
   
