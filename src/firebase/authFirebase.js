@@ -1,7 +1,32 @@
 import './configFirebase';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth();
+
+const signIn = async (email, pass, err = console.log) => {
+    try {
+        console.log(email, pass)
+        const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+        return userCredential
+    } catch(error) {
+        console.log(error)
+        switch(error.code) {
+            case "auth/missing-email", "auth/invalid-email": 
+                err("Adres Email jest niepoprawny");
+            break;
+            case "auth/user-not-found": 
+                err("Nieprawidłowy login lub hasło");
+            break;
+            case "auth/wrong-password": 
+                err("Hasło jest nieprawidłowe");
+            break;
+            default:
+                err(error.code);
+            break;
+          }
+    }
+
+}
 
 const createUser = async (email, pass, err = console.log) => {
     try {
@@ -24,4 +49,4 @@ const createUser = async (email, pass, err = console.log) => {
 
 }
 
-export { createUser };
+export { createUser, signIn };
