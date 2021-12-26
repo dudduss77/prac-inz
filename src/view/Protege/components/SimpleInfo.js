@@ -1,8 +1,10 @@
 import React from "react";
-import { BoldText, Box, Row } from "../../../components/Reusable";
+import { BoldText, Box, Icon, Row, Spacer } from "../../../components/Reusable";
 import BoxHeader from "../../../components/Box/components/BoxHeader";
 import styled from "styled-components";
 import avatar from "../../../assets/user.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router";
 
 const Avatar = styled.img`
   width: 100px;
@@ -16,9 +18,16 @@ const Content = styled.div`
 `;
 
 const SimpleInfo = () => {
+  const navigate = useNavigate();
   return (
     <Box width="50%">
-      <BoxHeader headerTitle="Informacje podstawowe" />
+      <BoxHeader>
+        Informacje podstawowe
+        <Spacer />
+        <Icon onClick={() => navigate("/message/1")}>
+          <FontAwesomeIcon icon="comment" />
+        </Icon>
+      </BoxHeader>
       <Row isPadding isGap>
         <Avatar src={avatar} />
         <Content>
