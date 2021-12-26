@@ -9,17 +9,64 @@ const swapArrayElements = (arr, indexA, indexB) => {
 
 const initialState = [
     {
-      type: 3,
-      question: "Przykładowe pytanie1",
+      type: 0,
+      question: "Krótka odpowiedź ?",
+      answer: "odp",
+      checkbox: [],
+      img: [],
     },
     {
       type: 1,
-      question: "Przykładowe pytanie2",
+      question: "Długa odpowiedz ?",
+      answer: "odp",
+      checkbox: [],
+      img: [],
     },
     {
-      type: 0,
-      question: "Przykładowe pytanie3",
-    }
+      type: 2,
+      question: "Wielokrotny wybór ?",
+      checkbox: [
+        {
+          name: "pozycja 1",
+          checked: false,
+        },
+        {
+          name: "pozycja 2",
+          checked: true,
+        },     
+        {
+          name: "pozycja 3",
+          checked: false,
+        }
+      ],
+      img: []
+    },
+    {
+      type: 3,
+      question: "Jednokrotny wybór ?",
+      checkbox: [
+        {
+          name: "pozycja 1 jedno",
+          checked: false,
+        },
+        {
+          name: "pozycja 2 jedno",
+          checked: true,
+        },     
+        {
+          name: "pozycja 3 jedno",
+          checked: false,
+        }
+      ],
+      img: []
+    },
+    {
+      type: 4,
+      question: "Upload zdjęć ?",
+      checkbox: [],
+      img: []
+
+    },
   ]
 
 export const questionaireSlice = createSlice({
@@ -29,6 +76,9 @@ export const questionaireSlice = createSlice({
     addQuestion: (state, action) => { state.push(    {
         type: 0,
         question: "Przykładowe pytanie",
+        answer: "",
+        checkbox: [],
+        img: []
       })},
     updateQuestion: (state, action) => state.map((item, i) => action.payload.id === i ? {...item, ...action.payload } : item),
     deleteQuestion: (state, action) => state.filter((item, i) => action.payload.id !== i),
@@ -40,13 +90,35 @@ export const questionaireSlice = createSlice({
     },
     addCheckBox: (state, action) => {
         if(state[action.payload.id].checkbox)
-            state[action.payload.id].checkbox.push("Dodaj nową opcje")
+            state[action.payload.id].checkbox.push({
+              name: "Dodaj nową opcje",
+              checked: false,
+            })
         else
-            state[action.payload.id].checkbox = ["Dodaj nową opcje"]
+            state[action.payload.id].checkbox = [{
+              name: "Dodaj nową opcje",
+              checked: false,
+            }]
     },
     updateCheckboxName: (state, action) => {
-        state[action.payload.id].checkbox[action.payload.checkboxId] = action.payload.name;
-    }
+        state[action.payload.id].checkbox[action.payload.checkboxId].name = action.payload.name;
+    },
+    updateAnswer: (state, action) => {
+        state[action.payload.id].answer = action.payload.answer;
+    },
+    toggleChecked: (state, action) => {
+      state[action.payload.id].checkbox[action.payload.checkboxId].checked = !state[action.payload.id].checkbox[action.payload.checkboxId].checked;
+    },
+    checkRadio: (state, action) => { 
+      state[action.payload.id].checkbox.map((item, i) => {
+        item.checked = (i === action.payload.checkboxId);
+        return item;
+      })
+    },
+    updateImg: (state, action) => { 
+      state[action.payload.id].img = action.payload.img;
+    },
+
   },
 })
 
@@ -58,7 +130,11 @@ export const {
     swapQuestion, 
     copyQuestion,
     addCheckBox,
-    updateCheckboxName
+    updateCheckboxName,
+    updateAnswer,
+    toggleChecked,
+    checkRadio,
+    updateImg
 } = questionaireSlice.actions
 
 export default questionaireSlice.reducer

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Checkbox from '../../../../components/Checkbox'
 import { ClickedInput } from '../../../../components/Reusable'
-import { addCheckBox, updateCheckboxName } from '../../../../features/QuestionaireSlice';
+import { addCheckBox, checkRadio, toggleChecked, updateCheckboxName } from '../../../../features/QuestionaireSlice';
 import { useInput } from '../../../../hooks/useInput'
 import { ReactComponent  as PlusSVG } from './../../../../assets/plusBold.svg';
 
@@ -28,10 +28,17 @@ const StyledCheckBoxContainer = styled.div`
 
 `;
 
-const CheckBoxAnswer = ({ 
+const StyledLabel = styled.div`
+    padding-left: 0.5rem;
+
+`;
+
+const CheckBoxAnswer = ({
+    isDisabled=false,
     indx = null,
+    isRadio = false
 }) => {
-    const checkbox = useSelector((state) => state.questionaire[indx].checkbox ?? []);
+    const checkbox = useSelector((state) => state?.questionaire[indx]?.checkbox ?? []);
 	const dispatch = useDispatch();
 
     const handleOnPlusClick = () => {
@@ -45,19 +52,40 @@ const CheckBoxAnswer = ({
             name: e.target.value
         }))
     }
+    const handleToggle = (e, i) => {
+        if(!isRadio)
+            dispatch(toggleChecked({ 
+                id: indx,
+                checkboxId: i
+            }))
+        else 
+            dispatch(checkRadio({ 
+                id: indx,
+                checkboxId: i
+            }))       
+    }
     return (
         <>
-            {checkbox.map((item, i) => (
-                <StyledCheckBoxContainer>
-                    <Checkbox disabled/>
-                    <ClickedInput value={item} key={i} onChange={e => handleOnChange(e, i)} primaryColor/> 
+            {checkbox.map(({name, checked}, i) => (
+                <StyledCheckBoxContainer >
+                    <Checkbox disabled={isDisabled} checked={checked} onChange={e => handleToggle(e, i)} />
+                    {
+                        isDisabled ? 
+                        <ClickedInput value={name} key={i} onChange={e => handleOnChange(e, i)} primaryColor/> 
+                        : 
+                        (<StyledLabel>{name}</StyledLabel>)
+                    }
+                    
                 </StyledCheckBoxContainer>
             ))}
-            <StyledCheckBoxContainer onClick={handleOnPlusClick}>
-                <StyledSVG as={PlusSVG}  /> Dodaj nową pozycje                
-            </StyledCheckBoxContainer>
-
-
+            {
+                isDisabled && 
+                (
+                <StyledCheckBoxContainer onClick={handleOnPlusClick}>
+                    <StyledSVG as={PlusSVG}  /> Dodaj nową pozycje                
+                </StyledCheckBoxContainer>
+                )
+            }
         </>
     )
 }

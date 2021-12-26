@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { b64toBlob } from '../helpers';
 
-const useImageUpload = (refClick, refDrag, errFunction = console.log ) => {
-    const [data, setData ] = useState([]);
+const useImageUpload = (refClick, refDrag, initialState = [], errFunction = console.log ) => {
+    const [data, setData ] = useState(initialState);
 
     const deleteImage = indx => {
         setData(prev => prev.filter((item, i) => i!=indx))

@@ -19,11 +19,12 @@ import ProtegeHistory from "./view/ProtegeHistory/ProtegeHistory";
 import ProtegeDashboard from "./view/ProotegeDashboard/ProtegeDashboard";
 import Questionnaire from "./view/Questionnaire/Questionnaire";
 import QuestionnaireNew from "./view/Questionnaire/QuestionnaireNew";
+import ProtegeQuestionnaire from "./view/Questionnaire/ProtegeQuestionnaire";
 const routes = (auth, isProtege = false) => [
   { path: "*", element: <ErrorView /> },
   { path: "/login", element: <Login /> },
   { path: "/logout", element: <TempView /> },
-  { path: "/protegequestionnaire", element: <TempView /> },
+  { path: "/protegequestionnaire", element: <ProtegeQuestionnaire /> },
   {
     path: "/",
     element: <Layout />,

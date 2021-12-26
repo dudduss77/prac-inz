@@ -54,6 +54,8 @@ export const Column = styled.div`
   gap: ${({ isGap }) => (isGap ? "10px" : "none")};
   overflow-y: ${({ isOverflow }) => (isOverflow ? "auto" : "")};
   align-items: ${({ alignItems }) => alignItems};
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  height: ${({ height}) => height};
 `;
 
 export const Box = styled.div`

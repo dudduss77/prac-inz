@@ -38,6 +38,7 @@ const questionTypes = [
 
 const QuestionItem = ({
 	onMouseMove = () => {},
+	isProtege = false,
 	indx = null,
 }) => {
 	const initialState = useSelector((state) => state.questionaire[indx] ?? null);
@@ -71,23 +72,23 @@ const QuestionItem = ({
 	useEffect(() => {
 		switch(type) {
 			case 0:
-				setAnswer(<ShortAnswer />)
+				setAnswer(<ShortAnswer indx={indx} isDisabled={!isProtege}/>)
 			break;
 			case 1:
-				setAnswer(<LongAnswer />)
+				setAnswer(<LongAnswer indx={indx} isDisabled={!isProtege}/>)
 			break;
 			case 2:
-				setAnswer(<CheckBoxAnswer indx={indx}/>)
+				setAnswer(<CheckBoxAnswer indx={indx} isDisabled={!isProtege}/>)
 			break;
 			case 3:
-				setAnswer(<CheckBoxAnswer indx={indx}/>)
+				setAnswer(<CheckBoxAnswer indx={indx} isDisabled={!isProtege} isRadio/>)
 			break;
 			case 4:
-				setAnswer(<FileUpload indx={indx}/>)
+				setAnswer(<FileUpload indx={indx} isDisabled={!isProtege}/>)
 			break;
 
 			default:
-				setAnswer("")
+				setAnswer("Nieprawidłowa kategoria")
 			break;
 		
 		}
@@ -107,10 +108,21 @@ const QuestionItem = ({
 	}
     return (
         <Box onMouseMove={handleMouseMove} ref={BoxRef} width="60vw" marginTop="20px" isRelative isPadding isOverflow>
-          <StyledClose as={CloseSVG} onClick={handleOnClose} />
+          {!isProtege && <StyledClose as={CloseSVG} onClick={handleOnClose} />}
 					<Row isGap isOverflow>
-						<Input placeholder="Pytanie" width="60%" value={question} onValueChange={handlerOnQuestionChange} />
-						<Select placeholder="typ" width="30%" data={questionTypes} initialValue={questionTypes[type ?? 0]} onChange={handleOnSelectChange}/>
+						{
+						!isProtege ? (
+							<>
+								<Input placeholder="Pytanie" width="60%" value={question} onValueChange={handlerOnQuestionChange} />
+								<Select placeholder="typ" width="30%" data={questionTypes} initialValue={questionTypes[type ?? 0]} onChange={handleOnSelectChange}/>
+							</>
+						) : (
+							question
+						)						
+					
+					
+						}
+						
 					</Row>
 
 					<StyledLine />

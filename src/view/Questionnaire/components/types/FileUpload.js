@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import useImageUpload from '../../../../hooks/useImageUpload';
 import { ReactComponent  as FileUploadSVG } from './../../../../assets/upload.svg';
 import { ReactComponent  as CloseSVG } from './../../../../assets/close.svg';
+import { updateImg } from '../../../../features/QuestionaireSlice';
 
 const StyledSVG = styled.svg.attrs({ 
     width: '100px',
@@ -55,13 +56,21 @@ const StyledClose = styled.svg.attrs({
 
 const FileUpload = ({
     indx = null,
+    isDisabled = false
 }) => {
-    const checkbox = useSelector((state) => state.questionaire[indx].checkbox ?? []);
 	const dispatch = useDispatch();
-
+    const initialState = useSelector((state) => state?.questionaire[indx]?.img);
     const uploadRefDrag = useRef();
     const uploadRefClick = useRef();
-    const [ imageData, deleteImage ] = useImageUpload(uploadRefClick, uploadRefDrag);
+    const uploadRefs = () => isDisabled ? ["", ""] : [uploadRefClick, uploadRefDrag]
+    const [ imageData, deleteImage ] = useImageUpload(...uploadRefs(), initialState);
+
+    useEffect(() => {
+        dispatch(updateImg({ 
+            id: indx,
+            img: imageData,
+        }))
+    }, [imageData])
 
     return (
         <StyledContainer ref={uploadRefDrag}>
