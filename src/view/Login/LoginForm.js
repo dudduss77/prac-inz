@@ -3,7 +3,7 @@ import { useInput } from '../../hooks/useInput';
 import { useNotification } from '../../hooks/useNotification';
 import { useNavigate } from 'react-router';
 
-import { createUser, signIn } from './../../firebase/authFirebase';
+import { signIn } from './../../firebase/authFirebase';
 import {Button} from './../../components/Reusable';
 import Checkbox from './../../components/Checkbox';
 import Input from "./../../components/Input";
