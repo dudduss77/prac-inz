@@ -52,7 +52,6 @@ const TrainingExercise = ({
     );
   };
   const edit = () => {
-    console.log("test", dayId, typeId, exerciseId);
     modalDispatch(
       setModalData({
         name: "trainingeditexercise",

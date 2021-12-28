@@ -17,7 +17,6 @@ const DietDelete = () => {
   const modalData = useSelector(selectModalData)
   const modalDispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(modalData)
   const deleteDiet = () => {
     deleteDocFun(userId, modalData.config.docId, modalData.config.subCollection)
     modalDispatch(changeModalState())

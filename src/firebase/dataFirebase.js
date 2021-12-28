@@ -61,6 +61,5 @@ export const updateDocFun = async (userId, subCollecion, docId, data) => {
 };
 
 export const deleteDocFun = async (userId, docId, subCollecion) => {
-  console.log(userId, docId, subCollecion);
   await deleteDoc(doc(db, "users", userId, subCollecion, docId));
 };

@@ -12,7 +12,6 @@ export const loadTrainingFromDatabase = createAsyncThunk(
   async ({ userId, trainingId }) => {
     const dietDocRef = doc(db, "users", userId, "trainings", trainingId);
     const docSnap = await getDoc(dietDocRef);
-    console.log(docSnap.data());
     return docSnap.data();
   }
 );
@@ -200,7 +199,6 @@ export const selectExercise = createSelector(
   (state) => state.trainingCreator.trainingDays,
   (state) => state.app.modalData.config,
   (items, modaldata) => {
-    console.log("item", items, modaldata);
     return items
       .find((day) => day.id === modaldata.dayId)
       .types.find((type) => type.id === modaldata.typeId)

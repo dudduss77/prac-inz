@@ -60,7 +60,6 @@ const TrainingCreator = ({ isEdit }) => {
   useEffect(() => {
     if (isEdit) {
       if (userId && id) {
-        console.log("id", id);
         trainingCreatorDispatch(
           loadTrainingFromDatabase({ userId, trainingId: id })
         );

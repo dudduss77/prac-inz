@@ -5,7 +5,6 @@ import { db } from "../firebase/configFirebase";
 export const loadDataFromDb = createAsyncThunk("users/basicData", async (userId) => {
   const userDocRef = doc(db, 'users', userId)
   const docSnap = await getDoc(userDocRef);
-  console.log(docSnap.data())
   return docSnap.data()
 });
 

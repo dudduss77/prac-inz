@@ -77,7 +77,6 @@ const DietCreator = ({ isEdit = false }) => {
   useEffect(() => {
     if (isEdit) {
       if (userId && id) {
-        console.log("id", id);
         creatorDietDispatch(loadFromDatabase({ userId, dietId: id }));
       }
     }

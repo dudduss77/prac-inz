@@ -34,7 +34,6 @@ const TrainerDiet = () => {
     }
   }, [userId]);
 
-  console.log(dietsList);
   return (
     <GridLayoutWithMedia isGap gridTemplateColumns="repeat(5, 1fr)">
       <AddTile addTileClick={() => navigate("/dietcreator")} />
