@@ -1,4 +1,13 @@
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "./configFirebase";
 
 export const createColleciontWhenUserCreate = async (userName, userId) => {
@@ -18,9 +27,29 @@ export const createColleciontWhenUserCreate = async (userName, userId) => {
 
 export const getTrainerDiets = async (userId, setter) => {
   let diets = [];
-  const dietCollectionRef = await getDocs(collection(db, 'users', userId, "diets"))
+  const dietCollectionRef = await getDocs(
+    collection(db, "users", userId, "diets")
+  );
   dietCollectionRef.forEach((doc) => {
-    diets.push({id: doc.id, data: doc.data()})
-  })
-  setter(diets)
-}
+    diets.push({ id: doc.id, data: doc.data() });
+  });
+  setter(diets);
+};
+
+export const createNewDoc = async (userId, subCollecion, data) => {
+  const docRef = await addDoc(
+    collection(db, "users", userId, subCollecion),
+    data
+  );
+  return docRef.id;
+};
+
+export const updateDocFun = async (userId, subCollecion, docId, data) => {
+  const updateDocRef = doc(db, "users", userId, subCollecion, docId);
+  await updateDoc(updateDocRef, data);
+};
+
+export const deleteDocFun = async (userId, docId, subCollecion) => {
+  console.log(userId, docId, subCollecion);
+  await deleteDoc(doc(db, "users", userId, subCollecion, docId));
+};

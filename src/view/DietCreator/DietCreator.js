@@ -37,6 +37,7 @@ import { useParams, useNavigate } from "react-router";
 import { selectUserId } from "../../features/UserSlice";
 import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/configFirebase";
+import { createNewDoc, updateDocFun } from "../../firebase/dataFirebase";
 
 const DietCreator = ({ isEdit = false }) => {
   const { id } = useParams();
@@ -69,11 +70,10 @@ const DietCreator = ({ isEdit = false }) => {
 
   // Do uzupełnenia gdy bedą dane
   useEffect(() => {
-    if(userId && id) {
-      console.log("id", id)
-      creatorDietDispatch(loadFromDatabase({userId, dietId: id}));
+    if (userId && id) {
+      console.log("id", id);
+      creatorDietDispatch(loadFromDatabase({ userId, dietId: id }));
     }
-      
   }, [isEdit, id, userId]);
 
   useEffect(() => {
@@ -89,21 +89,27 @@ const DietCreator = ({ isEdit = false }) => {
   }, [mealValue]);
 
   const deleteDiet = () => {
-    modalDispatch(changeModalState());
-    modalDispatch(setModalData({ name: "dietdelete" }));
+    if (isEdit) {
+      modalDispatch(changeModalState());
+      modalDispatch(
+        setModalData({
+          name: "dietdelete",
+          config: {
+            subCollection: "diets",
+            docId: id,
+          },
+        })
+      );
+    }
   };
 
   const saveDiet = async () => {
     if (userId) {
       if (isEdit) {
-        const updateDocRef = doc(db, "users", userId, "diets", id);
-        await updateDoc(updateDocRef, diet);
+        updateDocFun(userId, "diets", id, diet);
       } else {
-        const docRef = await addDoc(
-          collection(db, "users", userId, "diets"),
-          diet
-        );
-        navigate(`/dietcreator/${docRef.id}`);
+        const docId = await createNewDoc(userId, "diets", diet);
+        navigate(`/dietcreator/${docId}`);
       }
       notificationDispatch(changeNotificationStateShow("Zapisano"));
     } else
