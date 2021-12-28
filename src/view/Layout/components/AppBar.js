@@ -7,6 +7,7 @@ import {Button, Spacer} from "../../../components/Reusable";
 import Logo from "../../../components/Logo";
 import UserLink from "../../../components/UserLink";
 import Avatar from "../../../assets/user.png";
+import { selectUsername } from "../../../features/UserSlice";
 
 const StyledAppBar = styled.div`
   width: calc(100% - 40px);
@@ -19,6 +20,7 @@ const StyledAppBar = styled.div`
 `;
 
 const AppBar = () => {
+  const username = useSelector(selectUsername)
   const menuStatus = useSelector(selectMenuStatus);
   const menuDispatch = useDispatch();
   const screenSize = useSelector(selectScreenSize);
@@ -45,7 +47,7 @@ const AppBar = () => {
       <Spacer />
       {screenSize !== "small" && (
         <>
-          <UserLink imgSrc={Avatar} userName="Jan Kowalski" />
+          <UserLink imgSrc={Avatar} userName={username} />
         </>
       )}
       <Button onClick={() => menuDispatch(changeOpenState())}>
