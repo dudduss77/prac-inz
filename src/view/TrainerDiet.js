@@ -33,6 +33,7 @@ const TrainerDiet = () => {
       <AddTile addTileClick={() => navigate("/dietcreator")} />
       {dietsList.map((diet) => (
         <Tile
+          key={diet.id}
           tileHeader={diet.data.name}
           tileOpenClick={() => navigate(`/dietcreator/${diet.id}`)}
         />
