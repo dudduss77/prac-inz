@@ -14,6 +14,8 @@ import Select from "../../components/Select";
 import CreatorDay from "./components/CreatorDay";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  loadFromDatabase,
+  selectDiet,
   selectDietCreatorItems,
   selectDietName,
   selectKcalValue,
@@ -31,11 +33,17 @@ import {
   changeNotificationStateShow,
   setModalData,
 } from "../../features/AppSlice";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
+import { selectUserId } from "../../features/UserSlice";
+import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase/configFirebase";
 
 const DietCreator = ({ isEdit = false }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [mealValue, setMealValue] = useState(1);
+  const userId = useSelector(selectUserId);
+  const diet = useSelector(selectDiet);
   const dietName = useSelector(selectDietName);
   const dietKcalValue = useSelector(selectKcalValue);
   const { ...dietNameInput } = useInput(dietName); //Jeśli edycja to zmienić na ładowanie danych z bazy
@@ -61,11 +69,12 @@ const DietCreator = ({ isEdit = false }) => {
 
   // Do uzupełnenia gdy bedą dane
   useEffect(() => {
-    if (isEdit) {
-      alert("Uzupełni jak baza będzie");
-      console.log(id);
+    if(userId && id) {
+      console.log("id", id)
+      creatorDietDispatch(loadFromDatabase({userId, dietId: id}));
     }
-  }, [isEdit]);
+      
+  }, [isEdit, id, userId]);
 
   useEffect(() => {
     creatorDietDispatch(updateDietName(dietNameInput.value));
@@ -84,8 +93,21 @@ const DietCreator = ({ isEdit = false }) => {
     modalDispatch(setModalData({ name: "dietdelete" }));
   };
 
-  const saveDiet = () => {
-    notificationDispatch(changeNotificationStateShow("Zapisano"));
+  const saveDiet = async () => {
+    if (userId) {
+      if (isEdit) {
+        const updateDocRef = doc(db, "users", userId, "diets", id);
+        await updateDoc(updateDocRef, diet);
+      } else {
+        const docRef = await addDoc(
+          collection(db, "users", userId, "diets"),
+          diet
+        );
+        navigate(`/dietcreator/${docRef.id}`);
+      }
+      notificationDispatch(changeNotificationStateShow("Zapisano"));
+    } else
+      notificationDispatch(changeNotificationStateShow("Spróbuj ponownie"));
   };
 
   const handleSelect = (val) => {
@@ -96,7 +118,7 @@ const DietCreator = ({ isEdit = false }) => {
     <ReusableViewWrapper flexValue="1" minHeight="0">
       <Box width="100%" maxHeight="100%" minHeight="100%">
         <BoxHeader>
-          <Icon>
+          <Icon onClick={() => navigate(-1)}>
             <FontAwesomeIcon icon="chevron-left" />
           </Icon>
           <ClickedInput {...dietNameInput} title="Zmień nazwę diety" />
