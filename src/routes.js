@@ -29,7 +29,10 @@ const routes = (auth, isProtege = false) => [
     path: "/",
     element: <Layout />,
     children: [
-      { path: "/", element: isProtege ? <ProtegeDashboard /> : <TrainerDashboard /> },
+      {
+        path: "/",
+        element: isProtege ? <ProtegeDashboard /> : <TrainerDashboard />,
+      },
       {
         path: "/questionnaire",
         element: isProtege ? (
@@ -64,7 +67,7 @@ const routes = (auth, isProtege = false) => [
       },
       {
         path: "/trainingcreator/:id",
-        element: isProtege ? <TempView /> : <TrainingCreator />,
+        element: isProtege ? <TempView /> : <TrainingCreator isEdit={true} />,
       },
       { path: "/diet", element: isProtege ? <ProtegeDiet /> : <TrainerDiet /> },
       {

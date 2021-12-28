@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import BoxHeader from "../../components/Box/components/BoxHeader";
 import GridSlider from "../../components/GridSlider/GridSlider";
 import {
@@ -11,19 +11,30 @@ import {
   ReusableViewWrapper,
   Spacer,
 } from "../../components/Reusable";
-import { changeModalState, changeNotificationStateShow, setModalData } from "../../features/AppSlice";
 import {
+  changeModalState,
+  changeNotificationStateShow,
+  setModalData,
+} from "../../features/AppSlice";
+import {
+  loadTrainingFromDatabase,
   selectName,
+  selectTraining,
   selectTrainingDays,
   updateName,
 } from "../../features/TrainingCreatorSlice";
+import { selectUserId } from "../../features/UserSlice";
+import { createNewDoc, updateDocFun } from "../../firebase/dataFirebase";
 import { useGridSlider } from "../../hooks/useGridSlider";
 import { useInput } from "../../hooks/useInput";
 import TrainingDay from "./components/TrainingDay";
 import TrainingToolbar from "./components/TrainingToolbar";
 
-const TrainingCreator = () => {
-  const navigate = useNavigate()
+const TrainingCreator = ({ isEdit }) => {
+  const { id } = useParams();
+  const userId = useSelector(selectUserId);
+  const training = useSelector(selectTraining);
+  const navigate = useNavigate();
   const trainingName = useSelector(selectName);
   const trainingDayData = useSelector(selectTrainingDays);
   const trainingCreatorDispatch = useDispatch();
@@ -47,21 +58,46 @@ const TrainingCreator = () => {
   });
 
   useEffect(() => {
+    if (isEdit) {
+      if (userId && id) {
+        trainingCreatorDispatch(
+          loadTrainingFromDatabase({ userId, trainingId: id })
+        );
+      }
+    }
+  }, [isEdit, id, userId]);
+
+  useEffect(() => {
     trainingCreatorDispatch(updateName(trainingNameInput.value));
   }, [trainingNameInput.value]);
 
-  const saveTraining = () => {
-    notificationDispatch(changeNotificationStateShow("Zapisano"));
+  const saveTraining = async () => {
+    if (userId) {
+      if (isEdit) {
+        updateDocFun(userId, "trainings", id, training);
+      } else {
+        const docId = await createNewDoc(userId, "trainings", training);
+        navigate(`/dietcreator/${docId}`);
+      }
+      notificationDispatch(changeNotificationStateShow("Zapisano"));
+    } else
+      notificationDispatch(changeNotificationStateShow("Spróbuj ponownie"));
   };
 
   const trainingDelete = () => {
-    modalDispatch(
-      setModalData({
-        name: "trainingdelete",
-      })
-    );
-    modalDispatch(changeModalState());
-  }
+    if (isEdit) {
+      modalDispatch(changeModalState());
+      modalDispatch(
+        setModalData({
+          name: "trainingdelete",
+          config: {
+            subCollection: "trainings",
+            docId: id,
+          },
+        })
+      );
+    }
+  };
   return (
     <ReusableViewWrapper flexValue="1" minHeight="0">
       <Box width="100%" minHeight="100%" maxHeight="100%">

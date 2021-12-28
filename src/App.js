@@ -3,9 +3,15 @@ import Theme from "./Theme";
 import "./fontConfig";
 import routes from "./routes";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
-import { selectUserType } from "./features/UserSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserId, loadDataFromDb, selectUserId, selectUserType, setUserId } from "./features/UserSlice";
 import Notification from "./components/Notification";
+import { useEffect } from "react";
+// import { auth, currentUser, getUserId } from "./firebase/authFirebase";
+import { useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/authFirebase";
+import { userDocRef } from "./firebase/dataFirebase";
 
 const StyledApp = styled.div`
   color: ${({ theme }) => theme.CharacterPrimary};
@@ -17,7 +23,24 @@ const StyledApp = styled.div`
 `;
 
 function App() {
-  const userState = useSelector(selectUserType)
+  const userState = useSelector(selectUserType);
+  const userId = useSelector(selectUserId)
+  const userDispatch = useDispatch();
+  // const [userId, setUserId] = useState();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if(user) {
+        userDispatch(setUserId(user.uid))
+      } else {
+        userDispatch(setUserId(undefined))
+      }
+    })
+  }, [auth, userDispatch])
+
+
+  userDispatch(loadDataFromDb(userId))
+
   const routing = useRoutes(routes(false, userState));
   return (
     <StyledApp>

@@ -3,11 +3,20 @@ import {
   createSelector,
   createAsyncThunk,
 } from "@reduxjs/toolkit";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase/configFirebase";
 
 //Tutaj to bym zrobił tak że jeśli nowe to będzie initial state ustawiony na taki jaki ma być z pustymi tablicami itd.
-//Jeśli edycja to zrobimy thunk wczytujący z bazy i wtedy wszystko ładnie się aktualizuje 
-//I gdy klikamy zapisz wysyłamy cały state do bazy i już wszystko powinno działać 
-const loadFromDatabase = createAsyncThunk(); //Do uzupełnienia jak juz będzie baza
+//Jeśli edycja to zrobimy thunk wczytujący z bazy i wtedy wszystko ładnie się aktualizuje
+//I gdy klikamy zapisz wysyłamy cały state do bazy i już wszystko powinno działać
+export const loadFromDatabase = createAsyncThunk(
+  "diets/load",
+  async ({ userId, dietId }) => {
+    const dietDocRef = doc(db, "users", userId, "diets", dietId);
+    const docSnap = await getDoc(dietDocRef);
+    return docSnap.data();
+  }
+); //Do uzupełnienia jak juz będzie baza
 
 const initialState = {
   name: "Brak nazwy",
@@ -30,6 +39,9 @@ const dietCreatorSlice = createSlice({
   name: "dietCreator",
   initialState,
   reducers: {
+    resetDietState: (state, action) => {
+      return initialState;
+    },
     updateDietName: (state, action) => {
       state.name = action.payload;
     },
@@ -121,9 +133,15 @@ const dietCreatorSlice = createSlice({
       });
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(loadFromDatabase.fulfilled, (state, action) => {
+      return action.payload;
+    });
+  },
 });
 
 export const {
+  resetDietState,
   addDietItems,
   deleteDietItems,
   updateProductWeight,
@@ -135,6 +153,7 @@ export const {
   updateDietKcalValue,
 } = dietCreatorSlice.actions;
 
+export const selectDiet = (state) => state.dietCreator;
 export const selectDietCreatorItems = (state) => state.dietCreator.items;
 export const selectCurrentDayCount = (state) => state.dietCreator.items.length;
 
