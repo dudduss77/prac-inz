@@ -36,6 +36,17 @@ export const getTrainerDiets = async (userId, setter) => {
   setter(diets);
 };
 
+export const getTrainerTrainings = async (userId, setter) => {
+  let trainings = [];
+  const trainingCollectionRef = await getDocs(
+    collection(db, "users", userId, "trainings")
+  );
+  trainingCollectionRef.forEach((doc) => {
+    trainings.push({ id: doc.id, data: doc.data() });
+  });
+  setter(trainings);
+};
+
 export const createNewDoc = async (userId, subCollecion, data) => {
   const docRef = await addDoc(
     collection(db, "users", userId, subCollecion),

@@ -1,5 +1,21 @@
-import { createSlice, createSelector } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createSelector,
+  createAsyncThunk,
+} from "@reduxjs/toolkit";
+import { doc, getDoc } from "firebase/firestore";
 import { current } from "immer";
+import { db } from "../firebase/configFirebase";
+
+export const loadTrainingFromDatabase = createAsyncThunk(
+  "diets/load",
+  async ({ userId, trainingId }) => {
+    const dietDocRef = doc(db, "users", userId, "trainings", trainingId);
+    const docSnap = await getDoc(dietDocRef);
+    console.log(docSnap.data());
+    return docSnap.data();
+  }
+);
 
 const initialState = {
   name: "Brak nazwy",
@@ -61,6 +77,9 @@ const TrainingCreatorSlice = createSlice({
   name: "trainingCreator",
   initialState,
   reducers: {
+    resetTrainingState: () => {
+      return initialState;
+    },
     updateName: (state, action) => {
       state.name = action.payload;
     },
@@ -148,9 +167,15 @@ const TrainingCreatorSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(loadTrainingFromDatabase.fulfilled, (state, action) => {
+      return action.payload;
+    });
+  },
 });
 
 export const {
+  resetTrainingState,
   updateName,
   addDay,
   deleteDay,
@@ -161,6 +186,7 @@ export const {
   passExercise,
 } = TrainingCreatorSlice.actions;
 
+export const selectTraining = (state) => state.trainingCreator;
 export const selectName = (state) => state.trainingCreator.name;
 export const selectTrainingDays = (state) => state.trainingCreator.trainingDays;
 export const selectTrainingDayCount = (state) =>

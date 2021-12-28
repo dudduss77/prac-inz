@@ -39,6 +39,9 @@ const dietCreatorSlice = createSlice({
   name: "dietCreator",
   initialState,
   reducers: {
+    resetDietState: (state, action) => {
+      return initialState;
+    },
     updateDietName: (state, action) => {
       state.name = action.payload;
     },
@@ -138,6 +141,7 @@ const dietCreatorSlice = createSlice({
 });
 
 export const {
+  resetDietState,
   addDietItems,
   deleteDietItems,
   updateProductWeight,

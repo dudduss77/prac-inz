@@ -15,6 +15,7 @@ import CreatorDay from "./components/CreatorDay";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loadFromDatabase,
+  resetDietState,
   selectDiet,
   selectDietCreatorItems,
   selectDietName,
@@ -68,11 +69,17 @@ const DietCreator = ({ isEdit = false }) => {
     ],
   });
 
+  useEffect(() => {
+    creatorDietDispatch(resetDietState());
+  }, []);
+
   // Do uzupełnenia gdy bedą dane
   useEffect(() => {
-    if (userId && id) {
-      console.log("id", id);
-      creatorDietDispatch(loadFromDatabase({ userId, dietId: id }));
+    if (isEdit) {
+      if (userId && id) {
+        console.log("id", id);
+        creatorDietDispatch(loadFromDatabase({ userId, dietId: id }));
+      }
     }
   }, [isEdit, id, userId]);
 

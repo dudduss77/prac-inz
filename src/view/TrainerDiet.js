@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import AddTile from "../components/AddTile";
 import { GridLayout } from "../components/Reusable";
 import Tile from "../components/Tile";
+import { resetDietState } from "../features/DietCreatorSlice";
 import { selectUserId } from "../features/UserSlice";
 import { getTrainerDiets } from "../firebase/dataFirebase";
 
@@ -21,6 +22,12 @@ const TrainerDiet = () => {
   const [dietsList, setDietList] = useState([]);
   const userId = useSelector(selectUserId);
   const navigate = useNavigate();
+  const dietCreatorDispatch = useDispatch()
+
+  useEffect(() => {
+    dietCreatorDispatch(resetDietState())
+  }, [])
+
   useEffect(() => {
     if (userId) {
       getTrainerDiets(userId, setDietList);
