@@ -2,7 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { selectUserType } from "../features/UserSlice";
+import { selectUserId, selectUserType } from "../features/UserSlice";
+import { deleteDocFun } from "../firebase/dataFirebase";
 import { StyledTile } from "./Reusable";
 
 const SmallHeader = styled.h4`
@@ -15,21 +16,9 @@ const DeleteIcon = styled.div`
   right: 5px;
 `;
 
-const deleteSubmit = (event) => {
-  event.stopPropagation();
-  alert("delete");
-};
-
-const Tile = ({ tileId, tileHeader, tileSmallHeader, tileOpenClick, tileHeight }) => {
-  const userType = useSelector(selectUserType);
+const Tile = ({ tileHeader, tileSmallHeader, tileOpenClick, tileHeight }) => {
   return (
     <StyledTile height={tileHeight} onClick={() => tileOpenClick()}>
-      {!userType && (
-        <DeleteIcon onClick={deleteSubmit}>
-          <FontAwesomeIcon icon="times" />
-        </DeleteIcon>
-      )}
-
       <h3>{tileHeader}</h3>
       <SmallHeader>{tileSmallHeader}</SmallHeader>
     </StyledTile>
