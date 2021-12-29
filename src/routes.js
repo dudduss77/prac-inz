@@ -20,91 +20,202 @@ import ProtegeDashboard from "./view/ProotegeDashboard/ProtegeDashboard";
 import Questionnaire from "./view/Questionnaire/Questionnaire";
 import QuestionnaireNew from "./view/Questionnaire/QuestionnaireNew";
 import ProtegeQuestionnaire from "./view/Questionnaire/ProtegeQuestionnaire";
-const routes = (auth, isProtege = false) => [
-  { path: "*", element: <ErrorView /> },
-  { path: "/login", element: <Login /> },
-  { path: "/logout", element: <TempView /> },
-  { path: "/protegequestionnaire", element: <ProtegeQuestionnaire /> },
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: isProtege ? <ProtegeDashboard /> : <TrainerDashboard />,
-      },
-      {
-        path: "/questionnaire",
-        element: isProtege ? (
-          <Navigate to="/protegequestionnaire" />
-        ) : (
-          <Questionnaire />
-        ),
-      },
-      {
-        path: "/questionnaire/new",
-        element: isProtege ? (
-          <Navigate to="/protegequestionnaire" />
-        ) : (
-          <QuestionnaireNew />
-        ),
-      },
-      {
-        path: "/browse",
-        element: isProtege ? <Navigate to="/" /> : <Browse />,
-      },
-      {
-        path: "/calendar",
-        element: isProtege ? <TempView /> : <Calendar />,
-      },
-      {
-        path: "/training",
-        element: isProtege ? <ProtegeTraining /> : <TrainerTraining />,
-      },
-      {
-        path: "/trainingcreator",
-        element: isProtege ? <TempView /> : <TrainingCreator />,
-      },
-      {
-        path: "/trainingcreator/:id",
-        element: isProtege ? <TempView /> : <TrainingCreator isEdit={true} />,
-      },
-      { path: "/diet", element: isProtege ? <ProtegeDiet /> : <TrainerDiet /> },
-      {
-        path: "/dietcreator",
-        element: isProtege ? <TempView /> : <DietCreator />,
-      },
-      {
-        path: "/dietcreator/:id",
-        element: isProtege ? <TempView /> : <DietCreator isEdit={true} />,
-      },
-      {
-        path: "/messages",
-        element: isProtege ? <TempView /> : <BrowseChat />,
-      },
-      {
-        path: "/message",
-        element: isProtege ? <Chat isProtege /> : <Navigate to="/messages" />,
-      },
-      {
-        path: "/message/:id",
-        element: isProtege ? <Navigate to="/message" /> : <Chat />,
-      },
-      {
-        path: "/history",
-        element: isProtege ? <ProtegeHistory /> : <Navigate to="/" />,
-      },
-      {
-        path: "/protege/:id",
-        element: isProtege ? <TempView /> : <ProtegeView />,
-      },
+import PrivateRoute from "./PrivateRoute";
 
-      {
-        path: "/authCheck",
-        element: auth ? <DietCreator /> : <Navigate to="/login" />,
-      },
-    ],
-  },
-];
+
+
+const routes = (auth, isProtege = false) => {
+
+  return [
+    { path: "*", element: <ErrorView /> },
+    { path: "/login", element: <Login /> },
+    { path: "/logout", element: <TempView /> },
+    { path: "/protege/questionnaire", element: (
+      <PrivateRoute forProtege>
+        <ProtegeQuestionnaire />
+      </PrivateRoute>
+    ) },
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        { 
+          path: "/", 
+          element: (
+            <PrivateRoute >
+              <Navigate to="/trainer/" />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/trainer/", 
+          element: (
+            <PrivateRoute>
+              <TrainerDashboard />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/protege/", 
+          element: (
+            <PrivateRoute forProtege>
+              <ProtegeDashboard />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/trainer/questionnaire", 
+          element: (
+            <PrivateRoute>
+              <Questionnaire />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/trainer/questionnaire/new", 
+          element: (
+            <PrivateRoute>
+              <QuestionnaireNew />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/trainer/browse", 
+          element: (
+            <PrivateRoute>
+              <Browse />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/trainer/Calendar", 
+          element: (
+            <PrivateRoute>
+              <Calendar />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/protege/Calendar", 
+          element: (
+            <PrivateRoute forProtege>
+              <TempView />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/protege/training", 
+          element: (
+            <PrivateRoute forProtege>
+              <ProtegeTraining />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/trainer/training", 
+          element: (
+            <PrivateRoute>
+              <TrainerTraining />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/trainer/trainingcreator", 
+          element: (
+            <PrivateRoute>
+              <TrainingCreator />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "trainer/trainingcreator/:id", 
+          element: (
+            <PrivateRoute>
+              <TrainingCreator />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/trainer/diet", 
+          element: (
+            <PrivateRoute>
+              <TrainerDiet />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/protege/diet", 
+          element: (
+            <PrivateRoute forProtege>
+              <ProtegeDiet />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/trainer/dietcreator", 
+          element: (
+            <PrivateRoute>
+              <DietCreator />
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/trainer/dietcreator/:id", 
+          element: (
+            <PrivateRoute>
+              <DietCreator isEdit/>
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/trainer/messages", 
+          element: (
+            <PrivateRoute>
+              <BrowseChat/>
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/protege/message", 
+          element: (
+            <PrivateRoute forProtege>
+              <Chat isProtege/>
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/trainer/message/:id", 
+          element: (
+            <PrivateRoute>
+              <Chat/>
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "/protege/history", 
+          element: (
+            <PrivateRoute forProtege>
+              <ProtegeHistory/>
+            </PrivateRoute>
+          ) 
+        },
+        { 
+          path: "trainer/protege/:id", 
+          element: (
+            <PrivateRoute forProtege>
+              <ProtegeView/>
+            </PrivateRoute>
+          ) 
+        },
+        {
+          path: "/authCheck",
+          element: auth ? <DietCreator /> : <Navigate to="/login" />,
+        },
+      ],
+    },
+  ];
+}
+
+
 
 export default routes;

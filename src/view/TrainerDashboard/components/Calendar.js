@@ -10,7 +10,7 @@ const Calendar = () => {
       <BoxHeader
         headerTitle="Kalendarz"
         headerButtonTitle="Kalendarz"
-        headerOnClick={() => navigate("/calendar")}
+        headerOnClick={() => navigate("/trainer/calendar")}
       />
       <CalendarItem
         time="10:00 - 11:00"

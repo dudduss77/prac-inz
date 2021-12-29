@@ -25,7 +25,7 @@ const TrainingDelete = () => {
       modalData.config.subCollection
     );
     modalDispatch(changeModalState());
-    navigate("/training");
+    navigate("/trainer/training");
   };
 
   return (

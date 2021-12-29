@@ -24,7 +24,7 @@ const SimpleInfo = () => {
       <BoxHeader>
         Informacje podstawowe
         <Spacer />
-        <Icon onClick={() => navigate("/message/1")}>
+        <Icon onClick={() => navigate("/trainer/message/1")}>
           <FontAwesomeIcon icon="comment" />
         </Icon>
       </BoxHeader>

@@ -20,7 +20,7 @@ const DietDelete = () => {
   const deleteDiet = () => {
     deleteDocFun(userId, modalData.config.docId, modalData.config.subCollection)
     modalDispatch(changeModalState())
-    navigate('/diet')
+    navigate('/trainer/diet')
   }
 
   return (

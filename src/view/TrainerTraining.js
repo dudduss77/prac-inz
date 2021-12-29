@@ -36,12 +36,12 @@ const TrainerTraining = () => {
 
   return (
     <GridLayoutWithMedia isGap gridTemplateColumns="repeat(5, 1fr)">
-      <AddTile addTileClick={() => navigate("/trainingcreator")} />
+      <AddTile addTileClick={() => navigate("/trainer/trainingcreator")} />
       {trainingDiet.map((trainig) => (
         <Tile
           key={trainig.id}
           tileHeader={trainig.data.name}
-          tileOpenClick={() => navigate(`/trainingcreator/${trainig.id}`)}
+          tileOpenClick={() => navigate(`/trainer/trainingcreator/${trainig.id}`)}
         />
       ))}
     </GridLayoutWithMedia>

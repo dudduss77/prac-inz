@@ -7,9 +7,10 @@ import styled from "styled-components";
 import AppBar from "./components/AppBar";
 import NavBar from "./components/navBar/NavBar";
 import PageHeader from "../../components/PageHeader";
-import { selectUserType } from "../../features/UserSlice";
+import { selectUserType, selectUserId } from "../../features/UserSlice";
 import { useLocation } from "react-router";
 import Modal from "../../components/Modal/Modal";
+import LoaderFullPage from "../../components/LoaderFullPage";
 
 const StyledLayout = styled.div`
   display: flex;
@@ -39,6 +40,7 @@ const Layout = () => {
   const modalState = useSelector(selectModalState);
   const { pathname } = useLocation();
   const userType = useSelector(selectUserType);
+  const userId = useSelector(selectUserId);
   const smallScreen = useMediaPredicate("screen and (max-width: 900px)");
   const bigScreen = useMediaPredicate("screen and (min-width: 1400px)");
 
@@ -63,7 +65,7 @@ const Layout = () => {
     }
   };
 
-  return (
+  return userId != undefined ? (
     <StyledLayout>
       <AppBar />
       <ContentWrapper>
@@ -75,7 +77,7 @@ const Layout = () => {
       </ContentWrapper>
       {modalState && <Modal />}
     </StyledLayout>
-  );
+  ) : <LoaderFullPage />;
 };
 
 export default Layout;

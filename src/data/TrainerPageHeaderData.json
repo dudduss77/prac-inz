@@ -1,54 +1,54 @@
 [
   {
-    "pageHeaderPath": "/",
+    "pageHeaderPath": "/trainer",
     "pageHeaderPathName": "Dashboard /",
     "pageHeaderTitle": "Witaj",
     "pageHeaderDescription": "W tym miejscu możesz zarządzać podstawowymi funkcjonalnościami train CRM"
   },
   {
-    "pageHeaderPath": "/questionnaire",
+    "pageHeaderPath": "/trainer/questionnaire",
     "pageHeaderPathName": "Podopieczni / Ankieta /",
     "pageHeaderTitle": "Ankieta",
     "pageHeaderDescription": "Miejsce gdzie wyświetlisz lub zmotyfikujesz ankietę"
   },
   {
-    "pageHeaderPath": "/browse",
+    "pageHeaderPath": "/trainer/browse",
     "pageHeaderPathName": "Podopieczni / Przeglądaj /",
     "pageHeaderTitle": "Przegląd podopiecznych",
     "pageHeaderDescription": "W tym miejscu możesz przeglądać swoich podopiecznych, zarządzać nimi oraz wykonywać podstawowe operacje z tym związane"
   },
   {
-    "pageHeaderPath": "/newproteges",
+    "pageHeaderPath": "/trainer/newproteges",
     "pageHeaderPathName": "Podopieczni / Dodaj /",
     "pageHeaderTitle": "Dodaj podopiecznego",
     "pageHeaderDescription": "W tym miejscu możesz dodać nowego podopieczego"
   },
   {
-    "pageHeaderPath": "/calendar",
+    "pageHeaderPath": "/trainer/calendar",
     "pageHeaderPathName": "Kalendarz / ",
     "pageHeaderTitle": "Kalendarz",
     "pageHeaderDescription": "W tym miejscu możesz zarządzać swoim kalendarzem, planować treningi z podopiecznymi oraz własny czas"
   },
   {
-    "pageHeaderPath": "/training",
+    "pageHeaderPath": "/trainer/training",
     "pageHeaderPathName": "Trening / ",
     "pageHeaderTitle": "Trening",
     "pageHeaderDescription": "W tym miejscu dodasz nowe treningi oraz zmodyfikujesz już istniejące."
   },
   {
-    "pageHeaderPath": "/diet",
+    "pageHeaderPath": "/trainer/diet",
     "pageHeaderPathName": "Diety /",
     "pageHeaderTitle": "Diety",
     "pageHeaderDescription": "W tym miejscu dodasz nowe diety oraz zmodyfikujesz już istniejące."
   },
   {
-    "pageHeaderPath": "/messages",
+    "pageHeaderPath": "/trainer/messages",
     "pageHeaderPathName": "Wiadomości /",
     "pageHeaderTitle": "Wiadomości",
     "pageHeaderDescription": "W tym miejscu możesz przeglądać swoich podopiecznych, zarządzać nimi oraz wykonywać podstawowe operacje z tym związane."
   },
   {
-    "pageHeaderPath": "/protege/",
+    "pageHeaderPath": "/trainer/protege/",
     "pageHeaderPathName": "Podopieczni / Przeglądaj / Podgląd podopiecznego",
     "pageHeaderTitle": "Podgląd podopiecznego",
     "pageHeaderDescription": "Profil twojego podopiecznego, z tego miejsca możesz np. dodać dietę, trening i kontrolować postępy."

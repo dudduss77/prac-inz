@@ -9,6 +9,7 @@ export const loadDataFromDb = createAsyncThunk("users/basicData", async (userId)
 });
 
 const initialState = {
+  isLogged: true,
   isProtege: false,
   userId: null,
   name: ""

@@ -22,7 +22,7 @@ const NewProtege = () => {
         headerTitle="Nowi podopieczni"
         headerButtonTitle="Wszyscy"
         headerOnClick={() => {
-          navigate("/browse");
+          navigate("/trainer/browse");
         }}
       />
       <Column isGap isOverflow>
