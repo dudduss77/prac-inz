@@ -10,63 +10,63 @@ const swapArrayElements = (arr, indexA, indexB) => {
 const initialState = [
     {
       type: 0,
-      question: "Krótka odpowiedź ?",
-      answer: "odp",
+      question: "",
+      answer: "",
       checkbox: [],
       img: [],
     },
-    {
-      type: 1,
-      question: "Długa odpowiedz ?",
-      answer: "odp",
-      checkbox: [],
-      img: [],
-    },
-    {
-      type: 2,
-      question: "Wielokrotny wybór ?",
-      checkbox: [
-        {
-          name: "pozycja 1",
-          checked: false,
-        },
-        {
-          name: "pozycja 2",
-          checked: true,
-        },     
-        {
-          name: "pozycja 3",
-          checked: false,
-        }
-      ],
-      img: []
-    },
-    {
-      type: 3,
-      question: "Jednokrotny wybór ?",
-      checkbox: [
-        {
-          name: "pozycja 1 jedno",
-          checked: false,
-        },
-        {
-          name: "pozycja 2 jedno",
-          checked: true,
-        },     
-        {
-          name: "pozycja 3 jedno",
-          checked: false,
-        }
-      ],
-      img: []
-    },
-    {
-      type: 4,
-      question: "Upload zdjęć ?",
-      checkbox: [],
-      img: []
+    // {
+    //   type: 1,
+    //   question: "Długa odpowiedz ?",
+    //   answer: "odp",
+    //   checkbox: [],
+    //   img: [],
+    // },
+    // {
+    //   type: 2,
+    //   question: "Wielokrotny wybór ?",
+    //   checkbox: [
+    //     {
+    //       name: "pozycja 1",
+    //       checked: false,
+    //     },
+    //     {
+    //       name: "pozycja 2",
+    //       checked: true,
+    //     },     
+    //     {
+    //       name: "pozycja 3",
+    //       checked: false,
+    //     }
+    //   ],
+    //   img: []
+    // },
+    // {
+    //   type: 3,
+    //   question: "Jednokrotny wybór ?",
+    //   checkbox: [
+    //     {
+    //       name: "pozycja 1 jedno",
+    //       checked: false,
+    //     },
+    //     {
+    //       name: "pozycja 2 jedno",
+    //       checked: true,
+    //     },     
+    //     {
+    //       name: "pozycja 3 jedno",
+    //       checked: false,
+    //     }
+    //   ],
+    //   img: []
+    // },
+    // {
+    //   type: 4,
+    //   question: "Upload zdjęć ?",
+    //   checkbox: [],
+    //   img: []
 
-    },
+    // },
   ]
 
 export const questionaireSlice = createSlice({
