@@ -1,30 +1,30 @@
 [
   {
-    "pageHeaderPath": "/",
+    "pageHeaderPath": "/protege",
     "pageHeaderPathName": "Dashboard /",
     "pageHeaderTitle": "Witaj",
     "pageHeaderDescription": "W tym miejscu możesz przeglądać swój trening, dietę na dany dzień oraz obserwować swój progress"
   },
   {
-    "pageHeaderPath": "/training",
+    "pageHeaderPath": "/protege/training",
     "pageHeaderPathName": "Trening /",
     "pageHeaderTitle": "Trening",
     "pageHeaderDescription": "W tym miejscu możesz przeglądać cały swój trening oraz zgłosić uwagi."
   },
   {
-    "pageHeaderPath": "/history",
+    "pageHeaderPath": "/protege/history",
     "pageHeaderPathName": "Historia /",
     "pageHeaderTitle": "Historia",
     "pageHeaderDescription": "W tym miejscu możesz przeglądać historie pomiarów, zdjęć czy raportów treningowych"
   },
   {
-    "pageHeaderPath": "/calendar",
+    "pageHeaderPath": "/protege/calendar",
     "pageHeaderPathName": "Kalendarz /",
     "pageHeaderTitle": "Kalendarz",
     "pageHeaderDescription": "W tym miejscu możesz zarządzać swoim kalendarzem, planować treningi z podopiecznymi oraz własny czas"
   },
   {
-    "pageHeaderPath": "/diet",
+    "pageHeaderPath": "/protege/diet",
     "pageHeaderPathName": "Diety /",
     "pageHeaderTitle": "Diety",
     "pageHeaderDescription": "W tym miejscu możesz przeglądać całą swoją dietę oraz zgłosić uwagi."
