@@ -39,7 +39,7 @@ const QuestionnaireNew = () => {
             </Icon>
           </BoxHeader>
 
-          <Column onScroll={() => setToolBarPosition({ top: -100, left: -100, key: 0 })} alignItems="center" width="100%" isOverflow>
+          <Column onScroll={() => setToolBarPosition({ top: -100, left: -100, key: 0 })} height="100%" alignItems="center" width="100%" isOverflow>
             {questionList.map((item, key) =>  <QuestionItem onMouseMove={setToolBarPosition} key={key} indx={key}/>)}
           </Column>
 
