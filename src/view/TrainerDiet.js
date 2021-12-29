@@ -18,8 +18,8 @@ const TrainerDiet = () => {
   const navigate = useNavigate();
   return (
     <GridLayoutWithMedia isGap gridTemplateColumns="repeat(5, 1fr)">
-      <AddTile addTileClick={() => navigate("/dietcreator")} />
-      <Tile tileHeader="Dieta standard" tileOpenClick={() => navigate("/dietcreator/1")}/>
+      <AddTile addTileClick={() => navigate("/trainer/dietcreator")} />
+      <Tile tileHeader="Dieta standard" tileOpenClick={() => navigate("/trainer/dietcreator/1")}/>
     </GridLayoutWithMedia>
   );
 };

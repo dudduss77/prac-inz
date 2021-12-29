@@ -14,8 +14,8 @@ const TrainerNav = () => {
   const menuDispatch = useDispatch();
   const screenSize = useSelector(selectScreenSize);
   const ProtegesSublinks = [
-    { path: "/browse", title: "Przeglądaj", icon: "file" },
-    { path: "/questionnaire", title: "Ankieta", icon: "tasks" },
+    { path: "/trainer/browse", title: "Przeglądaj", icon: "file" },
+    { path: "/trainer/questionnaire", title: "Ankieta", icon: "tasks" },
     {
       title: "Dodaj nowego podopiecznego",
       icon: "user-plus",
@@ -29,16 +29,16 @@ const TrainerNav = () => {
   ];
   return (
     <>
-      <NavBarLink path="/" icon="plus" title="Dashboard" />
+      <NavBarLink path="/trainer" icon="plus" title="Dashboard" />
       <NavBarLinkWithSublinks
         mainIcon="users"
         mainTitle="Podopieczni"
         subLinks={ProtegesSublinks}
       />
-      <NavBarLink path="/calendar" icon="calendar" title="Kalendarz" />
-      <NavBarLink path="/training" icon="running" title="Trening" />
-      <NavBarLink path="/diet" icon="carrot" title="Diety" />
-      <NavBarLink path="/messages" icon="envelope" title="Wiadomości" />
+      <NavBarLink path="/trainer/calendar" icon="calendar" title="Kalendarz" />
+      <NavBarLink path="/trainer/training" icon="running" title="Trening" />
+      <NavBarLink path="/trainer/diet" icon="carrot" title="Diety" />
+      <NavBarLink path="/trainer/messages" icon="envelope" title="Wiadomości" />
     </>
   );
 };

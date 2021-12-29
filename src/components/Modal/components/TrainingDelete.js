@@ -16,7 +16,7 @@ const TrainingDelete = () => {
 
   const deleteTraining = () => {
     modalDispatch(changeModalState());
-    navigate("/training");
+    navigate("/trainer/training");
   };
 
   return (

@@ -18,10 +18,10 @@ const TrainerTraining = () => {
   const navigate = useNavigate()
   return (
     <GridLayoutWithMedia isGap gridTemplateColumns="repeat(5, 1fr)">
-      <AddTile addTileClick={() => navigate("/trainingcreator")} />
+      <AddTile addTileClick={() => navigate("/trainer/trainingcreator")} />
       <Tile
         tileHeader="Trening standard"
-        tileOpenClick={() => navigate("/trainingcreator/1")}
+        tileOpenClick={() => navigate("/trainer/trainingcreator/1")}
       />
     </GridLayoutWithMedia>
   );

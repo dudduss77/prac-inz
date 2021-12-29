@@ -53,7 +53,7 @@ const UserInfo = () => {
         <h4>Obwód uda: 70cm</h4>
         <h4>Obwód ramienia: 70cm</h4>
       </ContentWrapper>
-      <Button onClick={() => navigate("/protege/1")}>Przejdź do profilu</Button>
+      <Button onClick={() => navigate("/trainer/protege/1")}>Przejdź do profilu</Button>
     </StyledUserInfo>
   );
 };

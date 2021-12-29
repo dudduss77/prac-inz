@@ -58,4 +58,19 @@ const resetPassword = async (email, err = console.log) => {
     }
 }
 
+const getUserData = async ( err = console.log) => {
+    try {
+        const user = getAuth().currentUser;
+        console.log(user);
+        return user
+    } catch(error) {
+        errDecode(error, err)
+    }
+}
+// setTimeout(async () => {
+    const auths = getAuth();
+    const user = auths.currentUser;
+    console.log("trap", user);
+// }, 5000)
+
 export { createUser, signIn, resetPassword };

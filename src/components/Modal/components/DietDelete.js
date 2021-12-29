@@ -16,7 +16,7 @@ const DietDelete = () => {
 
   const deleteDiet = () => {
     modalDispatch(changeModalState())
-    navigate('/diet')
+    navigate('/trainer/diet')
   }
 
   return (

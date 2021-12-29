@@ -11,7 +11,7 @@ const LastMessages = () => {
         headerTitle="Ostatnie wiadomości"
         headerButtonTitle="Wiadomości"
         //placeHodler do zmiany tylko test
-        headerOnClick={() => navigate("/messages")}
+        headerOnClick={() => navigate("/trainer/messages")}
       />
       <Message
         messageId={1}
