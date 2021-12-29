@@ -12,9 +12,9 @@ import {
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import ForgotForm from './ForgotForm';
+import { useParams } from 'react-router';
 
 
-  
 const WHICHFORM = {
   LOGIN: 'login',
   REGISTER: 'register',
@@ -23,7 +23,8 @@ const WHICHFORM = {
 
 const Login = () => {
 
-  const [whichForm, setWhichForm] = useState(WHICHFORM.LOGIN);
+  const { id } = useParams();
+  const [whichForm, setWhichForm] = useState(id ? WHICHFORM.REGISTER : WHICHFORM.LOGIN);
 
   const handleLoginClick = () => setWhichForm(WHICHFORM.LOGIN)
   const handleRegisterClick = () => setWhichForm(WHICHFORM.REGISTER)
@@ -52,7 +53,7 @@ const Login = () => {
           </MenuLogin__item>
         </MenuLogin>
         {whichForm == WHICHFORM.LOGIN && <LoginForm handleForgotClick={handleForgotClick} />}
-        {whichForm == WHICHFORM.REGISTER && <RegisterForm handleForgotClick={handleForgotClick}/>}
+        {whichForm == WHICHFORM.REGISTER && <RegisterForm handleForgotClick={handleForgotClick} id={id}/>}
         {whichForm == WHICHFORM.FORGET_PASSWORD && <ForgotForm/>}
         
       </LoginBox>

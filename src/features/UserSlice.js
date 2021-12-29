@@ -27,8 +27,12 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loadDataFromDb.fulfilled, (state, action) => {
-      state.isProtege = action.payload.isProtege;
-      state.name = action.payload.name;
+      // console.log(action)
+      if(action.payload) {
+        state.isProtege = action.payload.isProtege;
+        state.name = action.payload.name;        
+      }
+
     })
   }
 });

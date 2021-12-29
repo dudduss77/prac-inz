@@ -5,7 +5,8 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
   onAuthStateChanged,
-  signOut
+  signOut,
+  createUsers
 } from "firebase/auth";
 
 const auth = getAuth();
@@ -86,7 +87,6 @@ const getUserIddd = (callback) => {
 };
 
 const logOut = () => signOut(auth);
-
 
 
 // const getUserData = async ( err = console.log) => {
