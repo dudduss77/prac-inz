@@ -21,6 +21,7 @@ import Questionnaire from "./view/Questionnaire/Questionnaire";
 import QuestionnaireNew from "./view/Questionnaire/QuestionnaireNew";
 import ProtegeQuestionnaire from "./view/Questionnaire/ProtegeQuestionnaire";
 import PrivateRoute from "./PrivateRoute";
+import Logout from "./view/Logout";
 
 
 
@@ -29,7 +30,7 @@ const routes = (auth, isProtege = false) => {
   return [
     { path: "*", element: <ErrorView /> },
     { path: "/login", element: <Login /> },
-    { path: "/logout", element: <TempView /> },
+    { path: "/logout", element: <Logout /> },
     { path: "/protege/questionnaire", element: (
       <PrivateRoute forProtege>
         <ProtegeQuestionnaire />

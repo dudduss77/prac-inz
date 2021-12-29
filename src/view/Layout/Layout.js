@@ -65,7 +65,7 @@ const Layout = () => {
     }
   };
 
-  return userId != undefined ? (
+  return (
     <StyledLayout>
       <AppBar />
       <ContentWrapper>
@@ -77,7 +77,7 @@ const Layout = () => {
       </ContentWrapper>
       {modalState && <Modal />}
     </StyledLayout>
-  ) : <LoaderFullPage />;
+  )
 };
 
 export default Layout;

@@ -7,6 +7,8 @@ import TrainerNav from "./TrainerNav";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
 import NavBarLink from "./NavBarLink";
 import { selectUserType } from "../../../../features/UserSlice";
+import { logOut } from "../../../../firebase/authFirebase";
+import { useNavigate } from "react-router";
 
 const StyledNavBar = styled.div`
   background: ${({ theme }) => theme.backgroundColorOne};
@@ -35,6 +37,8 @@ const NavBar = () => {
   const screenSize = useSelector(selectScreenSize);
   const userType = useSelector(selectUserType);
 
+  const navigate = useNavigate()
+
   useOutsideClick(ref, () => {
     if (screenSize === "mid" && !menuStatus)
       menuDispatch(changeOpenStateAction(true));
@@ -51,11 +55,10 @@ const NavBar = () => {
   useEffect(() => {
     if (screenSize === "mid") menuDispatch(changeOpenStateAction(true));
   }, [screenSize]);
-
   return (
     <StyledNavBar ref={ref} menuStatus={menuStatus}>
       {userType ? <ProtegeNav /> : <TrainerNav />}
-      <NavBarLink icon="sign-out-alt" path="/logout" title="Wyloguj" />
+      <NavBarLink icon="sign-out-alt" customOnClick={() => logOut().then(() => navigate('/login'))} title="Wyloguj" />
     </StyledNavBar>
   );
 };
