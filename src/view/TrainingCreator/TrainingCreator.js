@@ -77,7 +77,7 @@ const TrainingCreator = ({ isEdit }) => {
         updateDocFun(userId, "trainings", id, training);
       } else {
         const docId = await createNewDoc(userId, "trainings", training);
-        navigate(`/dietcreator/${docId}`);
+        navigate(`/trainer/trainingcreator/${docId}`);
       }
       notificationDispatch(changeNotificationStateShow("Zapisano"));
     } else

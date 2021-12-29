@@ -7,7 +7,7 @@ const LongAnswer = ({
     isDisabled=false,
     indx = null,
 }) => {
-    const answer = useSelector((state) => state?.questionaire[indx]?.answer ?? "");
+    const answer = useSelector((state) => state?.questionaire.questionList[indx]?.answer ?? "");
     const [state, setstate] = useState("initialState");
     const dispatch = useDispatch();
     return (
