@@ -49,7 +49,7 @@ const QuestionToolBar = ({
 }) => {
 
     const dispatch = useDispatch();
-    const questionList = useSelector((state) => state.questionaire)
+    const questionList = useSelector((state) => state.questionaire.questionList)
     
     const handlerOnPlusClick = () => {
         dispatch(addQuestion());

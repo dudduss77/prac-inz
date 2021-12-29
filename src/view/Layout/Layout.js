@@ -59,7 +59,7 @@ const Layout = () => {
         "dietcreator",
         "trainingcreator",
         "questionnaire/new",
-
+        "questionnaire/edit",
       ].some(v => pathname.includes(v))) return
       else return <PageHeader isProtege={userType} />;
     }

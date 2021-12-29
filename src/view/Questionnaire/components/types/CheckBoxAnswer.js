@@ -38,7 +38,7 @@ const CheckBoxAnswer = ({
     indx = null,
     isRadio = false
 }) => {
-    const checkbox = useSelector((state) => state?.questionaire[indx]?.checkbox ?? []);
+    const checkbox = useSelector((state) => state?.questionaire.questionList[indx]?.checkbox ?? []);
 	const dispatch = useDispatch();
 
     const handleOnPlusClick = () => {

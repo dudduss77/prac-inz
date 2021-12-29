@@ -41,7 +41,7 @@ const QuestionItem = ({
 	isProtege = false,
 	indx = null,
 }) => {
-	const initialState = useSelector((state) => state.questionaire[indx] ?? null);
+	const initialState = useSelector((state) => state.questionaire.questionList[indx] ?? null);
 	const dispatch = useDispatch();
 
 	const [type, setType] = useState(null);
