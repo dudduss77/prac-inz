@@ -37,7 +37,7 @@ const Message = ({
 }) => {
   const navigate = useNavigate();
   const MessageClick = () => {
-    navigate(`/message/${messageId}`);
+    navigate(`/trainer/message/${messageId}`);
   };
   return (
     <StyledMessage onClick={MessageClick}>

@@ -24,7 +24,7 @@ const schema = yup.object().shape({
     .min(8, "Hasło jest za krótkie")
     .matches(/[a-zA-Z]/, "Hasło zawiera niedozwolone znaki"),
 });
-const RegisterForm = ({ handleForgotClick }) => {
+const RegisterForm = ({ handleForgotClick, id = false }) => {
   const emailInput = useInput("", "email");
   const passInput = useInput("", "pass");
   const nameInput = useInput("", "name");
@@ -42,11 +42,12 @@ const RegisterForm = ({ handleForgotClick }) => {
       .validate({ name, pass, email })
       .then(async (valid) => {
         const user = await createUser(email, pass, notification.showError);
-        await createColleciontWhenUserCreate(name, user.user.uid);
+        await createColleciontWhenUserCreate(name, user.user.uid, id);
         if (user) navigate("/");
       })
       .catch((err) => {
-        notification.showError(err.errors[0]);
+        console.log(err);
+        notification.showError(err.errors);
       });
   };
 

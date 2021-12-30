@@ -10,16 +10,28 @@ import {
 } from "firebase/firestore";
 import { db } from "./configFirebase";
 
-export const createColleciontWhenUserCreate = async (userName, userId) => {
+export const createColleciontWhenUserCreate = async (userName, userId, trainerId = false) => {
   try {
-    await setDoc(doc(db, "users", userId), {
-      isProtege: false,
+    const userObject = {
+      isProtege: trainerId ? true : false,
       name: userName,
       messages: [],
       polls: [],
       calendar: [],
-      proteges: [],
-    });
+    }
+    if(trainerId) 
+      userObject.trainer = trainerId
+    else
+      userObject.proteges = []
+
+    await setDoc(doc(db, "users", userId), userObject);
+
+    if(trainerId) {
+      const trainerDoc = doc(db, "users", trainerId);
+      const trainerData = (await getDoc(trainerDoc)).data();
+      trainerData.proteges.push(userId);     
+      await setDoc(trainerDoc, trainerData);
+    }
   } catch (error) {
     console.log(error);
   }

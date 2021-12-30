@@ -4,7 +4,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut,
+  createUsers
 } from "firebase/auth";
 
 const auth = getAuth();
@@ -84,21 +86,30 @@ const getUserIddd = (callback) => {
   })
 };
 
+const logOut = () => signOut(auth);
 
 
-const getUserData = async ( err = console.log) => {
-    try {
-        const user = getAuth().currentUser;
-        console.log(user);
-        return user
-    } catch(error) {
-        errDecode(error, err)
-    }
-}
+// const getUserData = async ( err = console.log) => {
+//     try {
+//         const auth = getAuth();
+//         onAuthStateChanged(auth, (user) => {
+//           if (user) {
+//             const uid = user.uid;
+//             console.log('zalogowano')
+//           } else {
+//             console.log('nie zalogowano')
+//           }
+//         });
+//     } catch(error) {
+//         errDecode(error, err)
+//     }
+// }
+
+// getUserData();
 // setTimeout(async () => {
-    const auths = getAuth();
-    const user = auths.currentUser;
-    console.log("trap", user);
+    // const auths = getAuth();
+    // const user = auths.currentUser;
+    // console.log("trap", user);
 // }, 5000)
 
-export { createUser, signIn, resetPassword, getUserIddd, auth };
+export { createUser, signIn, logOut, resetPassword, getUserIddd, auth };

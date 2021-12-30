@@ -9,10 +9,10 @@ export const loadDataFromDb = createAsyncThunk("users/basicData", async (userId)
 });
 
 const initialState = {
-  isLogged: true,
-  isProtege: false,
+  // isLogged: true,
+  isProtege: null,
   userId: null,
-  name: ""
+  // name: ""
 };
 
 export const userSlice = createSlice({
@@ -20,13 +20,19 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUserId: (state, action) => {
+      if(action.payload == undefined) 
+        state.isProtege = undefined;
       state.userId = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(loadDataFromDb.fulfilled, (state, action) => {
-      state.isProtege = action.payload.isProtege;
-      state.name = action.payload.name;
+      // console.log(action)
+      if(action.payload) {
+        state.isProtege = action.payload.isProtege;
+        state.name = action.payload.name;        
+      }
+
     })
   }
 });

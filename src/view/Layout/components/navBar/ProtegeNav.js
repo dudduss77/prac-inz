@@ -4,12 +4,12 @@ import NavBarLink from "./NavBarLink";
 const ProtegeNav = () => {
   return (
     <>
-      <NavBarLink path="/" icon="plus" title="Dashboard" />
-      <NavBarLink path="/calendar" icon="calendar" title="Kalendarz" />
-      <NavBarLink path="/diet" icon="carrot" title="Dieta" />
-      <NavBarLink path="/training" icon="running" title="Trening" />
-      <NavBarLink path="/message" icon="envelope" title="Wiadomości" />
-      <NavBarLink path="/history" icon="history" title="Historia" />
+      <NavBarLink path="/protege" icon="plus" title="Dashboard" />
+      <NavBarLink path="/protege/calendar" icon="calendar" title="Kalendarz" />
+      <NavBarLink path="/protege/diet" icon="carrot" title="Dieta" />
+      <NavBarLink path="/protege/training" icon="running" title="Trening" />
+      <NavBarLink path="/protege/message" icon="envelope" title="Wiadomości" />
+      <NavBarLink path="/protege/history" icon="history" title="Historia" />
     </>
   );
 };

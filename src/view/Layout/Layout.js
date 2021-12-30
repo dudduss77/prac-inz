@@ -35,7 +35,7 @@ const PageWrapper = styled.div`
   gap: 10px;
 `;
 
-const Layout = () => {
+const Layout = ({ children }) => {
   const screenDispatch = useDispatch();
   const modalState = useSelector(selectModalState);
   const { pathname } = useLocation();
@@ -65,19 +65,19 @@ const Layout = () => {
     }
   };
 
-  return userId != undefined ? (
+  return (
     <StyledLayout>
       <AppBar />
       <ContentWrapper>
         <NavBar />
         <PageWrapper>
           {retPageHeader()}
-          <Outlet />
+          {children}
         </PageWrapper>
       </ContentWrapper>
       {modalState && <Modal />}
     </StyledLayout>
-  ) : <LoaderFullPage />;
+  )
 };
 
 export default Layout;
