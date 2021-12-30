@@ -37,12 +37,11 @@ const RegisterForm = ({ handleForgotClick, id = false }) => {
     const { value: pass } = passInput;
     const { value: name } = nameInput;
 
-    console.log({ name, pass, email });
     schema
       .validate({ name, pass, email })
       .then(async (valid) => {
         const user = await createUser(email, pass, notification.showError);
-        await createColleciontWhenUserCreate(name, user.user.uid, id);
+        await createColleciontWhenUserCreate(name, email, user.user.uid, id);
         if (user) navigate("/");
       })
       .catch((err) => {

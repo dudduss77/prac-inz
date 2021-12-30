@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 
 import { Box, Button, ReusableViewWrapper, Row } from "../../components/Reusable";
 import BoxHeader from "../../components/Box/components/BoxHeader";
@@ -11,7 +11,6 @@ import {
   changeModalState,
   setModalData,
 } from "./../../features/AppSlice";
-
 
 import { ReactComponent  as PlusSVG } from './../../assets/plus.svg';
 import styled from 'styled-components';
@@ -26,10 +25,16 @@ const StyledPlusSVG = styled.svg.attrs({
 
 const Browse = () => {
   const modalDispatch = useDispatch();
+  const [filterSearch, setFilterSearch] = useState("");
   
   const handleClickNewProtege = () => {
     modalDispatch(changeModalState());
-    modalDispatch(setModalData("newprotege"));
+    modalDispatch(setModalData({ name: "newprotege"}));
+  }
+
+  const handleOnSearch = (val) => {
+    console.log(val)
+    setFilterSearch(val)
   }
     return (
         <ReusableViewWrapper isColumnLayout={true}>
@@ -41,6 +46,8 @@ const Browse = () => {
               <SearchInput
                 placeholder="Szukaj..."
                 mediaQueryPoint="620px"
+                onSearch={handleOnSearch}
+
               />
 
               <Button
@@ -53,14 +60,14 @@ const Browse = () => {
             </Row>
 
             <Row isPadding isOverflow>
-                <ProtegeTable></ProtegeTable>
+                <ProtegeTable filterValue={filterSearch} ></ProtegeTable>
             </Row>
 
             <Row justifyContent="flex-end" isPadding>
-              <Pagination
+              {/* <Pagination
                 count={10}
                 _active={4}
-              />
+              /> */}
             </Row>
 
           </Box>

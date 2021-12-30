@@ -59,6 +59,7 @@ const Input = ({
   as = "Input",
   isDisabled = false,
   value = "",
+  reference,
   onValueChange = () => {}
 }) => {
   const Icon = icon;
@@ -82,6 +83,7 @@ const Input = ({
         paddingLeft={paddingLeft}
         as={as}
         disabled={isDisabled}
+        ref={reference}
       />
     </Container>
   );

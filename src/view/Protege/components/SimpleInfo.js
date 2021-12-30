@@ -5,6 +5,7 @@ import styled from "styled-components";
 import avatar from "../../../assets/user.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router";
+import { getDateddmmyyy } from './../../../helpers'
 
 const Avatar = styled.img`
   width: 100px;
@@ -17,14 +18,16 @@ const Content = styled.div`
   flex-direction: column;
 `;
 
-const SimpleInfo = () => {
+const SimpleInfo = ({
+  data = null
+}) => {
   const navigate = useNavigate();
-  return (
+  return data == null ? "Ładowanie" : (
     <Box width="50%">
       <BoxHeader>
         Informacje podstawowe
         <Spacer />
-        <Icon onClick={() => navigate("/trainer/message/1")}>
+        <Icon onClick={() => navigate("/trainer/message/" + data.id)}>
           <FontAwesomeIcon icon="comment" />
         </Icon>
       </BoxHeader>
@@ -32,22 +35,25 @@ const SimpleInfo = () => {
         <Avatar src={avatar} />
         <Content>
           <h4>
-            <BoldText>Imię i Nazwisko: </BoldText>Jan Kowalski
+            <BoldText>Imię i Nazwisko: </BoldText>{data.name}
           </h4>
           <h4>
-            <BoldText>Adres email: </BoldText>jankowalski@gmail.com
+            <BoldText>Adres email: </BoldText> {data.email}
           </h4>
           <h4>
-            <BoldText>Ostatnio online: </BoldText>15.11.2021
+            <BoldText>Ostatnio online: </BoldText> {data.onlineTime ? getDateddmmyyy(new Date(data.onlineTime.seconds*1000)) : "-"}
           </h4>
           <h4>
-            <BoldText>Prowadzony od: </BoldText>01.10.2021
+            <BoldText>Prowadzony od: </BoldText>{data.payedFrom ? getDateddmmyyy(new Date(data.payedFrom.seconds*1000)) : "-"}
           </h4>
           <h4>
-            <BoldText>Urodzony: </BoldText>01.10.2014
+            <BoldText>Prowadzony do: </BoldText>{data.payedTo ? getDateddmmyyy(new Date(data.payedTo.seconds*1000)) : "-"}
           </h4>
           <h4>
-            <BoldText>Wzrost: </BoldText>187 cm
+            <BoldText>Urodzony: </BoldText> - 
+          </h4>
+          <h4>
+            <BoldText>Wzrost: </BoldText> -
           </h4>
         </Content>
       </Row>

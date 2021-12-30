@@ -1,4 +1,4 @@
-import React from 'react'
+import { useRef } from 'react'
 import styled from 'styled-components';
 import Input from './Input'
 import { Button } from './Reusable';
@@ -16,15 +16,19 @@ const StyledSearchContainer = styled.div`
 `;
 
 const SearchInput = ({
-    mediaQueryPoint
+    mediaQueryPoint, 
+    onSearch = (val) => {}
 }) => {
+
+    const inputRef = useRef();
     return (
         <StyledSearchContainer mediaQueryPoint={mediaQueryPoint}>
             <Input
                 placeholder="Szukaj..."
                 mediaQueryPoint={mediaQueryPoint}
+                reference={inputRef}
             />
-            <Button isSquare>
+            <Button onClick={e => onSearch(inputRef.current.value)} isSquare>
                 <SearchSVG/>
             </Button>
         </StyledSearchContainer>

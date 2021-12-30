@@ -10,27 +10,51 @@ import {
 } from "firebase/firestore";
 import { db } from "./configFirebase";
 
-export const createColleciontWhenUserCreate = async (userName, userId, trainerId = false) => {
+export const getUserData = async (userId) => {
+  const trainerDoc = doc(db, "users", userId);
+  const toReturn = (await getDoc(trainerDoc)).data();
+  toReturn.id = userId;
+  return toReturn;
+}
+
+export const setTrainerDoc = async (trainerId, data) => {
+  const trainerDoc = doc(db, "users", trainerId);
+  return (await setDoc(trainerDoc, data));
+}
+export const createColleciontWhenUserCreate = async (name, email, userId, trainerId = false) => {
   try {
-    const userObject = {
+    let userObject = {
       isProtege: trainerId ? true : false,
-      name: userName,
+      name,
+      email,
+      registerTime: new Date(),
+      onlineTime: new Date(),
+      description: "Brak opisu",
       messages: [],
       polls: [],
       calendar: [],
     }
-    if(trainerId) 
-      userObject.trainer = trainerId
-    else
-      userObject.proteges = []
+
+    if(trainerId) {
+      userObject = {
+        ...userObject,
+        payedFrom: null,
+        payedTo: null,
+        trainer: trainerId
+      }
+    } else {
+      userObject = {
+        ...userObject,
+        proteges: []
+      }     
+    }
 
     await setDoc(doc(db, "users", userId), userObject);
 
     if(trainerId) {
-      const trainerDoc = doc(db, "users", trainerId);
-      const trainerData = (await getDoc(trainerDoc)).data();
-      trainerData.proteges.push(userId);     
-      await setDoc(trainerDoc, trainerData);
+      const trainerData = await getUserData(trainerId)
+      trainerData.proteges.push(userId);    
+      await setTrainerDoc(trainerId, trainerData)  
     }
   } catch (error) {
     console.log(error);
@@ -86,3 +110,16 @@ export const updateDocFun = async (userId, subCollecion, docId, data) => {
 export const deleteDocFun = async (userId, docId, subCollecion) => {
   await deleteDoc(doc(db, "users", userId, subCollecion, docId));
 };
+
+
+export const getAllProteges = async (userId) => {
+  let trainerProteges = (await getUserData(userId)).proteges;
+  console.log(trainerProteges);
+
+  trainerProteges = await Promise.all(trainerProteges.map(async item => {
+    return (await getUserData(item));
+  }));
+  console.log(trainerProteges)
+
+  return trainerProteges;
+}

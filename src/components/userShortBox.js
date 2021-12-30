@@ -1,13 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 const StyledContainer = styled.div`
   display: flex;
   margin-right: 10px;
+  cursor: pointer;
 `;
 
 const StyledLeft = styled.div`
-  margin: auto;
   white-space: nowrap;
 
   & img {
@@ -20,18 +21,26 @@ const StyledRight = styled.div`
   text-align: initial;
   color: ${({ theme }) => theme.PrimarySix};
   margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 
 const UserShortBox = ({
   name = 'name name',
   email = 'email',
-  img = "/static/media/user.a6143582.png"
+  img = "/static/media/user.a6143582.png",
+  id = null,
 }) => {
+  const navigate = useNavigate();
+  const handleOnClick = () => {
+    navigate('/trainer/protege/' + id)
+  }
     return (
-        <StyledContainer>
+        <StyledContainer onClick={handleOnClick}>
           <StyledLeft>
-            <img src={img} alt="Avatar" className="sc-dJjYzT MTPIL" /> 
+            <img src={img} alt="Avatar" /> 
           </StyledLeft>
 
           <StyledRight>

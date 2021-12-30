@@ -1,5 +1,4 @@
 import Login from "./view/Login/Login";
-import Layout from "./view/Layout/Layout";
 import TrainerDashboard from "./view/TrainerDashboard/TrainerDashboard";
 import DietCreator from "./view/DietCreator/DietCreator";
 import { Navigate } from "react-router-dom";
@@ -200,7 +199,7 @@ const routes = (auth, isProtege = false) => {
     { 
       path: "trainer/protege/:id", 
       element: (
-        <PrivateRoute forProtege>
+        <PrivateRoute>
           <ProtegeView/>
         </PrivateRoute>
       ) 
