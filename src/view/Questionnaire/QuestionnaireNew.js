@@ -12,7 +12,11 @@ import {
 } from "../../features/QuestionaireSlice";
 import { selectUserId } from "../../features/UserSlice";
 import { db } from "../../firebase/configFirebase";
-import { createNewDoc, updateDocFun } from "../../firebase/dataFirebase";
+import {
+  createNewDoc,
+  deleteDocFun,
+  updateDocFun,
+} from "../../firebase/dataFirebase";
 import { useInput } from "../../hooks/useInput";
 import QuestionItem from "./components/QuestionItem";
 import QuestionToolBar from "./components/QuestionToolBar";
@@ -24,6 +28,7 @@ const QuestionnaireNew = ({ isEdit = false }) => {
   const questionaireDispatch = useDispatch();
   const navigate = useNavigate();
   const selectName = useSelector((state) => state.questionaire.name);
+  const questStatus = useSelector((state) => state.questionaire.status);
   const nameInput = useInput(selectName);
   const [toolBarPosition, setToolBarPosition] = useState({
     top: "-100",
@@ -32,7 +37,7 @@ const QuestionnaireNew = ({ isEdit = false }) => {
   });
 
   const questionList = useSelector((state) => state.questionaire.questionList);
-  console.log("questlist", questionList)
+  console.log("questList", questionList);
   useEffect(() => {
     if (isEdit) {
       if (userId && id) {
@@ -62,6 +67,12 @@ const QuestionnaireNew = ({ isEdit = false }) => {
     }
   };
 
+  const deleteQuestionaire = () => {
+    if (isEdit) {
+      deleteDocFun(userId, id, "questionaires");
+      navigate(`/trainer/questionnaire`);
+    }
+  };
   return (
     <>
       <BoxHeader>
@@ -78,7 +89,12 @@ const QuestionnaireNew = ({ isEdit = false }) => {
         >
           <FontAwesomeIcon icon="save" />
         </Icon>
-        <Icon onClick={() => {}} fontSize="1.3em">
+        <Icon
+          onClick={() => {
+            deleteQuestionaire();
+          }}
+          fontSize="1.3em"
+        >
           <FontAwesomeIcon icon="trash-alt" />
         </Icon>
       </BoxHeader>
