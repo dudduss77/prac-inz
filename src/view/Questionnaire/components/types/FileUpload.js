@@ -59,7 +59,7 @@ const FileUpload = ({
     isDisabled = false
 }) => {
 	const dispatch = useDispatch();
-    const initialState = useSelector((state) => state?.questionaire[indx]?.img);
+    const initialState = useSelector((state) => state?.questionaire.questionList[indx]?.img);
     const uploadRefDrag = useRef();
     const uploadRefClick = useRef();
     const uploadRefs = () => isDisabled ? ["", ""] : [uploadRefClick, uploadRefDrag]

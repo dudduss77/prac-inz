@@ -115,7 +115,7 @@ const DietCreator = ({ isEdit = false }) => {
         updateDocFun(userId, "diets", id, diet);
       } else {
         const docId = await createNewDoc(userId, "diets", diet);
-        navigate(`/dietcreator/${docId}`);
+        navigate(`/trainer/dietcreator/${docId}`);
       }
       notificationDispatch(changeNotificationStateShow("Zapisano"));
     } else

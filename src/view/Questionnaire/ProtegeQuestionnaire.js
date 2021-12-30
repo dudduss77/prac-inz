@@ -16,7 +16,7 @@ import QuestionItem from "./components/QuestionItem";
 const ProtegeQuestionnaire = () => {
     const navigate = useNavigate();
 
-    const questionList = useSelector((state) => state.questionaire)
+    const questionList = useSelector((state) => state.questionaire.questionList)
     
     return (
         <Column justifyContent="center" width="100%" backgroundColor="#F0F2F5" >

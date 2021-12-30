@@ -16,10 +16,15 @@ export const useInput = (initialValue, key, initialWidth = "100px") => {
     setWidth(`${((value.length) * 9 )}px`);
   }, [value]);
 
+  const setterInputValue = (value) => {
+    setValue(value)
+  }
+
   return {
     value,
     key,
     width,
     onChange,
+    setterInputValue
   };
 };
