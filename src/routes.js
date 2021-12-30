@@ -77,6 +77,14 @@ const routes = (auth, isProtege = false) => {
       ) 
     },
     { 
+      path: "/trainer/questionnaire/edit/:id", 
+      element: (
+        <PrivateRoute>
+          <QuestionnaireNew isEdit/>
+        </PrivateRoute>
+      ) 
+    },
+    { 
       path: "/trainer/browse", 
       element: (
         <PrivateRoute>
@@ -128,7 +136,7 @@ const routes = (auth, isProtege = false) => {
       path: "trainer/trainingcreator/:id", 
       element: (
         <PrivateRoute>
-          <TrainingCreator />
+          <TrainingCreator isEdit/>
         </PrivateRoute>
       ) 
     },

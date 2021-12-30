@@ -40,6 +40,7 @@ const QuestionItem = ({
 	onMouseMove = () => {},
 	isProtege = false,
 	indx = null,
+	data = {}
 }) => {
 	const initialState = useSelector((state) => state.questionaire.questionList[indx] ?? null);
 	const dispatch = useDispatch();
@@ -49,13 +50,13 @@ const QuestionItem = ({
 	const [question, setQuestion] = useState("");
 
 	useEffect(() => {
-		console.log(initialState);
 		setType(initialState.type ?? null);
 		setQuestion(initialState.question ?? "");
 	}, [initialState])
 
 	const BoxRef = useRef();
 	const handleOnSelectChange = val => {
+		console.log("handleOnSelect", indx, val)
 		dispatch(updateQuestion({ 
 			id: indx,
 			type: questionTypes.indexOf(val)
