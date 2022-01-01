@@ -1,10 +1,14 @@
-import React from "react";
+import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Spacer, Icon, GridLayout } from "../../../components/Reusable";
 import BoxHeader from "../../../components/Box/components/BoxHeader";
 import Tile from "../../../components/Tile";
 import AddTile from "../../../components/AddTile";
 import styled from "styled-components";
+import { setModalData, changeModalState } from "../../../features/AppSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getDiets } from "../../../firebase/dataFirebase";
+import { putActualProtege } from "../../../features/protegeViewSlice";
 
 const GridLayoutWithMedia = styled(GridLayout)`
   @media screen and (max-width: 1400px) {
@@ -16,14 +20,28 @@ const GridLayoutWithMedia = styled(GridLayout)`
 `;
 
 const Diet = () => {
-  return (
+  const dispatch = useDispatch();
+  const { id, diets } = useSelector(({actualProtege}) => actualProtege);
+
+  useEffect(async () => {
+    const diets = await getDiets(id);
+    dispatch(putActualProtege({ diets }))
+  }, [id])
+
+  const handleClick = () => {
+    console.log('click')
+    dispatch(changeModalState());
+    dispatch(setModalData({ 
+      name: "addDietForProtege",
+      id
+    }));
+  }
+  return diets == undefined ? "Ładowanie" : (
     <Box width="50%">
       <BoxHeader>Dieta</BoxHeader>
       <GridLayoutWithMedia isGap isPadding gridTemplateColumns="repeat(3, 1fr)">
-        <AddTile />
-        <Tile tileHeader="Dieta standard" />
-        <Tile tileHeader="Dieta standard" tileSmallHeader="2000kcal" />
-        <Tile tileHeader="Dieta sportowa" tileSmallHeader="3000kcal" />
+        <AddTile addTileClick={handleClick} />
+        {diets.map(({ id, data }) => <Tile id={id} tileHeader={data.name} tileSmallHeader={data.kcalValue} />)}
       </GridLayoutWithMedia>
     </Box>
   );

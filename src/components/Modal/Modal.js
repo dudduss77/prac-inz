@@ -16,6 +16,7 @@ import SendNote from "./components/SendNote";
 import AddMeasurment from "./components/AddMeasurment";
 import AddImage from "./components/AddImage";
 import AddTrainingRaport from "./components/AddTrainingRaport";
+import AddDietForProtege from "./components/AddDietForProtege";
 
 const StyledBackground = styled.div`
   width: 100vw;
@@ -83,6 +84,8 @@ const retModalData = (selectedData) => {
       return <AddImage />;
     case "addtrainingraport":
       return <AddTrainingRaport />;
+    case "addDietForProtege":
+      return <AddDietForProtege id={selectedData.id} />;
     default:
       return;
   }

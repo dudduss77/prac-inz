@@ -7,7 +7,7 @@ import { GridLayout } from "../components/Reusable";
 import Tile from "../components/Tile";
 import { resetDietState } from "../features/DietCreatorSlice";
 import { selectUserId } from "../features/UserSlice";
-import { getTrainerDiets } from "../firebase/dataFirebase";
+import { getDiets } from "../firebase/dataFirebase";
 
 const GridLayoutWithMedia = styled(GridLayout)`
   @media screen and (max-width: 1400px) {
@@ -30,7 +30,7 @@ const TrainerDiet = () => {
 
   useEffect(() => {
     if (userId) {
-      getTrainerDiets(userId, setDietList);
+      getDiets(userId, setDietList);
     }
   }, [userId]);
 

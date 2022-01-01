@@ -27,7 +27,6 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loadDataFromDb.fulfilled, (state, action) => {
-      // console.log(action)
       if(action.payload) {
         state.isProtege = action.payload.isProtege;
         state.name = action.payload.name;        

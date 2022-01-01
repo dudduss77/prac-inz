@@ -7,6 +7,7 @@ import dietCreatorReducer from "./features/DietCreatorSlice";
 import tempProduc from "./features/TempProductSlice";
 import trainingCreatorReducer from "./features/TrainingCreatorSlice";
 import questionaireReducer from "./features/QuestionaireSlice";
+import protegeViewReducer from "./features/protegeViewSlice";
 
 export const store = configureStore({
   reducer: {
@@ -17,5 +18,6 @@ export const store = configureStore({
     temp: tempProduc,
     trainingCreator: trainingCreatorReducer,
     questionaire: questionaireReducer,
+    actualProtege: protegeViewReducer,
   },
 });

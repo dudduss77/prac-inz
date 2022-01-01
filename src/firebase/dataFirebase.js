@@ -61,7 +61,7 @@ export const createColleciontWhenUserCreate = async (name, email, userId, traine
   }
 };
 
-export const getTrainerDiets = async (userId, setter) => {
+export const getDiets = async (userId, setter = () => {}) => {
   let diets = [];
   const dietCollectionRef = await getDocs(
     collection(db, "users", userId, "diets")
@@ -70,7 +70,15 @@ export const getTrainerDiets = async (userId, setter) => {
     diets.push({ id: doc.id, data: doc.data() });
   });
   setter(diets);
+  return diets;
 };
+
+export const setProtegeDiet = async (protegeId, dietJson) => {
+  dietJson.time = new Date();
+
+  const id = await createNewDoc(protegeId, "diets", dietJson)
+  return {id, data: dietJson};
+}
 
 export const getTrainerTrainings = async (userId, setter) => {
   let trainings = [];
@@ -114,12 +122,9 @@ export const deleteDocFun = async (userId, docId, subCollecion) => {
 
 export const getAllProteges = async (userId) => {
   let trainerProteges = (await getUserData(userId)).proteges;
-  console.log(trainerProteges);
-
   trainerProteges = await Promise.all(trainerProteges.map(async item => {
     return (await getUserData(item));
   }));
-  console.log(trainerProteges)
 
   return trainerProteges;
 }

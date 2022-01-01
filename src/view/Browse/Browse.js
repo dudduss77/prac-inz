@@ -32,10 +32,6 @@ const Browse = () => {
     modalDispatch(setModalData({ name: "newprotege"}));
   }
 
-  const handleOnSearch = (val) => {
-    console.log(val)
-    setFilterSearch(val)
-  }
     return (
         <ReusableViewWrapper isColumnLayout={true}>
           <Box width="100%" isGap>
@@ -46,7 +42,7 @@ const Browse = () => {
               <SearchInput
                 placeholder="Szukaj..."
                 mediaQueryPoint="620px"
-                onSearch={handleOnSearch}
+                onSearch={setFilterSearch}
 
               />
 

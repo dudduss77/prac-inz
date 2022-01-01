@@ -24,6 +24,7 @@ export const appSlice = createSlice({
     },
     setModalData: (state, action) => {
       state.modalData.name = action.payload.name;
+      state.modalData.id = action.payload.id;
       state.modalData.config = action.payload.config;
     },
     changeOpenState: (state) => {

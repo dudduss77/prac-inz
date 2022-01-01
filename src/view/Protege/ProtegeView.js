@@ -9,17 +9,22 @@ import SimpleInfo from "./components/SimpleInfo";
 import Training from "./components/Training";
 import TrainingRaport from "./components/TrainingRaport";
 import { getUserData } from '../../firebase/dataFirebase';
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { putActualProtege } from "../../features/protegeViewSlice";
 
 const ProtegeView = () => {
 
 
   const { id:protegeId } = useParams();
-  const [protege, setProtege] = useState(null);
+  const protege = useSelector(({actualProtege}) => actualProtege);
+  const dispatch = useDispatch();
+
 
   useEffect(async () => {
     const user = await getUserData(protegeId);
     console.log(user)
-    setProtege(user);
+    dispatch(putActualProtege(user));
   }, [])
 
   return protege == null ? "Ładowanie" : (
@@ -43,7 +48,9 @@ const ProtegeView = () => {
       </Row>
       <Row isGap>
         <Diet />
-        <Training />
+        <Training 
+        
+        />
       </Row>
       <Row isGap>
         <TrainingRaport />
