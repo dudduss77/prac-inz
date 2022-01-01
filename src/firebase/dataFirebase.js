@@ -91,7 +91,7 @@ export const getTrainings = async (userId, setter = () => {}) => {
   return trainings
 };
 
-export const getTrainerQuestionaires = async (userId, setter) => {
+export const getTrainerQuestionaires = async (userId, setter = () => {}) => {
   let trainings = [];
   const trainingCollectionRef = await getDocs(
     collection(db, "users", userId, "questionaires")
@@ -100,6 +100,7 @@ export const getTrainerQuestionaires = async (userId, setter) => {
     trainings.push({ id: doc.id, data: doc.data() });
   });
   setter(trainings);
+  return trainings
 };
 
 export const createNewDoc = async (userId, subCollecion, data) => {
