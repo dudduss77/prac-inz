@@ -41,7 +41,7 @@ import { db } from "../../firebase/configFirebase";
 import { createNewDoc, updateDocFun } from "../../firebase/dataFirebase";
 
 const DietCreator = ({ isEdit = false }) => {
-  const { id } = useParams();
+  const { id, protegeId } = useParams();
   const navigate = useNavigate();
   const [mealValue, setMealValue] = useState(1);
   const userId = useSelector(selectUserId);
@@ -77,7 +77,10 @@ const DietCreator = ({ isEdit = false }) => {
   useEffect(() => {
     if (isEdit) {
       if (userId && id) {
-        creatorDietDispatch(loadFromDatabase({ userId, dietId: id }));
+        creatorDietDispatch(loadFromDatabase({ 
+          userId: protegeId != undefined ? protegeId : userId, 
+          dietId: id 
+        }));
       }
     }
   }, [isEdit, id, userId]);
@@ -103,6 +106,7 @@ const DietCreator = ({ isEdit = false }) => {
           config: {
             subCollection: "diets",
             docId: id,
+            userId: protegeId != undefined ? protegeId : userId
           },
         })
       );
@@ -110,9 +114,9 @@ const DietCreator = ({ isEdit = false }) => {
   };
 
   const saveDiet = async () => {
-    if (userId) {
+    if (userId || protegeId) {
       if (isEdit) {
-        updateDocFun(userId, "diets", id, diet);
+        updateDocFun(protegeId != undefined ? protegeId : userId, "diets", id, diet);
       } else {
         const docId = await createNewDoc(userId, "diets", diet);
         navigate(`/trainer/dietcreator/${docId}`);

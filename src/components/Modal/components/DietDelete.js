@@ -18,9 +18,9 @@ const DietDelete = () => {
   const modalDispatch = useDispatch();
   const navigate = useNavigate();
   const deleteDiet = () => {
-    deleteDocFun(userId, modalData.config.docId, modalData.config.subCollection)
+    deleteDocFun(modalData.config.userId, modalData.config.docId, modalData.config.subCollection)
     modalDispatch(changeModalState())
-    navigate('/trainer/diet')
+    navigate('/trainer/diet');
   }
 
   return (
