@@ -13,13 +13,18 @@ export const protegeViewSlice = createSlice({
             ...state.diets,
             action.payload
         ]}),
+    pushTraining: (state, action) => ({...state, trainings: [
+            ...state.trainings,
+            action.payload
+        ]}),
   }
 });
 
 // Action creators are generated for each case reducer function
 export const {
   putActualProtege,
-  pushDiet
+  pushDiet,
+  pushTraining
 } = protegeViewSlice.actions;
 
 export default protegeViewSlice.reducer;

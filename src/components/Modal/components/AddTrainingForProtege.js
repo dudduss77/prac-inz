@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { changeModalState } from "../../../features/AppSlice";
-import { pushDiet } from "../../../features/protegeViewSlice";
-import { getDiets, setProtegeDocInCollection } from "../../../firebase/dataFirebase";
+import { pushDiet, pushTraining } from "../../../features/protegeViewSlice";
+import { getTrainings, setProtegeDocInCollection } from "../../../firebase/dataFirebase";
 import { Button, StyledTextarea } from "../../Reusable";
 import Select from "../../Select";
 import { ModalHeader } from "./ModalReusable";
@@ -14,43 +14,43 @@ const StyledwhiteFont = styled.div`
     color: white;
 `;
 
-const AddDietForProtege = ({
+const AddTrainingForProtege = ({
     id = null,
 }) => {
   const dispatch = useDispatch();
   const notification = useNotification();
   const { userId } = useSelector(({user}) => user);
 
-  const [diets, setDiets] = useState(null);
-  const [dietIndex, setDietIndex] = useState(0);
+  const [trainings, setTrainings] = useState(null);
+  const [trainingIndex, setTrainingIndex] = useState(0);
 
   useEffect(async () => {
-    const diets = await getDiets(userId);
-    setDiets(diets.map(item => item.data))
+    const trainings = await getTrainings(userId);
+    setTrainings(trainings.map(item => item.data))
   }, [])
 
   const handleOnChange = ({i}) => {
-    setDietIndex(i);
+    setTrainingIndex(i);
   };
 
   const handleOnClick = async () => { 
-      const resDiet = await setProtegeDocInCollection(id, diets[dietIndex], "diets"); 
-      dispatch(pushDiet(resDiet));
+      const res = await setProtegeDocInCollection(id, trainings[trainingIndex], "trainings"); 
+      dispatch(pushTraining(res));
       dispatch(changeModalState());
-      notification.show("Dieta została przypisana")
+      notification.show("Trening został przypisany")
 
   }
 
-  return diets === null ? 'Ładowanie' : (
+  return trainings === null ? 'Ładowanie' : (
     <>
-      <ModalHeader>Przypisz dietę</ModalHeader>
+      <ModalHeader>Przypisz Zestaw treningowy</ModalHeader>
       <StyledwhiteFont>
-        Wybierz zestaw dietetyczny który chcesz przypisać podopiecznemu 
+        Wybierz zestaw treningowy który chcesz przypisać podopiecznemu 
       </StyledwhiteFont>
       <Select
         width="92%"
-        data={diets.map(item => item.name)}
-        initialValue={diets[0].name}
+        data={trainings.map(item => item.name)}
+        initialValue={trainings[0].name}
         onChangeWithIndex={handleOnChange}
       />
       <Button onClick={handleOnClick}>Dodaj</Button>
@@ -58,4 +58,4 @@ const AddDietForProtege = ({
   );
 };
 
-export default AddDietForProtege;
+export default AddTrainingForProtege;

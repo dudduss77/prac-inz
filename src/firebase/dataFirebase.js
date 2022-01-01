@@ -73,14 +73,13 @@ export const getDiets = async (userId, setter = () => {}) => {
   return diets;
 };
 
-export const setProtegeDiet = async (protegeId, dietJson) => {
-  dietJson.time = new Date();
-
-  const id = await createNewDoc(protegeId, "diets", dietJson)
-  return {id, data: dietJson};
+export const setProtegeDocInCollection = async (protegeId, payload, collection = "diets") => {
+  payload.time = new Date();
+  const id = await createNewDoc(protegeId, collection, payload)
+  return {id, data: payload};
 }
 
-export const getTrainerTrainings = async (userId, setter) => {
+export const getTrainings = async (userId, setter = () => {}) => {
   let trainings = [];
   const trainingCollectionRef = await getDocs(
     collection(db, "users", userId, "trainings")
@@ -89,6 +88,7 @@ export const getTrainerTrainings = async (userId, setter) => {
     trainings.push({ id: doc.id, data: doc.data() });
   });
   setter(trainings);
+  return trainings
 };
 
 export const getTrainerQuestionaires = async (userId, setter) => {

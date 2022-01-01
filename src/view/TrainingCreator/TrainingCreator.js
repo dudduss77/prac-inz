@@ -31,7 +31,7 @@ import TrainingDay from "./components/TrainingDay";
 import TrainingToolbar from "./components/TrainingToolbar";
 
 const TrainingCreator = ({ isEdit }) => {
-  const { id } = useParams();
+  const { id, protegeId } = useParams();
   const userId = useSelector(selectUserId);
   const training = useSelector(selectTraining);
   const navigate = useNavigate();
@@ -61,7 +61,7 @@ const TrainingCreator = ({ isEdit }) => {
     if (isEdit) {
       if (userId && id) {
         trainingCreatorDispatch(
-          loadTrainingFromDatabase({ userId, trainingId: id })
+          loadTrainingFromDatabase({ userId: protegeId != undefined ? protegeId : userId, trainingId: id })
         );
       }
     }
@@ -74,7 +74,7 @@ const TrainingCreator = ({ isEdit }) => {
   const saveTraining = async () => {
     if (userId) {
       if (isEdit) {
-        updateDocFun(userId, "trainings", id, training);
+        updateDocFun(protegeId != undefined ? protegeId : userId, "trainings", id, training);
       } else {
         const docId = await createNewDoc(userId, "trainings", training);
         navigate(`/trainer/trainingcreator/${docId}`);
@@ -93,6 +93,7 @@ const TrainingCreator = ({ isEdit }) => {
           config: {
             subCollection: "trainings",
             docId: id,
+            userId: protegeId != undefined ? protegeId : userId
           },
         })
       );

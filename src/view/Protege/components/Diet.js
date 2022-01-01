@@ -31,7 +31,6 @@ const Diet = () => {
   }, [id])
 
   const handleClick = () => {
-    console.log('click')
     dispatch(changeModalState());
     dispatch(setModalData({ 
       name: "addDietForProtege",
