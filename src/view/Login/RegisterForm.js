@@ -82,7 +82,7 @@ const RegisterForm = ({ handleForgotClick, id = false, qustionaireId = false }) 
       </RememberLost>
 
       <Button onClick={handleOnSubmit} isWholeContent>
-        Logowanie
+        Rejestracja
       </Button>
     </>
   );

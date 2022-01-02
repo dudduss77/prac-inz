@@ -25,6 +25,7 @@ import {
 } from "./../../firebase/dataFirebase";
 import { getDateddmmyyy } from "./../../helpers";
 import { useNavigate } from "react-router-dom";
+import LoaderFullPage from "../../components/LoaderFullPage";
 const StyledCircleMenuSVG = styled(CircleMenuSVG)`
   cursor: pointer;
 `;
@@ -48,7 +49,7 @@ const ProtegeTable = ({ filterValue = "" }) => {
 
   const user = useSelector(({ user }) => user);
 
-  const [proteges, setProteges] = useState([]);
+  const [proteges, setProteges] = useState(null);
 
   useEffect(() => {
     // console.log('pobieram dane z firebase');
@@ -79,7 +80,7 @@ const ProtegeTable = ({ filterValue = "" }) => {
         <StyledHeader>Akcja</StyledHeader>
       </StyledRow>
 
-      {proteges
+      {proteges!=null ? <LoaderFullPage />: proteges
         .filter(
           (item) =>
             new RegExp(filterValue, "i").test(item.name) ||

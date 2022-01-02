@@ -61,7 +61,7 @@ const UserInfo = ({ data }) => {
       <h4>Podstawowe informacje</h4>
       <UserLink userName={data.protegeName} customColor />
       <h4>Dieta</h4>
-      {lastDiet.data && (
+      {lastDiet?.data ? (
         <Tile
           tileHeight="75px"
           tileHeader={lastDiet.data.name}
@@ -69,10 +69,10 @@ const UserInfo = ({ data }) => {
             navigate(`/trainer/dietcreator/${lastDiet.id}/${data.id}`)
           }
         />
-      )}
+      ) : "Nie przypisano jeszcze diety"}
 
       <h4>Trening</h4>
-      {lastTraining.data && (
+      {lastTraining?.data ? (
         <Tile
           tileHeight="75px"
           tileHeader={lastTraining.data.name}
@@ -80,7 +80,7 @@ const UserInfo = ({ data }) => {
             navigate(`/trainer/trainingcreator/${lastTraining.id}/${data.id}`)
           }
         />
-      )}
+      ) : "Nie przypisano jeszcze treningu"}
       <h4>Ostatnie pomiary</h4>
       <ContentWrapper>
         <h4>Masa ciała: 100kg</h4>
