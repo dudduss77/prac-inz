@@ -141,6 +141,14 @@ const routes = (auth, isProtege = false) => {
       ) 
     },
     { 
+      path: "trainer/trainingcreator/:id/:protegeId", 
+      element: (
+        <PrivateRoute>
+          <TrainingCreator isEdit/>
+        </PrivateRoute>
+      ) 
+    },
+    { 
       path: "/trainer/diet", 
       element: (
         <PrivateRoute>
@@ -166,6 +174,14 @@ const routes = (auth, isProtege = false) => {
     },
     { 
       path: "/trainer/dietcreator/:id", 
+      element: (
+        <PrivateRoute>
+          <DietCreator isEdit/>
+        </PrivateRoute>
+      ) 
+    },
+    { 
+      path: "/trainer/dietcreator/:id/:protegeId", 
       element: (
         <PrivateRoute>
           <DietCreator isEdit/>

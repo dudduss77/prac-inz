@@ -14,6 +14,12 @@ const getLastMondayTime = () => {
     return a.getTime() - (7+ day-1)*ONE_DAY_MS //*24*3600*1000
 }
 
+const swapArrayElements = (arr, indexA, indexB) => {
+    const temp = arr[indexA];
+    arr[indexA] = arr[indexB];
+    arr[indexB] = temp;
+  };
+
 
 const getFirstDayFromNumberOfDays = (numberOfDays = 7) => {
     // const a = new Date();
@@ -33,7 +39,6 @@ const getFirstDayFromNumberOfDays = (numberOfDays = 7) => {
     // const day = 7;
     let b = 7 - (numberOfDays-1);
     b = b>day ? day: b;
-    console.log(b)
     return a.getTime() - (day-1)*ONE_DAY_MS //*24*3600*1000
 }
 
@@ -44,4 +49,4 @@ const getNextDay = (date = new Date()) => new Date(date.getTime()+ONE_DAY_MS);
 
 
 
-export { getDateddmmyyy, getLastMondayTime, getDayNameFromDate, getNextDay };
+export { getDateddmmyyy, getLastMondayTime, getDayNameFromDate, getNextDay, swapArrayElements    };

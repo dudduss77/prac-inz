@@ -84,6 +84,7 @@ const Select = ({
   placeholder = "Select",
   customHeight,
   onChange = (val) => {},
+  onChangeWithIndex = (val) => {},
   initialValue = "",
   width = "250px",
   isFiltered = false,
@@ -97,6 +98,8 @@ const Select = ({
   const handleItemClick = ({ target }) => {
     handleToggleMenu();
     setInputValue(target.textContent);
+    onChangeWithIndex({ name: target.textContent, i: parseInt(target.id) });    
+
   };
 
   useEffect(() => {
@@ -108,7 +111,6 @@ const Select = ({
       firstUpdate.current = false;
       return;
     } else {
-      console.log("Zmiana");
       onChange(inputValue);
     }
   }, [inputValue]);
@@ -131,7 +133,7 @@ const Select = ({
       <StyledList isVisible={isVisible}>
         {data.map((item, key) =>
           !isFiltered || new RegExp(inputValue, "i").test(item) ? (
-            <StyledListItem onClick={handleItemClick} key={key}>
+            <StyledListItem onClick={handleItemClick} id={key} key={key}>
               {item}
             </StyledListItem>
           ) : (

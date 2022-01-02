@@ -19,10 +19,11 @@ const TrainingDelete = () => {
   const userId = useSelector(selectUserId);
 
   const deleteTraining = () => {
+    const { userId:configUserId, docId, subCollection } = modalData.config
     deleteDocFun(
-      userId,
-      modalData.config.docId,
-      modalData.config.subCollection
+      configUserId ?? userId,
+      docId,
+      subCollection
     );
     modalDispatch(changeModalState());
     navigate("/trainer/training");

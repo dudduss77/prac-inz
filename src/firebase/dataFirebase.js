@@ -73,7 +73,7 @@ export const createColleciontWhenUserCreate = async (
   }
 };
 
-export const getTrainerDiets = async (userId, setter) => {
+export const getDiets = async (userId, setter = () => {}) => {
   let diets = [];
   const dietCollectionRef = await getDocs(
     collection(db, "users", userId, "diets")
@@ -82,9 +82,20 @@ export const getTrainerDiets = async (userId, setter) => {
     diets.push({ id: doc.id, data: doc.data() });
   });
   setter(diets);
+  return diets;
 };
 
-export const getTrainerTrainings = async (userId, setter) => {
+export const setProtegeDocInCollection = async (
+  protegeId,
+  payload,
+  collection = "diets"
+) => {
+  payload.time = new Date();
+  const id = await createNewDoc(protegeId, collection, payload);
+  return { id, data: payload };
+};
+
+export const getTrainings = async (userId, setter = () => {}) => {
   let trainings = [];
   const trainingCollectionRef = await getDocs(
     collection(db, "users", userId, "trainings")
@@ -93,9 +104,10 @@ export const getTrainerTrainings = async (userId, setter) => {
     trainings.push({ id: doc.id, data: doc.data() });
   });
   setter(trainings);
+  return trainings;
 };
 
-export const getTrainerQuestionaires = async (userId, setter) => {
+export const getTrainerQuestionaires = async (userId, setter = () => {}) => {
   let trainings = [];
   const trainingCollectionRef = await getDocs(
     collection(db, "users", userId, "questionaires")
@@ -104,6 +116,7 @@ export const getTrainerQuestionaires = async (userId, setter) => {
     trainings.push({ id: doc.id, data: doc.data() });
   });
   setter(trainings);
+  return trainings;
 };
 
 export const createNewDoc = async (userId, subCollecion, data) => {
@@ -125,7 +138,6 @@ export const deleteDocFun = async (userId, docId, subCollecion) => {
 
 export const getAllProteges = async (userId) => {
   let trainerProteges = (await getUserData(userId)).proteges;
-
   trainerProteges = await Promise.all(
     trainerProteges.map(async (item) => {
       return await getUserData(item);
@@ -155,10 +167,7 @@ export const createNewMessageDoc = async (userId, protegeId) => {
 };
 
 export const getMessagesArray = async (userId, setter, isOrder, limitCount) => {
-  const q = query(
-    collection(db, "messages"),
-    where("trainerId", "==", userId),
-  );
+  const q = query(collection(db, "messages"), where("trainerId", "==", userId));
   const querySnapshot = await getDocs(q);
   let arr = [];
   querySnapshot.forEach((doc) => {
@@ -166,10 +175,12 @@ export const getMessagesArray = async (userId, setter, isOrder, limitCount) => {
       arr.push({ id: doc.id, data: doc.data() });
     }
   });
-  if(isOrder) {
-    arr.sort((a, b) => {return b.data.lastUpdate - a.data.lastUpdate})
-  } 
-  if(limitCount) arr = arr.slice(0 , limitCount)
+  if (isOrder) {
+    arr.sort((a, b) => {
+      return b.data.lastUpdate - a.data.lastUpdate;
+    });
+  }
+  if (limitCount) arr = arr.slice(0, limitCount);
   setter(arr);
 };
 
