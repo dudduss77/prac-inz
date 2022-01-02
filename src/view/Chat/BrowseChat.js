@@ -17,7 +17,7 @@ import { changeModalState, setModalData } from "./../../features/AppSlice";
 import { ReactComponent as PlusSVG } from "./../../assets/plus.svg";
 import styled from "styled-components";
 import ChatTable from "./components/ChatTable";
-import { getMessagesArray, getProtegeName } from "../../firebase/dataFirebase";
+import { getMessagesArray, getProtegeEmail, getProtegeName } from "../../firebase/dataFirebase";
 import { selectUserId } from "../../features/UserSlice";
 
 const StyledPlusSVG = styled.svg.attrs({
@@ -44,6 +44,7 @@ const BrowseChat = () => {
     if (messagesData) {
       messagesData.forEach(async (message) => {
         const username = await getProtegeName(message.data.protegeId);
+        const email = await getProtegeEmail(message.data.protegeId);
         let lastMessage =
           message.data.messages[message.data.messages.length - 1];
 
@@ -54,6 +55,7 @@ const BrowseChat = () => {
           username: username,
           content: lastMessage.content,
           messageDate: lastMessage.date,
+          email: email
         };
 
         setMessages((old) => [...old, arr]);

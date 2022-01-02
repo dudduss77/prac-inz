@@ -44,7 +44,7 @@ const ProtegeTable = ({ data = [] }) => {
           <StyledCell>
             <UserShortBox
               id={message.protegeId}
-              email="Biniox2@gmail.com"
+              email={message.email}
               name={message.username}
               img="/static/media/user.a6143582.png"
             />

@@ -187,6 +187,13 @@ export const getProtegeName = async (protegeId) => {
   return docSnap.data().name;
 };
 
+export const getProtegeEmail = async (protegeId) => {
+  const docRef = doc(db, "users", protegeId);
+  const docSnap = await getDoc(docRef);
+
+  return docSnap.data().email;
+};
+
 export const getRealTimeMessages = (messageId, setter) => {
   const unsub = onSnapshot(doc(db, "messages", messageId), (doc) => {
     setter(doc.data().messages);
