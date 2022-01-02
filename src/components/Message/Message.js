@@ -23,7 +23,7 @@ const MessagePreview = styled.div`
   white-space: nowrap;
 `;
 
-const Date = styled.div`
+const DateStyle = styled.div`
   text-align: right;
 `;
 
@@ -39,6 +39,13 @@ const Message = ({
   const MessageClick = () => {
     navigate(`/trainer/message/${messageId}`);
   };
+
+  const DateFormat = () => {
+    var date = new Date(messageDate)
+    const hour = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()
+    const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
+    return date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear()+" "+ hour+":"+minutes;
+  }
   return (
     <StyledMessage onClick={MessageClick}>
       <UserLink
@@ -48,7 +55,7 @@ const Message = ({
         userName={messageUserName}
       />
       <MessagePreview isReaded={isReaded}>{messageContent}</MessagePreview>
-      <Date>{messageDate}</Date>
+      <DateStyle>{DateFormat()}</DateStyle>
     </StyledMessage>
   );
 };

@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { selectMessages } from "../../../features/ChatSlice";
 import { selectUserId } from "../../../features/UserSlice";
+import { getRealTimeMessages } from "../../../firebase/dataFirebase";
 
 const StyledMessagesWrapper = styled.div`
   flex: 1;
@@ -48,19 +51,26 @@ const retDate = (timestamp) => {
   }`;
 };
 
-const MessagesWrapper = () => {
+const MessagesWrapper = ({messageId}) => {
+  const {id} = useParams()
   const ref = useRef();
   const userId = useSelector(selectUserId);
   const messages = useSelector(selectMessages);
+  const messageDispatch = useDispatch();
+  const [messageArray, setMessageArray] = useState([])
 
   useEffect(() => {
-    console.log(ref.current);
     ref.current.scrollTop = ref.current.scrollHeight;
   }, [messages]);
 
+  useEffect(() => {
+    const unsub = getRealTimeMessages(messageId, setMessageArray)
+    return () =>  unsub()
+  }, [])
+
   return (
     <StyledMessagesWrapper ref={ref}>
-      {messages.map((message) => (
+      {messageArray.map((message) => (
         <>
           <ChatBubble
             isMy={message.from === userId ? true : false}

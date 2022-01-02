@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import styled from "styled-components";
 import { Button } from "../../../components/Reusable";
 import Tile from "../../../components/Tile";
@@ -34,12 +34,12 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const UserInfo = () => {
+const UserInfo = ({data}) => {
   const navigate = useNavigate();
   return (
     <StyledUserInfo>
       <h4>Podstawowe informacje</h4>
-      <UserLink userName="Jan Kowalski" customColor />
+      <UserLink userName={data.protegeName} customColor />
       <h4>Dieta</h4>
       <Tile tileHeight="75px" tileHeader="Dieta standard" />
       <h4>Dieta</h4>
@@ -53,7 +53,7 @@ const UserInfo = () => {
         <h4>Obwód uda: 70cm</h4>
         <h4>Obwód ramienia: 70cm</h4>
       </ContentWrapper>
-      <Button onClick={() => navigate("/trainer/protege/1")}>Przejdź do profilu</Button>
+      <Button onClick={() => navigate(`/trainer/protege/${data.id}`)}>Przejdź do profilu</Button>
     </StyledUserInfo>
   );
 };

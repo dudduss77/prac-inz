@@ -1,8 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getMessageObject } from "../firebase/dataFirebase";
 
-//Tutaj jak juz będzie baza dodamy sobie thunk który będzie nam pobierał dane z bazy
-//Co do struktury wiadomości proszę się nie wzorować bo to tylko placeholder żeby działało
-//zawsze można zmienić
+export const loadMessagesFromDb = createAsyncThunk(
+  "messages/load",
+  async (messagesId) => {
+    const messageObject = await getMessageObject(messagesId);
+    return messageObject.messages;
+  }
+);
+
 const initialState = [
   {
     from: 1234,
@@ -27,6 +33,11 @@ const chatSlice = createSlice({
     addNewMessage: (state, action) => {
       state.push(action.payload);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loadMessagesFromDb.fulfilled, (state, action) => {
+      return action.payload;
+    });
   },
 });
 
