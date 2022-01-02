@@ -33,8 +33,8 @@ const Browse = () => {
   }
 
     return (
-        <ReusableViewWrapper isColumnLayout={true}>
-          <Box width="100%" isGap>
+        <ReusableViewWrapper flexValue="1" isColumnLayout={true} >
+          <Box height="100%" width="100%" isGap>
 
             <BoxHeader headerTitle="Przegląd Podopiecznych" />
 

@@ -34,16 +34,17 @@ const UserShortBox = ({
   id = null,
 }) => {
   const navigate = useNavigate();
-  const handleOnClick = () => {
+  const handleOnClick = (evt) => {
+    evt.stopPropagation();
     navigate('/trainer/protege/' + id)
   }
     return (
-        <StyledContainer onClick={handleOnClick}>
-          <StyledLeft>
+        <StyledContainer >
+          <StyledLeft onClick={handleOnClick}>
             <img src={img} alt="Avatar" /> 
           </StyledLeft>
 
-          <StyledRight>
+          <StyledRight onClick={handleOnClick}>
             <p>{name}</p>
             <p>{email}</p>
           </StyledRight>
