@@ -227,8 +227,32 @@ export const getProtegeTrainerId = async (userId) => {
   return docSnap.data().trainer;
 };
 
-export const getProtegeLastDiet = async (protegeId) => {};
+export const getProtegeLastDiet = async (protegeId, setter) => {
+  let diets = [];
 
-export const getProtegeLastTraining = async (protegeId) => {};
+  const dietCollectionRef = await getDocs(
+    collection(db, "users", protegeId, "diets")
+  );
+  dietCollectionRef.forEach((doc) => {
+    diets.push({ id: doc.id, data: doc.data() });
+  });
+  diets.sort((a, b) => a.data.time - b.data.time);
+  setter(diets[diets.length - 1]);
+  return diets[diets.length - 1];
+};
+
+export const getProtegeLastTraining = async (protegeId, setter) => {
+  let trainings = [];
+
+  const trainingCollectionRef = await getDocs(
+    collection(db, "users", protegeId, "trainings")
+  );
+  trainingCollectionRef.forEach((doc) => {
+    trainings.push({ id: doc.id, data: doc.data() });
+  });
+  trainings.sort((a, b) => a.data.time - b.data.time);
+  setter(trainings[trainings.length - 1]);
+  return trainings[trainings.length - 1];
+};
 
 export const getProtegeLastMeasurment = async (protegeId) => {};
