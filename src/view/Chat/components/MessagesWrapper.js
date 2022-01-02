@@ -52,16 +52,13 @@ const retDate = (timestamp) => {
 };
 
 const MessagesWrapper = ({messageId}) => {
-  const {id} = useParams()
   const ref = useRef();
   const userId = useSelector(selectUserId);
-  const messages = useSelector(selectMessages);
-  const messageDispatch = useDispatch();
   const [messageArray, setMessageArray] = useState([])
 
   useEffect(() => {
     ref.current.scrollTop = ref.current.scrollHeight;
-  }, [messages]);
+  }, [messageArray]);
 
   useEffect(() => {
     const unsub = getRealTimeMessages(messageId, setMessageArray)
