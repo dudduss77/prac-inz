@@ -24,12 +24,16 @@ export const userSlice = createSlice({
         state.isProtege = undefined;
       state.userId = action.payload;
     },
+    completeQuestionaire: (state, action) => {
+      return {...state, isQuestionaireComplete: true }
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(loadDataFromDb.fulfilled, (state, action) => {
       if(action.payload) {
         state.isProtege = action.payload.isProtege;
         state.name = action.payload.name;        
+        state.isQuestionaireComplete = action.payload.isQuestionaireComplete;        
       }
 
     })
@@ -40,5 +44,5 @@ export const selectUserType = (state) => state.user.isProtege;
 export const selectUserId = (state) => state.user.userId;
 export const selectUsername = (state) => state.user.name;
 
-export const { setUserId } = userSlice.actions;
+export const { setUserId, completeQuestionaire } = userSlice.actions;
 export default userSlice.reducer;

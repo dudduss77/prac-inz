@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { resetQuestionaireState } from "../../features/QuestionaireSlice";
 import { selectUserId } from "../../features/UserSlice";
-import { getTrainerQuestionaires } from "../../firebase/dataFirebase";
+import { getQuestionaires } from "../../firebase/dataFirebase";
 import Tile from "../../components/Tile";
 
 const Questionnaire = () => {
@@ -20,7 +20,7 @@ const Questionnaire = () => {
 
   useEffect(() => {
     if (userId) {
-      getTrainerQuestionaires(userId, setQuestionaireList);
+      getQuestionaires(userId, setQuestionaireList);
     }
   }, [userId]);
 

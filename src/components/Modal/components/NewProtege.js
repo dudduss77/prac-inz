@@ -6,7 +6,7 @@ import { ModalHeader, ModalParagraph } from "./ModalReusable";
 import { ReactComponent as UserSVG } from "./../../../assets/user.svg";
 import Select from "../../Select";
 import { useEffect, useState } from "react";
-import { getTrainerQuestionaires } from "../../../firebase/dataFirebase";
+import { getQuestionaires } from "../../../firebase/dataFirebase";
 
 const NewProtege = () => {
   const user = useSelector(({user}) => user);
@@ -18,7 +18,7 @@ const NewProtege = () => {
   }
 
   useEffect(async () => {
-    const res = await getTrainerQuestionaires(user.userId);
+    const res = await getQuestionaires(user.userId);
     setQuestionaire(res);
   }, [])
 

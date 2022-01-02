@@ -22,8 +22,7 @@ const WHICHFORM = {
 }
 
 const Login = () => {
-
-  const { id } = useParams();
+  const { id, qustionaireId } = useParams();
   const [whichForm, setWhichForm] = useState(id ? WHICHFORM.REGISTER : WHICHFORM.LOGIN);
 
   const handleLoginClick = () => setWhichForm(WHICHFORM.LOGIN)
@@ -53,7 +52,7 @@ const Login = () => {
           </MenuLogin__item>
         </MenuLogin>
         {whichForm == WHICHFORM.LOGIN && <LoginForm handleForgotClick={handleForgotClick} />}
-        {whichForm == WHICHFORM.REGISTER && <RegisterForm handleForgotClick={handleForgotClick} id={id}/>}
+        {whichForm == WHICHFORM.REGISTER && <RegisterForm handleForgotClick={handleForgotClick} id={id} qustionaireId={qustionaireId}/>}
         {whichForm == WHICHFORM.FORGET_PASSWORD && <ForgotForm/>}
         
       </LoginBox>

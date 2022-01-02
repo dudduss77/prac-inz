@@ -29,7 +29,7 @@ const routes = (auth, isProtege = false) => {
   return [
     { path: "*", element: <ErrorView /> },
     { path: "/login", element: <Login /> },
-    { path: "/login/:id", element: <Login/> },
+    { path: "/login/:id/:qustionaireId", element: <Login/> },
     { path: "/logout", element: <Logout /> },
     { path: "/protege/questionnaire", element: (
       <PrivateRoute forProtege withoutLayout>

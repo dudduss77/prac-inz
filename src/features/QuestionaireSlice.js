@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "../firebase/configFirebase";
 
 export const loadQuestionairesFromDb = createAsyncThunk(
@@ -8,6 +13,15 @@ export const loadQuestionairesFromDb = createAsyncThunk(
     const questDocRef = doc(db, "users", userId, "questionaires", questId);
     const docSnap = await getDoc(questDocRef);
     return docSnap.data();
+  }
+);
+
+export const loadProtegQuestionaireFromDb = createAsyncThunk(
+  "questionaire/loadProtege",
+  async ({ userId }) => {
+    const questDocRef = collection(db, "users", userId, "questionaires");
+    const docSnap = await getDocs(questDocRef);
+    return docSnap.docs[0].data();
   }
 );
 
@@ -163,6 +177,9 @@ export const questionaireSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loadQuestionairesFromDb.fulfilled, (state, action) => {
+      return action.payload;
+    });
+    builder.addCase(loadProtegQuestionaireFromDb.fulfilled, (state, action) => {
       return action.payload;
     });
   },
