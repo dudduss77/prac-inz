@@ -1,12 +1,18 @@
 import {
   addDoc,
+  arrayUnion,
   collection,
   deleteDoc,
   doc,
   getDoc,
   getDocs,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
   setDoc,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { db } from "./configFirebase";
 
@@ -15,7 +21,7 @@ export const getUserData = async (userId) => {
   const toReturn = (await getDoc(trainerDoc)).data();
   toReturn.id = userId;
   return toReturn;
-}
+};
 
 export const updateUser = async (userId, payload) => {
   const res = await updateDoc(doc(db, "users", userId), payload);
@@ -26,7 +32,13 @@ export const setTrainerDoc = async (trainerId, data) => {
   const trainerDoc = doc(db, "users", trainerId);
   return (await setDoc(trainerDoc, data));
 }
-export const createColleciontWhenUserCreate = async (name, email, userId, trainerId = false, qustionaireId = false) => {
+export const createColleciontWhenUserCreate = async (
+    name, 
+    email, 
+    userId, 
+    trainerId = false, 
+    qustionaireId = false
+  ) => {
   try {
     let userObject = {
       isProtege: trainerId ? true : false,
@@ -38,9 +50,9 @@ export const createColleciontWhenUserCreate = async (name, email, userId, traine
       messages: [],
       polls: [],
       calendar: [],
-    }
+    };
 
-    if(trainerId) {
+    if (trainerId) {
       userObject = {
         ...userObject,
         payedFrom: null,
@@ -51,8 +63,8 @@ export const createColleciontWhenUserCreate = async (name, email, userId, traine
     } else {
       userObject = {
         ...userObject,
-        proteges: []
-      }     
+        proteges: [],
+      };
     }
 
     await setDoc(doc(db, "users", userId), userObject);
@@ -61,6 +73,7 @@ export const createColleciontWhenUserCreate = async (name, email, userId, traine
       const trainerData = await getUserData(trainerId)
       trainerData.proteges.push(userId);    
       await setTrainerDoc(trainerId, trainerData);
+      await createNewMessageDoc(trainerId, userId);
 
       const qustionaire = await getQuestionaire(trainerId, qustionaireId)
       await setQuestionaire(userId, qustionaire.id, qustionaire.data);
@@ -114,11 +127,15 @@ export const getDiets = async (userId, setter = () => {}) => {
   return diets;
 };
 
-export const setProtegeDocInCollection = async (protegeId, payload, collection = "diets") => {
+export const setProtegeDocInCollection = async (
+  protegeId,
+  payload,
+  collection = "diets"
+) => {
   payload.time = new Date();
-  const id = await createNewDoc(protegeId, collection, payload)
-  return {id, data: payload};
-}
+  const id = await createNewDoc(protegeId, collection, payload);
+  return { id, data: payload };
+};
 
 export const sendImage = async (userId, payload) => {
   payload.time = new Date();
@@ -140,7 +157,7 @@ export const getTrainings = async (userId, setter = () => {}) => {
     trainings.push({ id: doc.id, data: doc.data() });
   });
   setter(trainings);
-  return trainings
+  return trainings;
 };
 
 export const getQuestionaires = async (userId, setter = () => {}) => {
@@ -152,7 +169,7 @@ export const getQuestionaires = async (userId, setter = () => {}) => {
     trainings.push({ id: doc.id, data: doc.data() });
   });
   setter(trainings);
-  return trainings
+  return trainings;
 };
 
 
@@ -192,12 +209,123 @@ export const deleteDocFun = async (userId, docId, subCollecion) => {
   await deleteDoc(doc(db, "users", userId, subCollecion, docId));
 };
 
-
 export const getAllProteges = async (userId) => {
   let trainerProteges = (await getUserData(userId)).proteges;
-  trainerProteges = await Promise.all(trainerProteges.map(async item => {
-    return (await getUserData(item));
-  }));
+  trainerProteges = await Promise.all(
+    trainerProteges.map(async (item) => {
+      return await getUserData(item);
+    })
+  );
 
   return trainerProteges;
-}
+};
+
+export const getMessageId = async (protegeId, setter) => {
+  const q = query(
+    collection(db, "messages"),
+    where("protegeId", "==", protegeId)
+  );
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    setter(doc.id);
+  });
+};
+
+export const createNewMessageDoc = async (userId, protegeId) => {
+  const docRef = await addDoc(collection(db, "messages"), {
+    protegeId: protegeId,
+    trainerId: userId,
+    messages: [],
+  });
+};
+
+export const getMessagesArray = async (userId, setter, isOrder, limitCount) => {
+  const q = query(collection(db, "messages"), where("trainerId", "==", userId));
+  const querySnapshot = await getDocs(q);
+  let arr = [];
+  querySnapshot.forEach((doc) => {
+    if (doc.data().messages.length > 0) {
+      arr.push({ id: doc.id, data: doc.data() });
+    }
+  });
+  if (isOrder) {
+    arr.sort((a, b) => {
+      return b.data.lastUpdate - a.data.lastUpdate;
+    });
+  }
+  if (limitCount) arr = arr.slice(0, limitCount);
+  setter(arr);
+};
+
+export const getMessageObject = async (messageId) => {
+  const docRef = doc(db, "messages", messageId);
+  const docSnap = await getDoc(docRef);
+
+  return docSnap.data();
+};
+
+export const getProtegeName = async (protegeId) => {
+  const docRef = doc(db, "users", protegeId);
+  const docSnap = await getDoc(docRef);
+
+  return docSnap.data().name;
+};
+
+export const getProtegeEmail = async (protegeId) => {
+  const docRef = doc(db, "users", protegeId);
+  const docSnap = await getDoc(docRef);
+
+  return docSnap.data().email;
+};
+
+export const getRealTimeMessages = (messageId, setter) => {
+  const unsub = onSnapshot(doc(db, "messages", messageId), (doc) => {
+    setter(doc.data().messages);
+  });
+  return unsub;
+};
+
+export const pushNewMessage = async (messageId, data) => {
+  const messageDoc = doc(db, "messages", messageId);
+  await updateDoc(messageDoc, {
+    lastUpdate: Date.now(),
+    messages: arrayUnion(data),
+  });
+};
+
+export const getProtegeTrainerId = async (userId) => {
+  const docRef = doc(db, "users", userId);
+  const docSnap = await getDoc(docRef);
+
+  return docSnap.data().trainer;
+};
+
+export const getProtegeLastDiet = async (protegeId, setter) => {
+  let diets = [];
+
+  const dietCollectionRef = await getDocs(
+    collection(db, "users", protegeId, "diets")
+  );
+  dietCollectionRef.forEach((doc) => {
+    diets.push({ id: doc.id, data: doc.data() });
+  });
+  diets.sort((a, b) => a.data.time - b.data.time);
+  setter(diets[diets.length - 1]);
+  return diets[diets.length - 1];
+};
+
+export const getProtegeLastTraining = async (protegeId, setter) => {
+  let trainings = [];
+
+  const trainingCollectionRef = await getDocs(
+    collection(db, "users", protegeId, "trainings")
+  );
+  trainingCollectionRef.forEach((doc) => {
+    trainings.push({ id: doc.id, data: doc.data() });
+  });
+  trainings.sort((a, b) => a.data.time - b.data.time);
+  setter(trainings[trainings.length - 1]);
+  return trainings[trainings.length - 1];
+};
+
+export const getProtegeLastMeasurment = async (protegeId) => {};

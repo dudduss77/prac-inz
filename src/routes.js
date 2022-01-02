@@ -197,7 +197,7 @@ const routes = (auth, isProtege = false) => {
       ) 
     },
     { 
-      path: "/protege/message", 
+      path: "/protege/message/:id", 
       element: (
         <PrivateRoute forProtege>
           <Chat isProtege/>
