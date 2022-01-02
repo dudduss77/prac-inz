@@ -60,7 +60,7 @@ const ProtegeTable = ({ filterValue = "" }) => {
       setProteges(proteges);
     })();
   }, []);
-  return (
+  return proteges==null ? <LoaderFullPage />:(
     <StyledTable>
       <StyledRow>
         <StyledHeader>
@@ -80,7 +80,7 @@ const ProtegeTable = ({ filterValue = "" }) => {
         <StyledHeader>Akcja</StyledHeader>
       </StyledRow>
 
-      {proteges!=null ? <LoaderFullPage />: proteges
+      {proteges
         .filter(
           (item) =>
             new RegExp(filterValue, "i").test(item.name) ||
