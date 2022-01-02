@@ -60,7 +60,8 @@ const Input = ({
   isDisabled = false,
   value = "",
   reference,
-  onValueChange = () => {}
+  onValueChange = () => {},
+  type = "text"
 }) => {
   const Icon = icon;
 
@@ -84,6 +85,7 @@ const Input = ({
         as={as}
         disabled={isDisabled}
         ref={reference}
+        type={type}
       />
     </Container>
   );

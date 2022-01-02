@@ -328,4 +328,20 @@ export const getProtegeLastTraining = async (protegeId, setter) => {
   return trainings[trainings.length - 1];
 };
 
+
+export const sendMeasurement = async (userId, payload) => {
+  payload.time = new Date();
+  const id = await createNewDoc(userId, "measurement", payload)
+  return {id, data: payload}; 
+}
+
+export const getMeasurements = async (userId) => {
+  const trainerDoc = collection(db, "users", userId, "measurement");
+  let toReturn = (await getDocs(trainerDoc));
+  console.log(toReturn);
+  toReturn = toReturn.docs.map(item => ({ id: item.id, data: item.data()}));
+  console.log(toReturn);
+  return toReturn;
+};
+
 export const getProtegeLastMeasurment = async (protegeId) => {};
