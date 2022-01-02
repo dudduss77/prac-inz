@@ -1,10 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import {useSelector } from "react-redux";
 import styled from "styled-components";
 import { StyledTextarea } from "../../../components/Reusable";
-import { addNewMessage } from "../../../features/ChatSlice";
 import { selectUserId } from "../../../features/UserSlice";
 import {
   getProtegeTrainerId,

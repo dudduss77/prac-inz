@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import {  useSelector } from "react-redux";
 import styled from "styled-components";
-import { selectMessages } from "../../../features/ChatSlice";
 import { selectUserId } from "../../../features/UserSlice";
 import { getRealTimeMessages } from "../../../firebase/dataFirebase";
 
@@ -14,7 +12,6 @@ const StyledMessagesWrapper = styled.div`
   gap: 10px;
   flex-direction: column;
   overflow: auto;
-  /* justify-content: flex-end; */
 `;
 
 const ChatBubble = styled.div`
