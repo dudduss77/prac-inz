@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import AddTile from "../components/AddTile";
+import LoaderFullPage from "../components/LoaderFullPage";
 import { GridLayout } from "../components/Reusable";
 import Tile from "../components/Tile";
 import { resetTrainingState } from "../features/TrainingCreatorSlice";
@@ -19,7 +20,7 @@ const GridLayoutWithMedia = styled(GridLayout)`
 `;
 
 const TrainerTraining = () => {
-  const [trainingDiet, setTrainingDiet] = useState([]);
+  const [trainingDiet, setTrainingDiet] = useState(null);
   const userId = useSelector(selectUserId);
   const navigate = useNavigate();
   const trainingCreatorDispatch = useDispatch()
@@ -34,7 +35,7 @@ const TrainerTraining = () => {
     }
   }, [userId]);
 
-  return (
+  return trainingDiet == null ? <LoaderFullPage /> : (
     <GridLayoutWithMedia isGap gridTemplateColumns="repeat(5, 1fr)">
       <AddTile addTileClick={() => navigate("/trainer/trainingcreator")} />
       {trainingDiet.map((trainig) => (

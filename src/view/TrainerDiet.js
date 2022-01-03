@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import AddTile from "../components/AddTile";
+import LoaderFullPage from "../components/LoaderFullPage";
 import { GridLayout } from "../components/Reusable";
 import Tile from "../components/Tile";
 import { resetDietState } from "../features/DietCreatorSlice";
@@ -19,7 +20,7 @@ const GridLayoutWithMedia = styled(GridLayout)`
 `;
 
 const TrainerDiet = () => {
-  const [dietsList, setDietList] = useState([]);
+  const [dietsList, setDietList] = useState(null);
   const userId = useSelector(selectUserId);
   const navigate = useNavigate();
   const dietCreatorDispatch = useDispatch()
@@ -34,7 +35,7 @@ const TrainerDiet = () => {
     }
   }, [userId]);
 
-  return (
+  return dietsList == null ? <LoaderFullPage /> : (
     <GridLayoutWithMedia isGap gridTemplateColumns="repeat(5, 1fr)">
       <AddTile addTileClick={() => navigate("/trainer/dietcreator")} />
       {dietsList.map((diet) => (

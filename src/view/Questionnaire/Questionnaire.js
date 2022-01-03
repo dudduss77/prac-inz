@@ -25,8 +25,7 @@ const Questionnaire = () => {
     }
   }, [userId]);
 
-  return questionaireList == null ? 
-  <LoaderFullPage /> : (
+  return questionaireList == null ? <LoaderFullPage /> : (
     <>
       <AddTile addTileClick={() => navigate("new")} />
       {questionaireList.map((questionaire) => (
