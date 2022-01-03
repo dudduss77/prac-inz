@@ -14,40 +14,7 @@ const ProtegeDashboard = () => {
       </Row>
       <Row isGap>
         <CurrentImage />
-        <CurrentMeasurment
-          measurmentData={[
-            {
-              name: "Masa ciała",
-              value: 100,
-              unit: "kg",
-            },
-            {
-              name: "Obwód klatki",
-              value: 100,
-              unit: "cm",
-            },
-            {
-              name: "Obwód bioder",
-              value: 100,
-              unit: "cm",
-            },
-            {
-              name: "Obwód talii",
-              value: 100,
-              unit: "cm",
-            },
-            {
-              name: "Obwód uda",
-              value: 100,
-              unit: "cm",
-            },
-            {
-              name: "Obwód ramienia",
-              value: 100,
-              unit: "cm",
-            },
-          ]}
-        />
+        <CurrentMeasurment />
       </Row>
     </ReusableViewWrapper>
   );

@@ -336,12 +336,26 @@ export const sendMeasurement = async (userId, payload) => {
 }
 
 export const getMeasurements = async (userId) => {
-  const trainerDoc = collection(db, "users", userId, "measurement");
-  let toReturn = (await getDocs(trainerDoc));
-  console.log(toReturn);
+  const q = query(
+    collection(db, "users", userId, "measurement"),
+    orderBy("time", "desc")
+  );
+
+  let toReturn = (await getDocs(q));
   toReturn = toReturn.docs.map(item => ({ id: item.id, data: item.data()}));
-  console.log(toReturn);
   return toReturn;
+};
+
+export const getLastMeasurement = async (userId) => {
+  const q = query(
+    collection(db, "users", userId, "measurement"),
+    orderBy("time", "desc"),
+
+  );
+
+  let toReturn = (await getDocs(q));
+  toReturn = toReturn.docs.map(item => ({ id: item.id, data: item.data()}));
+  return toReturn[0];
 };
 
 export const getProtegeLastMeasurment = async (protegeId) => {};
