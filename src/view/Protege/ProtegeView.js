@@ -29,7 +29,7 @@ const ProtegeView = () => {
 
   return protege == null ? "Ładowanie" : (
     <ReusableViewWrapper isColumnLayout={true}>
-      <Row isGap>
+      <Row isGap isOverflow>
         <SimpleInfo 
           data={{
             id: protegeId,

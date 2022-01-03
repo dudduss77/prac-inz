@@ -16,7 +16,8 @@ const StyledContainer = styled.div`
   color: #aed8ff;
   padding: 20px 0px;
   transition: all 0.4s ease;
-  overflow: hidden;
+  max-height: 184px;
+  overflow: scroll;
 `;
 
 const StyledPosition = styled.div`

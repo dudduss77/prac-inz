@@ -31,8 +31,7 @@ const CurrentMeasurment = () => {
 
   const fetchMeasurment = async () => {
     const res = await getLastMeasurement(userId);
-    if (res) setMeasurment(res.data);
-    else setMeasurment(undefined);
+    setMeasurment(res?.data);
   };
   const addMeasurment = () => {
     dispatch(changeModalState());

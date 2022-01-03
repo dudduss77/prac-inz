@@ -350,7 +350,7 @@ export const getLastMeasurement = async (userId) => {
   const q = query(
     collection(db, "users", userId, "measurement"),
     orderBy("time", "desc"),
-
+    limit(1)
   );
 
   let toReturn = (await getDocs(q));
