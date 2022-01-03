@@ -11,16 +11,7 @@ import { Box, Spacer, Icon } from "../../../components/Reusable";
 import CircleMenu, { CircleMenuPosition } from "../../../components/CircleMenu";
 import { useParams } from "react-router-dom";
 import { getDateddmmyyy } from "../../../helpers";
-
-const ContentWrapper = styled.div`
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const ContentValue = styled.h4`
-  font-weight: 400;
-`;
+import MeasurementList from "../../../components/MeasurementList"
 
 const MenuWrapper = styled.div`
   position: relative;
@@ -71,27 +62,9 @@ const MeasurementRaport = () => {
       ) : measurement === undefined ? (
         <Center>Brak pomiarów</Center>
       ) : (
-        <ContentWrapper>
-          <ContentValue>{`waga: ${measurement[indx].data.weight ?? "-"}kg`}</ContentValue>
-          <ContentValue>{`Obwód klatki: ${
-            measurement[indx].data.chest ?? "-"
-          } cm`}</ContentValue>
-          <ContentValue>{`Obwód bioder: ${
-            measurement[indx].data.hips ?? "-"
-          } cm`}</ContentValue>
-          <ContentValue>{`Obwód talii: ${
-            measurement[indx].data.waist ?? "-"
-          } cm`}</ContentValue>
-          <ContentValue>{`Obwód uda: ${
-            measurement[indx].data.thigh ?? "-"
-          } cm`}</ContentValue>
-          <ContentValue>{`Obwód ramienia: ${
-            measurement[indx].data.arm ?? "-"
-          } cm`}</ContentValue>
-          <ContentValue>{`Obwód bicepsa: ${
-            measurement[indx].data.biceps ?? "-"
-          } cm`}</ContentValue>
-        </ContentWrapper>
+        <MeasurementList 
+          data={measurement[indx].data} 
+        />
       )}
     </Box>
   );
