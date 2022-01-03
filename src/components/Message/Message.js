@@ -41,11 +41,19 @@ const Message = ({
   };
 
   const DateFormat = () => {
-    var date = new Date(messageDate)
-    const hour = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()
-    const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
-    return date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear()+" "+ hour+":"+minutes;
-  }
+    var date = new Date(messageDate);
+    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    const month =
+      date.getMonth() + 1 < 10
+        ? `0${date.getMonth() + 1}`
+        : date.getMonth() + 1;
+    const hour = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+    const minutes =
+      date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+    return (
+      day + "." + month + "." + date.getFullYear() + " " + hour + ":" + minutes
+    );
+  };
   return (
     <StyledMessage onClick={MessageClick}>
       <UserLink
