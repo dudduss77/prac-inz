@@ -7,12 +7,13 @@ import { resetQuestionaireState } from "../../features/QuestionaireSlice";
 import { selectUserId } from "../../features/UserSlice";
 import { getQuestionaires } from "../../firebase/dataFirebase";
 import Tile from "../../components/Tile";
+import LoaderFullPage from "../../components/LoaderFullPage";
 
 const Questionnaire = () => {
   const questionaireDispatch = useDispatch();
   const navigate = useNavigate();
   const userId = useSelector(selectUserId);
-  const [questionaireList, setQuestionaireList] = useState([]);
+  const [questionaireList, setQuestionaireList] = useState(null);
 
   useEffect(() => {
     questionaireDispatch(resetQuestionaireState());
@@ -24,7 +25,8 @@ const Questionnaire = () => {
     }
   }, [userId]);
 
-  return (
+  return questionaireList == null ? 
+  <LoaderFullPage /> : (
     <>
       <AddTile addTileClick={() => navigate("new")} />
       {questionaireList.map((questionaire) => (
