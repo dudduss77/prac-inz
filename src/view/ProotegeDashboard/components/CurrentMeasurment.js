@@ -7,7 +7,7 @@ import BoxHeader from "../../../components/Box/components/BoxHeader";
 import { Box } from "../../../components/Reusable";
 import { changeModalState, setModalData } from "../../../features/AppSlice";
 import { getLastMeasurement } from "../../../firebase/dataFirebase";
-import LoaderFullPage from './../../../components/LoaderFullPage';
+import LoaderFullPage from "./../../../components/LoaderFullPage";
 
 const ContentWrapper = styled.div`
   padding: 10px;
@@ -19,23 +19,33 @@ const ContentValue = styled.h4`
   font-weight: 400;
 `;
 
+const Center = styled.div`
+  width: 100%;
+  text-align: center;
+`;
+
 const CurrentMeasurment = () => {
   const dispatch = useDispatch();
-  const { userId } = useSelector(({user}) => user);
-  const [ measurement, setMeasurment] = useState(null);
+  const { userId } = useSelector(({ user }) => user);
+  const [measurement, setMeasurment] = useState(null);
 
   const fetchMeasurment = async () => {
     const res = await getLastMeasurement(userId);
-    setMeasurment(res.data);
-  }
+    if (res) setMeasurment(res.data);
+    else setMeasurment(undefined);
+  };
   const addMeasurment = () => {
-    dispatch(changeModalState())
-    dispatch(setModalData({name: 'addmeasurment', config: {onSave: fetchMeasurment }}))
-  }
+    dispatch(changeModalState());
+    dispatch(
+      setModalData({
+        name: "addmeasurment",
+        config: { onSave: fetchMeasurment },
+      })
+    );
+  };
 
-
-
-  useEffect(fetchMeasurment, [])
+  useEffect(fetchMeasurment, []);
+  console.log(measurement);
   return (
     <Box width="40%" minHeight="300px">
       <BoxHeader
@@ -43,20 +53,33 @@ const CurrentMeasurment = () => {
         headerButtonTitle="Dodaj nowy stan"
         headerOnClick={() => addMeasurment()}
       />
-      {
-        measurement==null ? <LoaderFullPage /> : (
+      {measurement === null ? (
+        <LoaderFullPage />
+      ) : measurement === undefined ? (
+        <Center>Brak pomiarów</Center>
+      ) : (
         <ContentWrapper>
           <ContentValue>{`waga: ${measurement.weight ?? "-"}kg`}</ContentValue>
-          <ContentValue>{`Obwód klatki: ${measurement.chest ?? "-"} cm`}</ContentValue>
-          <ContentValue>{`Obwód bioder: ${measurement.hips ?? "-"} cm`}</ContentValue>
-          <ContentValue>{`Obwód talii: ${measurement.waist ?? "-"} cm`}</ContentValue>
-          <ContentValue>{`Obwód uda: ${measurement.thigh ?? "-"} cm`}</ContentValue>
-          <ContentValue>{`Obwód ramienia: ${measurement.arm ?? "-"} cm`}</ContentValue>
-          <ContentValue>{`Obwód bicepsa: ${measurement.biceps ?? "-"} cm`}</ContentValue>
-
+          <ContentValue>{`Obwód klatki: ${
+            measurement.chest ?? "-"
+          } cm`}</ContentValue>
+          <ContentValue>{`Obwód bioder: ${
+            measurement.hips ?? "-"
+          } cm`}</ContentValue>
+          <ContentValue>{`Obwód talii: ${
+            measurement.waist ?? "-"
+          } cm`}</ContentValue>
+          <ContentValue>{`Obwód uda: ${
+            measurement.thigh ?? "-"
+          } cm`}</ContentValue>
+          <ContentValue>{`Obwód ramienia: ${
+            measurement.arm ?? "-"
+          } cm`}</ContentValue>
+          <ContentValue>{`Obwód bicepsa: ${
+            measurement.biceps ?? "-"
+          } cm`}</ContentValue>
         </ContentWrapper>
-        )
-      }
+      )}
     </Box>
   );
 };
