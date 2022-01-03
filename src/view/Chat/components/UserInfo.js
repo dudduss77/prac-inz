@@ -11,7 +11,9 @@ import {
   getProtegeLastDiet,
   getProtegeLastTraining,
   getUserData,
+  getLastMeasurement,
 } from "../../../firebase/dataFirebase";
+import LoaderFullPage from "./../../../components/LoaderFullPage";
 
 const StyledUserInfo = styled.div`
   width: calc(250px - 20px);
@@ -46,16 +48,19 @@ const UserInfo = ({ data }) => {
   const navigate = useNavigate();
   const [lastDiet, setLastDiet] = useState({});
   const [lastTraining, setLastTraining] = useState({});
+  const [lastMeasurment, setLastMeasurment] = useState(null);
   useEffect(() => {
     (async () => {
       if (data.id) {
         await getProtegeLastDiet(data.id, setLastDiet);
         await getProtegeLastTraining(data.id, setLastTraining);
+        const measurment = await getLastMeasurement(data.id);
+        if (measurment) setLastMeasurment(measurment);
+        else setLastMeasurment(undefined);
       }
     })();
   }, [data.id]);
 
-  console.log(lastTraining);
   return (
     <StyledUserInfo>
       <h4>Podstawowe informacje</h4>
@@ -69,7 +74,9 @@ const UserInfo = ({ data }) => {
             navigate(`/trainer/dietcreator/${lastDiet.id}/${data.id}`)
           }
         />
-      ) : "Nie przypisano jeszcze diety"}
+      ) : (
+        "Nie przypisano jeszcze diety"
+      )}
 
       <h4>Trening</h4>
       {lastTraining?.data ? (
@@ -80,16 +87,26 @@ const UserInfo = ({ data }) => {
             navigate(`/trainer/trainingcreator/${lastTraining.id}/${data.id}`)
           }
         />
-      ) : "Nie przypisano jeszcze treningu"}
+      ) : (
+        "Nie przypisano jeszcze treningu"
+      )}
       <h4>Ostatnie pomiary</h4>
-      <ContentWrapper>
-        <h4>Masa ciała: 100kg</h4>
-        <h4>Obwód klatki: 70cm</h4>
-        <h4>Obwód bioder: 70cm</h4>
-        <h4>Obwód talii: 70cm</h4>
-        <h4>Obwód uda: 70cm</h4>
-        <h4>Obwód ramienia: 70cm</h4>
-      </ContentWrapper>
+      {lastMeasurment === null ? (
+        <LoaderFullPage />
+      ) : lastMeasurment === undefined ? (
+        "Brak pomiarów"
+      ) : (
+        <ContentWrapper>
+          <h4>Masa ciała: {lastMeasurment.data.weight}kg</h4>
+          <h4>Obwód klatki: {lastMeasurment.data.chest}cm</h4>
+          <h4>Obwód bioder: {lastMeasurment.data.hips}cm</h4>
+          <h4>Obwód talii: {lastMeasurment.data.waist}cm</h4>
+          <h4>Obwód uda: {lastMeasurment.data.thigh}cm</h4>
+          <h4>Obwód ramienia: {lastMeasurment.data.arm}cm</h4>
+          <h4>Obwód bicepsa: {lastMeasurment.data.biceps}cm</h4>
+        </ContentWrapper>
+      )}
+
       <Button onClick={() => navigate(`/trainer/protege/${data.id}`)}>
         Przejdź do profilu
       </Button>
