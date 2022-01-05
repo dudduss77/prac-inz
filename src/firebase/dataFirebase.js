@@ -358,4 +358,17 @@ export const getLastMeasurement = async (userId) => {
   return toReturn[0];
 };
 
+export const getCalendarDay = async (userId, day, month, year) => {
+  const q = query(
+    collection(db, "users", userId, 'calendar'),
+    where('day', '==', day),
+    where('month', '==', month),
+    where('year', '==', year),
+  )
+
+  let toReturn = await getDocs(q);
+  toReturn = toReturn.docs.map(item => ({ id: item.id, data: item.data()}))
+  return toReturn
+}
+
 export const getProtegeLastMeasurment = async (protegeId) => {};
