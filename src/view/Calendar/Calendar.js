@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Box, ReusableViewWrapper, Row } from "../../components/Reusable";
 import BoxHeader from "../../components/Box/components/BoxHeader";
@@ -7,23 +7,29 @@ import CalendarTable from './components/CalendarTable';
 import PlusButton from '../../components/PlusButton';
 import {
   changeModalState,
+  selectScreenSize,
   setModalData,
 } from "./../../features/AppSlice";
 
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Calendar = () => {
-
+  const screenSize = useSelector(selectScreenSize)
   const [date, setDate] = useState({ from: null, to: null});
   const [numberOfDays, setNumberOfDays] = useState(7);
-
   const modalDispatch = useDispatch();
 
   const handlerOnChangeDate = item => {
     setDate(item)
   }
 
+  useEffect(() => {
+    if(screenSize === 'mid') setNumberOfDays(3)
+    else if(screenSize === 'small') setNumberOfDays(1)
+    else setNumberOfDays(7)
+  }, [screenSize])
+  console.log(screenSize)
   
   const handlerClickNewCalendarItem = () => {
     modalDispatch(changeModalState());
