@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components';
-import { ONE_DAY_MS } from '../../../constants';
-import { getDateddmmyyy, getLastMondayTime } from '../../../helpers';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { ONE_DAY_MS } from "../../../constants";
+import { getDateddmmyyy, getLastMondayTime } from "../../../helpers";
 
-import { ReactComponent  as ArrowSVG } from './../../../assets/arrow.svg';
+import { ReactComponent as ArrowSVG } from "./../../../assets/arrow.svg";
 
 const StyledContainer = styled.span`
   font-weight: bold;
@@ -12,75 +12,101 @@ const StyledContainer = styled.span`
   align-items: center;
 `;
 
-const StyledArrowLeftSVG = styled.svg.attrs({ 
-  width: '29px',
-  height: '20px',
-  })`
-    transform: rotate(90deg);
-    cursor: pointer;
+const StyledArrowLeftSVG = styled.svg.attrs({
+  width: "29px",
+  height: "20px",
+})`
+  transform: rotate(90deg);
+  cursor: pointer;
 
-    
-    & * {
-        fill-opacity: 1;
-    }
-  `;
-  
-  const StyledArrowRightSVG = styled.svg.attrs({ 
-    width: '29px',
-    height: '20px',
-  })`
-    transform: rotate(-90deg) scaleX(-1);
-    cursor: pointer;
+  & * {
+    fill-opacity: 1;
+  }
+`;
 
-    & * {
-        fill-opacity: 1;
-    }
-  `;
+const StyledArrowRightSVG = styled.svg.attrs({
+  width: "29px",
+  height: "20px",
+})`
+  transform: rotate(-90deg) scaleX(-1);
+  cursor: pointer;
 
-  const StyledContent = styled.div`
-    font-weight: bold;
-  `;
+  & * {
+    fill-opacity: 1;
+  }
+`;
 
+const StyledContent = styled.div`
+  font-weight: bold;
+`;
 
 const WeekChanger = ({
   numberOfDays = 1,
-  onChange = (e) => console.log(e)
+  onChange = (e) => console.log(e),
 }) => {
-
   const [date, setDate] = useState({
     from: new Date(getLastMondayTime()),
-    to: new Date((new Date(getLastMondayTime())).getTime() + (numberOfDays-1)*ONE_DAY_MS)
+    to: new Date(
+      new Date(getLastMondayTime()).getTime() + (numberOfDays - 1) * ONE_DAY_MS
+    ),
   });
-  // const [dateTo, setDateTo] = useState(); 
+  // const [dateTo, setDateTo] = useState();
 
   const handlerOnPlusClick = () => {
-    setDate(({from, to}) => ({
-      from: new Date(from.getTime() + numberOfDays*ONE_DAY_MS),
-      to: new Date(to.getTime() + numberOfDays*ONE_DAY_MS)
+    setDate(({ from, to }) => ({
+      from: new Date(from.getTime() + numberOfDays * ONE_DAY_MS),
+      to: new Date(to.getTime() + numberOfDays * ONE_DAY_MS),
     }));
-  }
+  };
 
   const handlerOnMinusClick = () => {
-    setDate(({from, to}) => ({
-      from: new Date(from.getTime() - numberOfDays*ONE_DAY_MS),
-      to: new Date(to.getTime() - numberOfDays*ONE_DAY_MS)
+    setDate(({ from, to }) => ({
+      from: new Date(from.getTime() - numberOfDays * ONE_DAY_MS),
+      to: new Date(to.getTime() - numberOfDays * ONE_DAY_MS),
     }));
-  }
+  };
 
   useEffect(() => {
     onChange(date);
-  }, [date])
-  
-    return (
-        <StyledContainer>
-            <StyledArrowLeftSVG as={ArrowSVG} onClick={handlerOnMinusClick} />
-            <StyledContent>
-              {numberOfDays!==1 && (getDateddmmyyy(date.from) + " - ")} {getDateddmmyyy(date.to)}               
-            </StyledContent>
+  }, [date]);
 
-            <StyledArrowRightSVG as={ArrowSVG} onClick={handlerOnPlusClick} />
-        </StyledContainer>
-    )
-}
+  useEffect(() => {
+    if (numberOfDays === 1)
+      setDate({
+        from: new Date(),
+        to: new Date(),
+      });
+    else if (numberOfDays === 3) {
+      var today = new Date();
+      var before = new Date(today);
+      before.setDate(before.getDate() - 1);
+      var after = new Date(today);
+      after.setDate(after.getDate() + 1);
+      setDate({
+        from: before,
+        to: after,
+      });
+    } else
+      setDate({
+        from: new Date(getLastMondayTime()),
+        to: new Date(
+          new Date(getLastMondayTime()).getTime() +
+            (numberOfDays - 1) * ONE_DAY_MS
+        ),
+      });
+  }, [numberOfDays]);
 
-export default WeekChanger
+  return (
+    <StyledContainer>
+      <StyledArrowLeftSVG as={ArrowSVG} onClick={handlerOnMinusClick} />
+      <StyledContent>
+        {numberOfDays !== 1 && getDateddmmyyy(date.from) + " - "}{" "}
+        {getDateddmmyyy(date.to)}
+      </StyledContent>
+
+      <StyledArrowRightSVG as={ArrowSVG} onClick={handlerOnPlusClick} />
+    </StyledContainer>
+  );
+};
+
+export default WeekChanger;
