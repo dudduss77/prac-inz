@@ -21,7 +21,8 @@ const StyledInput = styled.input`
 const DatePicker = ({
     width = "360px",
     height = "42px",
-    useInput
+    useInput,
+    dateMin
 }) => {
     return (
         <StyledInput 
@@ -31,7 +32,7 @@ const DatePicker = ({
             name="trip-start"
             width={width}
             height={height}
-            
+            min={dateMin}
         />
     )
 }
