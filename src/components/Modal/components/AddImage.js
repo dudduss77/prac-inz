@@ -5,7 +5,7 @@ import { ReactComponent  as FileUploadSVG } from './../../../assets/upload.svg';
 import { ReactComponent  as CloseSVG } from './../../../assets/close.svg';
 import { Button } from "../../Reusable";
 import { ModalHeader } from "./ModalReusable";
-import { changeModalState } from "./../../../features/AppSlice"
+import { changeModalState, selectModalData } from "./../../../features/AppSlice"
 import { useDispatch, useSelector } from 'react-redux';
 import {useNotification} from './../../../hooks/useNotification'
 import { sendBodyPhoto, sendImage } from '../../../firebase/dataFirebase';
@@ -62,6 +62,7 @@ const AddImage = () => {
   const [ imageData, deleteImage ] = useImageUpload(uploadRefClick, uploadRefDrag, []);
   const dispatch = useDispatch();
   const userId = useSelector(({user}) => user.userId);
+  const modalData = useSelector(selectModalData);
   const notification = useNotification();
 
   const handleOnClick = async () => {
@@ -73,7 +74,8 @@ const AddImage = () => {
       }));
 
       const res = await sendBodyPhoto(userId, { img });
-      notification.show("Dodano nowe zdjęcia")
+      notification.show("Dodano nowe zdjęcia");
+      modalData.config.onSave();
     } else 
       notification.show("Dodaj najpierw jakieś zdjęcie");
     dispatch(changeModalState())

@@ -20,6 +20,7 @@ const CurrentMeasurment = () => {
   const { userId } = useSelector(({ user }) => user);
   const [measurement, setMeasurment] = useState(null);
 
+
   const fetchMeasurment = async () => {
     const res = await getLastMeasurement(userId);
     setMeasurment(res?.data);
@@ -35,7 +36,6 @@ const CurrentMeasurment = () => {
   };
 
   useEffect(fetchMeasurment, []);
-  console.log(measurement);
   return (
     <Box width="40%" minHeight="300px">
       <BoxHeader

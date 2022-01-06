@@ -37,6 +37,8 @@ const CurrentImage = () => {
   const [gettedImg, setGettedImg] = useState(null);
 
   const fetchBodyPhoto = async () => {
+    if(bodyPhoto != null) setGettedImg(null)
+    if(gettedImg != null) setGettedImg(null);
     const res = await getLastBodyPhoto(userId);
     console.log(res)
     setBodyPhoto(res?.data);
