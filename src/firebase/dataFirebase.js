@@ -335,6 +335,12 @@ export const sendMeasurement = async (userId, payload) => {
   return {id, data: payload}; 
 }
 
+export const sendBodyPhoto = async (userId, payload) => {
+  payload.time = new Date();
+  const id = await createNewDoc(userId, "bodyPhoto", payload)
+  return {id, data: payload}; 
+}
+
 export const getMeasurements = async (userId) => {
   const q = query(
     collection(db, "users", userId, "measurement"),
@@ -356,6 +362,29 @@ export const getLastMeasurement = async (userId) => {
   let toReturn = (await getDocs(q));
   toReturn = toReturn.docs.map(item => ({ id: item.id, data: item.data()}));
   return toReturn[0];
+};
+
+export const getLastBodyPhoto = async (userId) => {
+  const q = query(
+    collection(db, "users", userId, "bodyPhoto"),
+    orderBy("time", "desc"),
+    limit(1)
+  );
+
+  let toReturn = (await getDocs(q));
+  toReturn = toReturn.docs.map(item => ({ id: item.id, data: item.data()}));
+  return toReturn[0];
+};
+
+export const getLastBodyPhotos = async (userId) => {
+  const q = query(
+    collection(db, "users", userId, "bodyPhoto"),
+    orderBy("time", "desc")
+  );
+
+  let toReturn = (await getDocs(q));
+  toReturn = toReturn.docs.map(item => ({ id: item.id, data: item.data()}));
+  return toReturn;
 };
 
 export const getCalendarDay = async (userId, day, month, year) => {

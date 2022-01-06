@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import BoxHeader from "../../../components/Box/components/BoxHeader";
 import { Box, GridLayout } from "../../../components/Reusable";
 import placeholder from "../../../assets/raportPlaceHolder.jpg";
 import { useDispatch } from "react-redux";
 import { changeModalState, setModalData } from "../../../features/AppSlice";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import LoaderFullPage from "../../../components/LoaderFullPage";
+import { getImage, getLastBodyPhoto } from "../../../firebase/dataFirebase";
 
 const GridLayoutWithMedia = styled(GridLayout)`
   @media screen and (max-width: 1400px) {
@@ -15,15 +19,50 @@ const GridLayoutWithMedia = styled(GridLayout)`
   }
 `;
 const RaportImage = styled.img`
+    width: 10rem;
+    border-radius: 8px;
+    margin: 10px;
+`;
+
+const Center = styled.div`
   width: 100%;
+  text-align: center;
+  margin: 10px;
 `;
 
 const CurrentImage = () => {
-  const modalDispatch = useDispatch();
+  const dispatch = useDispatch();
+  const { userId } = useSelector(({ user }) => user);
+  const [bodyPhoto, setBodyPhoto] = useState(null);
+  const [gettedImg, setGettedImg] = useState(null);
+
+  const fetchBodyPhoto = async () => {
+    const res = await getLastBodyPhoto(userId);
+    console.log(res)
+    setBodyPhoto(res?.data);
+  };
+
+  const fetchImg = async () => {
+    if(bodyPhoto === undefined) setGettedImg(undefined);
+    if(bodyPhoto) {
+      const img = await Promise.all(bodyPhoto.img.map(async imageId => {
+        const toReturn = await getImage(userId, imageId);
+        return toReturn;
+      }));
+      setGettedImg(img);      
+    }
+
+  }
+
+  useEffect(fetchBodyPhoto, [])
+  useEffect(fetchImg, [bodyPhoto])
 
   const addImage = () => {
-    modalDispatch(changeModalState());
-    modalDispatch(setModalData({ name: "addimage" }));
+    dispatch(changeModalState());
+    dispatch(setModalData({ 
+      name: "addimage", 
+      config: { onSave: fetchBodyPhoto },
+   }));
   };
   return (
     <Box width="40%">
@@ -32,12 +71,11 @@ const CurrentImage = () => {
         headerButtonTitle="Dodaj nowy stan"
         headerOnClick={() => addImage()}
       />
-      <GridLayoutWithMedia isGap isPadding gridTemplateColumns="repeat(3, 1fr)">
-        <RaportImage src={placeholder} />
-        <RaportImage src={placeholder} />
-        <RaportImage src={placeholder} />
-        <RaportImage src={placeholder} />
-      </GridLayoutWithMedia>
+      {gettedImg === null ? (
+        <LoaderFullPage />
+      ) : gettedImg === undefined ? (
+        <Center>Brak Zdjęć</Center>
+      ) : gettedImg.map(({data}) => <RaportImage src={data.imgData} />)}
     </Box>
   );
 };
