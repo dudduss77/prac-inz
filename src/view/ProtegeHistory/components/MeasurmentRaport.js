@@ -3,11 +3,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import BoxHeader from "../../../components/Box/components/BoxHeader";
 import { getMeasurements } from "../../../firebase/dataFirebase";
 import LoaderFullPage from "./../../../components/LoaderFullPage";
-import { Box, Spacer, Icon } from "../../../components/Reusable";
-import CircleMenu, { CircleMenuPosition } from "../../../components/CircleMenu";
 import { getDateddmmyyy } from "../../../helpers";
 import MeasurementList from "../../../components/MeasurementList"
 import DropDownList from "../../../components/DropDownList";
@@ -29,7 +26,6 @@ const MeasurementRaport = () => {
   const dispatch = useDispatch();
   const { userId } = useSelector(({ user }) => user);
   const [measurement, setMeasurment] = useState(null);
-  const [indx, setIndx] = useState(0);
 
   const fetchMeasurment = async () => {
     const res = await getMeasurements(userId);

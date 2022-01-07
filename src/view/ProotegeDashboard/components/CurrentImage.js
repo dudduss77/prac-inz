@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import LoaderFullPage from "../../../components/LoaderFullPage";
 import { getImage, getLastBodyPhoto } from "../../../firebase/dataFirebase";
+import ImagesList from "../../../components/ImagesList";
 
 const GridLayoutWithMedia = styled(GridLayout)`
   @media screen and (max-width: 1400px) {
@@ -73,11 +74,9 @@ const CurrentImage = () => {
         headerButtonTitle="Dodaj nowy stan"
         headerOnClick={() => addImage()}
       />
-      {gettedImg === null ? (
-        <LoaderFullPage />
-      ) : gettedImg === undefined ? (
+      {gettedImg === undefined ? (
         <Center>Brak Zdjęć</Center>
-      ) : gettedImg.map(({data}) => <RaportImage src={data.imgData} />)}
+      ) : <ImagesList data={gettedImg} />}
     </Box>
   );
 };

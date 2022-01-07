@@ -18,7 +18,8 @@ const VisableHeader = styled.div`
 
 const DropDownList = ({
     children = "-",
-    title = "No Title"
+    title = "No Title",
+    onClick = () => {}
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -26,7 +27,7 @@ const DropDownList = ({
       <VisableHeader>
         {title}
         <AbsoluteIconWrapper right="10px">
-          <Icon onClick={() => setIsOpen(!isOpen)}>
+          <Icon onClick={() => {onClick(); setIsOpen(!isOpen)}}>
           <FontAwesomeIcon icon={`chevron-${isOpen ? "up" : "down"}`} />
           </Icon>
         </AbsoluteIconWrapper>
