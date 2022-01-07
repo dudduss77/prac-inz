@@ -49,7 +49,7 @@ const CircleMenu = ({
       <StyledContainer
         width={width}
         isVisible={isVisible}
-        positionCounts={children.length}
+        positionCounts={children?.length ?? 0}
       >
         {isVisible && children}
       </StyledContainer>
