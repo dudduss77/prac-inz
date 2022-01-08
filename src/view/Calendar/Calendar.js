@@ -29,7 +29,6 @@ const Calendar = () => {
     else if(screenSize === 'small') setNumberOfDays(1)
     else setNumberOfDays(7)
   }, [screenSize])
-  console.log(screenSize)
   
   const handlerClickNewCalendarItem = () => {
     modalDispatch(changeModalState());

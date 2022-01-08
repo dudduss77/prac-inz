@@ -23,7 +23,7 @@ const Calendar = () => {
       const today = new Date();
       const caleItem = await getCalendarDay(
         userId,
-        today.getDay(),
+        today.getDate(),
         today.getMonth() + 1,
         today.getFullYear()
       );
@@ -46,7 +46,9 @@ const Calendar = () => {
       {calItem.length > 0 &&
         calItem.map((item) => (
           <CalendarItem
-            time={`${item.data.from} - ${item.data.to}`}
+            id={item.id}
+            from={item.data.from}
+            to={item.data.to}
             description={item.data.desc}
             color={ColorMap[item.data.type]}
           />

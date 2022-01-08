@@ -50,18 +50,13 @@ const CalendarTable = ({ date = null }) => {
     (async () => {
       const { from, to } = date;
       if (!from || !to) return;
-      console.log(date);
-      console.log(getDayNameFromDate(from));
-      console.log(getDayNameFromDate(to));
 
       const tab = [];
       let actualDate = from;
       while (actualDate.getTime() <= to.getTime()) {
-        console.log("actualDate", actualDate);
-        console.log("actualDate", actualDate.getDay());
         const caleItem = await getCalendarDay(
           userId,
-          actualDate.getDay(),
+          actualDate.getDate(),
           actualDate.getMonth() + 1,
           actualDate.getFullYear()
         );
@@ -70,7 +65,6 @@ const CalendarTable = ({ date = null }) => {
             parseInt(a.data.from.replace(":", "")) -
             parseInt(b.data.from.replace(":", ""))
         );
-        console.log(caleItem);
         tab.push(
           <StyledColumn>
             <StyledHeader>
@@ -80,7 +74,9 @@ const CalendarTable = ({ date = null }) => {
             {caleItem.length > 0 &&
               caleItem.map((item) => (
                 <CalendarItem
-                  time={`${item.data.from} - ${item.data.to}`}
+                  id={item.id}
+                  from={item.data.from}
+                  to={item.data.to}
                   description={item.data.desc}
                   color={ColorMap[item.data.type]}
                 />
@@ -91,7 +87,6 @@ const CalendarTable = ({ date = null }) => {
         actualDate = getNextDay(actualDate);
       }
       setMappedDays(tab);
-      console.log(tab);
     })();
   }, [date]);
 

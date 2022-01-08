@@ -52,8 +52,6 @@ const ProtegeTable = ({ filterValue = "" }) => {
   const [proteges, setProteges] = useState(null);
 
   useEffect(() => {
-    // console.log('pobieram dane z firebase');
-    // console.log('userId', user.userId);
     (async () => {
       const proteges = await getAllProteges(user.userId);
       console.log(proteges);
@@ -77,7 +75,7 @@ const ProtegeTable = ({ filterValue = "" }) => {
         </StyledHeader>
         <StyledHeader showMinWidth="900px">Współpraca od</StyledHeader>
         <StyledHeader showMinWidth="900px">Współpraca do</StyledHeader>
-        <StyledHeader>Akcja</StyledHeader>
+        {/* <StyledHeader>Akcja</StyledHeader> */}
       </StyledRow>
 
       {proteges
@@ -122,11 +120,8 @@ const ProtegeTable = ({ filterValue = "" }) => {
                   ? getDateddmmyyy(new Date(payedTo.seconds * 1000))
                   : "-"}
               </StyledCell>
-              <StyledCell>
+              {/* <StyledCell>
                 <CircleMenu>
-                  <CircleMenuPosition onClick={handlerEdit}>
-                    Edytuj
-                  </CircleMenuPosition>
                   <CircleMenuPosition onClick={handlerDiet}>
                     Dieta
                   </CircleMenuPosition>
@@ -137,7 +132,7 @@ const ProtegeTable = ({ filterValue = "" }) => {
                     Wiadomość
                   </CircleMenuPosition>
                 </CircleMenu>
-              </StyledCell>
+              </StyledCell> */}
             </StyledRow>
           )
         )}

@@ -410,6 +410,16 @@ export const getCalendarDay = async (userId, day, month, year) => {
   return toReturn;
 };
 
+export const getCaledarDayById = async (userId, id) => {
+  const docRef = doc(db, "users", userId, "calendar", id);
+  const toReturn = await getDoc(docRef);
+  return toReturn.data();
+};
+
+export const updateCalendarDay = async (userId, id, payload) => {
+  await updateDoc(doc(db, "users", userId, "calendar", id), payload);
+};
+
 export const getProtegeLastMeasurment = async (protegeId) => {};
 
 export const getProductList = async (startAf, searchValue) => {
