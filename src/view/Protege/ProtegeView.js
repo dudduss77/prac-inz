@@ -1,17 +1,18 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router";
-import { ReusableViewWrapper, Row } from "../../components/Reusable";
+import { Box, ReusableViewWrapper, Row } from "../../components/Reusable";
 import Diet from "./components/Diet";
 import ImageRaport from "./components/ImageRaport";
 import MeasurementRaport from "./components/MeasurementRaport";
 import Questionnaire from "./components/Questionnaire";
 import SimpleInfo from "./components/SimpleInfo";
 import Training from "./components/Training";
-import TrainingRaport from "./components/TrainingRaport";
+import TrainingRaport from "./../ProtegeHistory/components/TrainingRaport";
 import { getUserData } from '../../firebase/dataFirebase';
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { putActualProtege } from "../../features/protegeViewSlice";
+import BoxHeader from "../../components/Box/components/BoxHeader";
 
 const ProtegeView = () => {
 
@@ -53,7 +54,10 @@ const ProtegeView = () => {
         />
       </Row>
       <Row isGap>
-        <TrainingRaport />
+        <Box width="100%">
+          <BoxHeader>Raporty Treningowe</BoxHeader>
+          <TrainingRaport protegeId={protegeId} />
+        </Box>
       </Row>
     </ReusableViewWrapper>
   );
