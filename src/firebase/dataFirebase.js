@@ -440,3 +440,7 @@ export const getProductList = async (startAf, searchValue) => {
   toReturn = toReturn.docs.map((item) => item.data());
   return { toReturn, lastVisable };
 };
+
+export const createNewProduct = async (product) => {
+  const docRef = await addDoc(collection(db, "productList"), product);
+};

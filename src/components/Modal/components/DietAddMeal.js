@@ -21,13 +21,6 @@ const DietAddMeal = () => {
     })();
   }, []);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const {toReturn, lastVisable} = await getProductList(null, searchInput.value)
-  //     console.log(toReturn)
-  //   })()
-  // }, [searchInput.value])
-
   const handleSearch = async () => {
     if (searchInput.value) {
       const { toReturn, lastVisable } = await getProductList(
