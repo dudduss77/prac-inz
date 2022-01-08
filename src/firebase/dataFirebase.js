@@ -160,6 +160,18 @@ export const getTrainings = async (userId, setter = () => {}) => {
   return trainings;
 };
 
+export const getLastTraining = async (userId) => {
+  const q = query(
+    collection(db, "users", userId, "trainings"),
+    orderBy("time", "desc"),
+    limit(1)
+  );
+
+  const trainingCollectionRef = await getDocs(q);
+  if(trainingCollectionRef?.docs?.length != 1) return false;
+  return { id: trainingCollectionRef.docs[0].id, data: trainingCollectionRef.docs[0].data() };
+};
+
 export const getQuestionaires = async (userId, setter = () => {}) => {
   let trainings = [];
   const trainingCollectionRef = await getDocs(
@@ -400,4 +412,30 @@ export const getCalendarDay = async (userId, day, month, year) => {
   return toReturn
 }
 
-export const getProtegeLastMeasurment = async (protegeId) => {};
+
+export const sendTrainingReport = async (userId, payload) => {
+  payload.time = new Date();
+  const docRef = await addDoc(
+    collection(db, "users", userId, "trainingRaports"),
+    payload
+  );
+  return docRef.id;
+};
+
+
+export const getTrainingReports = async (userId) => {
+  const q = query(
+    collection(db, "users", userId, "trainingRaports"),
+    orderBy("time", "desc")
+  );
+
+  let toReturn = (await getDocs(q));
+  toReturn = toReturn.docs.map(item => ({ id: item.id, data: item.data()}));
+  return toReturn;
+};
+
+
+export const updateTrainings = async (userId, docId, payload) => {
+  const res = await updateDoc(doc(db, "users", userId, "trainings", docId), payload);
+  return res;
+}

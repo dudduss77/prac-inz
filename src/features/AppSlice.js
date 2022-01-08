@@ -23,6 +23,7 @@ export const appSlice = createSlice({
       state.isModalOpen = !state.isModalOpen;
     },
     setModalData: (state, action) => {
+      console.log(action.payload);
       state.modalData.name = action.payload.name;
       state.modalData.id = action.payload.id;
       state.modalData.config = action.payload.config;

@@ -5,6 +5,7 @@ import { Box, ReusableViewWrapper, Row } from "../../components/Reusable";
 import TrainingRaportItem from "../../components/TrainingRaportItem";
 import ImageRaport from "./components/ImageRaport";
 import MeasurmentRaport from "./components/MeasurmentRaport";
+import TrainingRaport from "./components/TrainingRaport";
 
 const ProtegeHistory = () => {
   return (
@@ -16,15 +17,11 @@ const ProtegeHistory = () => {
         </Box>
         <Box width="50%" minHeight="100%" isOverflow>
           <BoxHeader>Historia stanów sylwetki</BoxHeader>
-          <ImageRaport raportTitle="Raport z dnia 05.11.2021" />
+          <ImageRaport />
         </Box>
         <Box width="25%" minHeight="100%" isOverflow>
           <BoxHeader>Historia raportów treningowych</BoxHeader>
-          <TrainingRaportItem
-            raportTitle="Raport z dnia 05.11.2021"
-            realizedStatus="entire"
-            messages="No nie udało się ale może kiedyś się uda"
-          />
+          <TrainingRaport />
         </Box>
       </Row>
     </ReusableViewWrapper>
