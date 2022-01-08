@@ -32,10 +32,9 @@ const IsOpen = styled.div`
   gap: 10px;
 `;
 
-const TrainingAddExerciseItem = () => {
+const TrainingAddExerciseItem = ({ itemName }) => {
   const modalData = useSelector(selectModalData);
   const trainingCreatorDispatch = useDispatch();
-  const [exerciseName, setExerciseName] = useState("Wyciskanie");
   const [isOpen, setIsOpen] = useState(false);
   const [exerciseData, setExerciseData] = useState([{ id: 1 }]);
 
@@ -56,7 +55,7 @@ const TrainingAddExerciseItem = () => {
       addExercise({
         dayId: modalData.config.dayId,
         typeId: modalData.config.typeId,
-        name: exerciseName,
+        name: itemName,
         data: exerciseData,
       })
     );
@@ -66,7 +65,7 @@ const TrainingAddExerciseItem = () => {
       isOpen={isOpen}
       onClick={() => setIsOpen(!isOpen)}
     >
-      {exerciseName}
+      {itemName}
       {isOpen && (
         <IsOpen onClick={(evt) => evt.stopPropagation()}>
           {exerciseData.map((exercise, i, arr) => {

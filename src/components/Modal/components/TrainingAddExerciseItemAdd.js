@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { createNewExercise } from "../../../firebase/dataFirebase";
+import { useInput } from "../../../hooks/useInput";
 import Input from "../../Input";
 import { Button, Row } from "../../Reusable";
 
@@ -18,6 +20,16 @@ const StyledTrainingAddExerciseItemAdd = styled.div`
 
 const TrainingAddExerciseItemAdd = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const nameInput = useInput("");
+
+  const addProduct = async () => {
+    let exercise = {
+      name: nameInput.value,
+    };
+    await createNewExercise(exercise);
+    setIsOpen(false);
+  };
+
   return (
     <StyledTrainingAddExerciseItemAdd>
       {!isOpen && (
@@ -28,9 +40,9 @@ const TrainingAddExerciseItemAdd = () => {
       )}
       {isOpen && (
         <>
-          <Input placeholder="Nazwa ćwiczenia" />
+          <Input useInput={nameInput} placeholder="Nazwa ćwiczenia" />
           <Row isGap noMedia>
-            <Button>Dodaj</Button>
+            <Button onClick={addProduct}>Dodaj</Button>
             <Button onClick={() => setIsOpen(false)}>Anuluj</Button>
           </Row>
         </>

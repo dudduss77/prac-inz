@@ -444,3 +444,36 @@ export const getProductList = async (startAf, searchValue) => {
 export const createNewProduct = async (product) => {
   const docRef = await addDoc(collection(db, "productList"), product);
 };
+
+export const getExerciseList = async (startAf, searchValue) => {
+  let q;
+  if (startAf) {
+    if (searchValue) {
+      q = query(
+        collection(db, "exerciseList"),
+        where("name", ">=", searchValue),
+        where("name", "<=", searchValue + "\uf8ff"),
+        startAfter(startAf),
+        limit(25)
+      );
+    } else
+      q = query(collection(db, "exerciseList"), startAfter(startAf), limit(25));
+  } else {
+    if (searchValue) {
+      q = query(
+        collection(db, "exerciseList"),
+        where("name", ">=", searchValue),
+        where("name", "<=", searchValue + "\uf8ff"),
+        limit(25)
+      );
+    } else q = query(collection(db, "exerciseList"), limit(25));
+  }
+  let toReturn = await getDocs(q);
+  const lastVisable = toReturn.docs[toReturn.docs.length - 1];
+  toReturn = toReturn.docs.map((item) => item.data());
+  return { toReturn, lastVisable };
+};
+
+export const createNewExercise = async (exercise) => {
+  const docRef = await addDoc(collection(db, "exerciseList"), exercise);
+};
