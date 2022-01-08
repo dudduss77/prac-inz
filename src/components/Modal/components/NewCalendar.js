@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { changeModalState } from "../../../features/AppSlice";
+import { changeModalState, selectModalData } from "../../../features/AppSlice";
 import { Button, Row } from "../../Reusable";
 import { ModalHeader } from "./ModalReusable";
 import Select from "./../../../components/Select";
 import Input from "../../Input";
 import DatePicker from "../../DatePicker";
 import { useInput } from "../../../hooks/useInput";
-import { createNewDoc } from "../../../firebase/dataFirebase";
+import {
+  createNewDoc,
+  getCaledarDayById,
+  updateCalendarDay,
+} from "../../../firebase/dataFirebase";
 import { selectUserId } from "../../../features/UserSlice";
+import { date } from "yup";
 
 const RedButton = styled(Button)`
   background: ${({ theme }) => theme.DustRedSeven};
@@ -36,6 +41,7 @@ const SelectMap = [
 
 const NewCalendar = () => {
   const userId = useSelector(selectUserId);
+  const modalData = useSelector(selectModalData);
   const modalDispatch = useDispatch();
   const [errorMsg, setErrorMsg] = useState("");
   const inputDate = useInput("");
@@ -44,6 +50,22 @@ const NewCalendar = () => {
   const [selectValue, setSelectValue] = useState("");
   const name = useInput("");
   const desc = useInput("");
+
+  useEffect(() => {
+    (async () => {
+      if (modalData.config.data && modalData.config.data.id) {
+        const data = await getCaledarDayById(userId, modalData.config.data.id);
+        name.setterInputValue(data.name);
+        desc.setterInputValue(data.desc);
+        from.setterInputValue(data.from);
+        to.setterInputValue(data.to);
+        const day = data.day < 10 ? `0${data.day}` : data.day;
+        const month = data.month < 10 ? `0${data.month}` : data.month;
+        inputDate.setterInputValue(`${data.year}-${month}-${day}`);
+        setSelectValue(data.type);
+      }
+    })();
+  }, []);
 
   const submitNewCalendar = async () => {
     if (
@@ -55,7 +77,7 @@ const NewCalendar = () => {
       setErrorMsg("");
       const date = new Date(inputDate.value);
       const item = {
-        day: date.getDay(),
+        day: date.getDate(),
         month: date.getMonth() + 1,
         year: date.getFullYear(),
         from: from.value,
@@ -64,8 +86,9 @@ const NewCalendar = () => {
         name: name.value,
         desc: desc.value,
       };
-      console.log(item);
-      await createNewDoc(userId, "calendar", item);
+      if (modalData.config.data && modalData.config.data.id)
+        await updateCalendarDay(userId, modalData.config.data.id, item);
+      else await createNewDoc(userId, "calendar", item);
     }
   };
   const today = new Date();
@@ -100,6 +123,11 @@ const NewCalendar = () => {
         data={SelectMap.map((item) => item.name)}
         width="360px"
         placeholder="Zwykły wpis"
+        initialValue={
+          selectValue.length > 0
+            ? SelectMap.find((item) => item.type === selectValue).name
+            : ""
+        }
         onChange={(val) => {
           let temp = SelectMap.find((item) => item.name === val).type;
           setSelectValue(temp);
@@ -114,7 +142,14 @@ const NewCalendar = () => {
       />
       <Row isGap noMedia>
         {/* <RedButton onClick={() => modalDispatch(changeModalState())}>Zapisz</RedButton> */}
-        <RedButton onClick={() => submitNewCalendar()}>Zapisz</RedButton>
+        <RedButton
+          onClick={() => {
+            submitNewCalendar();
+            modalDispatch(changeModalState());
+          }}
+        >
+          Zapisz
+        </RedButton>
         <Button onClick={() => modalDispatch(changeModalState())}>Usuń</Button>
       </Row>
     </>

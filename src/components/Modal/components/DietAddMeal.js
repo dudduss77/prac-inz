@@ -5,31 +5,67 @@ import { Box, Button, Row } from "../../Reusable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DietAddMealItem from "./DietAddMealItem";
 import DietAddMealItemAdd from "./DietAddMealItemAdd";
-import { useSelector } from "react-redux";
-import { selectProduct } from "../../../features/TempProductSlice";
+import { getProductList } from "../../../firebase/dataFirebase";
+import { useInput } from "../../../hooks/useInput";
 
 const DietAddMeal = () => {
-  const product = useSelector(selectProduct);
+  const searchInput = useInput("");
+  const [productList, setProductList] = useState([]);
+  const [lastItem, setLastItem] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const { toReturn, lastVisable } = await getProductList();
+      setProductList(toReturn);
+      setLastItem(lastVisable);
+    })();
+  }, []);
+
+  const handleSearch = async () => {
+    if (searchInput.value) {
+      const { toReturn, lastVisable } = await getProductList(
+        null,
+        searchInput.value
+      );
+      setProductList(toReturn);
+      setLastItem(lastVisable);
+    }
+  };
+
+  const handleScroll = async (event) => {
+    const bottom =
+      event.target.scrollHeight - event.target.scrollTop ===
+      event.target.clientHeight;
+    if (bottom) {
+      const { toReturn, lastVisable } = await getProductList(lastItem, searchInput.value);
+      setProductList((prev) => prev.concat(toReturn));
+      setLastItem(lastVisable);
+    }
+  };
+
   return (
     <>
       <ModalHeader>Dodaj produkt</ModalHeader>
       <Row noMedia width="100%">
-        <Input width="100%" />
-        <Button isSquare>
+        <Input useInput={searchInput} width="100%" />
+        <Button onClick={handleSearch} isSquare>
           <FontAwesomeIcon icon="search" />
         </Button>
       </Row>
-      <Box height="350px" width="100%" isOverflow>
-        {product.map((item) => (
-          <DietAddMealItem
-            key={item.id}
-            itemName={item.name}
-            proteinOnHundredGrams={item.proteinOnHundredGrams}
-            carbohydratesOnHundredGrams={item.carbohydratesOnHundredGrams}
-            fatOnHundredGrams={item.fatOnHundredGrams}
-          />
-        ))}
-        <DietAddMealItemAdd />
+      <Box onScroll={handleScroll} height="350px" width="100%" isOverflow>
+        {productList.length > 0 ? (
+          productList.map((item) => (
+            <DietAddMealItem
+              key={item.id}
+              itemName={item.name}
+              proteinOnHundredGrams={item.proteinOnHundredGrams}
+              carbohydratesOnHundredGrams={item.carbohydratesOnHundredGrams}
+              fatOnHundredGrams={item.fatOnHundredGrams}
+            />
+          ))
+        ) : (
+          <DietAddMealItemAdd />
+        )}
       </Box>
     </>
   );

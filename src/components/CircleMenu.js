@@ -17,7 +17,7 @@ const StyledContainer = styled.div`
   padding: 20px 0px;
   transition: all 0.4s ease;
   max-height: 184px;
-  overflow: scroll;
+  overflow: auto;
 `;
 
 const StyledPosition = styled.div`

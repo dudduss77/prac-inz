@@ -71,7 +71,7 @@ export const Box = styled.div`
     isPadding ? `calc(${height} - 20px)` : height};
   min-height: ${({ minHeight }) => minHeight};
   max-height: ${({ maxHeight }) => maxHeight};
-  overflow: ${({ isOverflow }) => (isOverflow ? "visible" : "hidden")};
+  overflow: ${({ isOverflow }) => (isOverflow ? "auto" : "hidden")};
   padding: ${({ isPadding }) => (isPadding ? "10px" : "0")};
   position: ${({ isRelative }) => (isRelative ? "relative" : "")};
   margin-top: ${({ marginTop }) => marginTop};

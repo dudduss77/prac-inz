@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { addProductToState } from "../../../features/TempProductSlice";
+import { createNewProduct } from "../../../firebase/dataFirebase";
 import { useInput } from "../../../hooks/useInput";
 import Input from "../../Input";
 import { Button, ClickedInput, Row } from "../../Reusable";
@@ -26,7 +27,6 @@ const DietAddMealItemAdd = () => {
   const { ...proteinInput } = useInput("", "proteinInput");
   const { ...carbohydratesInput } = useInput("", "carbohydratesInput");
   const { ...fatInput } = useInput("", "fatInput");
-  const tempProductDispatch = useDispatch();
 
   useEffect(() => {
     if (proteinInput.value && carbohydratesInput.value && fatInput.value) {
@@ -38,14 +38,14 @@ const DietAddMealItemAdd = () => {
     }
   }, [proteinInput.value, carbohydratesInput.value, fatInput.value]);
 
-  const addProduct = () => {
+  const addProduct = async () => {
     let product = {
       name: nameInput.value,
       proteinOnHundredGrams: proteinInput.value,
       carbohydratesOnHundredGrams: carbohydratesInput.value,
       fatOnHundredGrams: fatInput.value,
     };
-    tempProductDispatch(addProductToState({ ...product }));
+    await createNewProduct(product);
     setIsOpen(false);
   };
 
