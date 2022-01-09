@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { changeModalState, selectModalData } from "../../../features/AppSlice";
+import {
+  changeModalState,
+  selectModalData,
+  setModalData,
+} from "../../../features/AppSlice";
 import { Button, Row } from "../../Reusable";
 import { ModalHeader } from "./ModalReusable";
 import Select from "./../../../components/Select";
@@ -10,6 +14,7 @@ import DatePicker from "../../DatePicker";
 import { useInput } from "../../../hooks/useInput";
 import {
   createNewDoc,
+  deleteCalendarDay,
   getCaledarDayById,
   updateCalendarDay,
 } from "../../../firebase/dataFirebase";
@@ -91,6 +96,13 @@ const NewCalendar = () => {
       else await createNewDoc(userId, "calendar", item);
     }
   };
+
+  const handleDelete = async () => {
+    await deleteCalendarDay(userId, modalData.config.data.id);
+    modalDispatch(changeModalState());
+    modalDispatch(setModalData({ name: "", config: { isSave: true } }));
+  };
+
   const today = new Date();
   let year = today.getFullYear();
   let month =
@@ -146,11 +158,14 @@ const NewCalendar = () => {
           onClick={() => {
             submitNewCalendar();
             modalDispatch(changeModalState());
+            modalDispatch(setModalData({ name: "", config: { isSave: true } }));
           }}
         >
           Zapisz
         </RedButton>
-        <Button onClick={() => modalDispatch(changeModalState())}>Usuń</Button>
+        {modalData.config.data && modalData.config.data.id && (
+          <Button onClick={() => handleDelete()}>Usuń</Button>
+        )}
       </Row>
     </>
   );

@@ -171,8 +171,11 @@ export const getLastTraining = async (userId) => {
   );
 
   const trainingCollectionRef = await getDocs(q);
-  if(trainingCollectionRef?.docs?.length != 1) return false;
-  return { id: trainingCollectionRef.docs[0].id, data: trainingCollectionRef.docs[0].data() };
+  if (trainingCollectionRef?.docs?.length != 1) return false;
+  return {
+    id: trainingCollectionRef.docs[0].id,
+    data: trainingCollectionRef.docs[0].data(),
+  };
 };
 
 export const getQuestionaires = async (userId, setter = () => {}) => {
@@ -409,7 +412,7 @@ export const getLastBodyPhotos = async (userId) => {
   return toReturn;
 };
 
-export const getCalendarDay = async (userId, day, month, year) => {
+export const getCalendarDay = async (userId, day, month, year, setter) => {
   const q = query(
     collection(db, "users", userId, "calendar"),
     where("day", "==", day),
@@ -430,6 +433,10 @@ export const getCaledarDayById = async (userId, id) => {
 
 export const updateCalendarDay = async (userId, id, payload) => {
   await updateDoc(doc(db, "users", userId, "calendar", id), payload);
+};
+
+export const deleteCalendarDay = async (userId, docId) => {
+  deleteDoc(doc(db, "users", userId, "calendar", docId));
 };
 
 export const getProductList = async (startAf, searchValue) => {
@@ -507,20 +514,21 @@ export const sendTrainingReport = async (userId, payload) => {
   return docRef.id;
 };
 
-
 export const getTrainingReports = async (userId) => {
   const q = query(
     collection(db, "users", userId, "trainingRaports"),
     orderBy("time", "desc")
   );
 
-  let toReturn = (await getDocs(q));
-  toReturn = toReturn.docs.map(item => ({ id: item.id, data: item.data()}));
+  let toReturn = await getDocs(q);
+  toReturn = toReturn.docs.map((item) => ({ id: item.id, data: item.data() }));
   return toReturn;
 };
 
-
 export const updateTrainings = async (userId, docId, payload) => {
-  const res = await updateDoc(doc(db, "users", userId, "trainings", docId), payload);
+  const res = await updateDoc(
+    doc(db, "users", userId, "trainings", docId),
+    payload
+  );
   return res;
-}
+};

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import CalendarItem from "../../../components/CalendarItem";
 import { ONE_DAY_MS } from "../../../constants";
+import { selectModalData } from "../../../features/AppSlice";
 import { selectUserId } from "../../../features/UserSlice";
 import { getCalendarDay } from "../../../firebase/dataFirebase";
 import {
@@ -45,7 +46,8 @@ const ColorMap = {
 const CalendarTable = ({ date = null }) => {
   const userId = useSelector(selectUserId);
   const [mappedDays, setMappedDays] = useState([]);
-
+  const modalData = useSelector(selectModalData)
+  console.log(modalData)
   useEffect(() => {
     (async () => {
       const { from, to } = date;
@@ -88,7 +90,7 @@ const CalendarTable = ({ date = null }) => {
       }
       setMappedDays(tab);
     })();
-  }, [date]);
+  }, [date, modalData.config.isSave]);
 
   return <StyledContainer>{mappedDays}</StyledContainer>;
 };
