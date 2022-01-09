@@ -47,7 +47,7 @@ const CalendarTable = ({ date = null }) => {
   const userId = useSelector(selectUserId);
   const [mappedDays, setMappedDays] = useState([]);
   const modalData = useSelector(selectModalData)
-  console.log(modalData)
+
   useEffect(() => {
     (async () => {
       const { from, to } = date;
@@ -90,7 +90,7 @@ const CalendarTable = ({ date = null }) => {
       }
       setMappedDays(tab);
     })();
-  }, [date, modalData.config.isSave]);
+  }, [date, modalData?.config?.isSave]);
 
   return <StyledContainer>{mappedDays}</StyledContainer>;
 };

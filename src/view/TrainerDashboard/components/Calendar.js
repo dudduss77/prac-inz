@@ -37,7 +37,7 @@ const Calendar = () => {
       );
       setCalItem(caleItem);
     })();
-  }, [modalData.config.isSave]);
+  }, [modalData?.config?.isSave]);
 
   return (
     <Box width="30%">
