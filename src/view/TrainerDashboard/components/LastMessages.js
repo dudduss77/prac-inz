@@ -9,11 +9,12 @@ import {
   getMessagesArray,
   getProtegeName,
 } from "../../../firebase/dataFirebase";
+import LoaderFullPage from "../../../components/LoaderFullPage";
 const LastMessages = () => {
   const userId = useSelector(selectUserId);
   const navigate = useNavigate();
   const [messagesData, setMessagesData] = useState([]);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(null);
 
   useEffect(() => {
     getMessagesArray(userId, setMessagesData, true, 5);
@@ -34,7 +35,7 @@ const LastMessages = () => {
           messageDate: lastMessage.date,
         };
 
-        setMessages((old) => [...old, arr]);
+        setMessages((old) => (old ? [...old, arr] : [arr]));
       });
     }
   }, [messagesData]);
@@ -45,15 +46,19 @@ const LastMessages = () => {
         headerButtonTitle="Wiadomości"
         headerOnClick={() => navigate("/trainer/messages")}
       />
-      {messages.map((message) => (
-        <Message
-          isReaded={message.isRead}
-          messageId={message.id}
-          messageUserName={message.username}
-          messageContent={message.content}
-          messageDate={message.messageDate}
-        />
-      ))}
+      {messages === null ? (
+        <LoaderFullPage />
+      ) : (
+        messages.map((message) => (
+          <Message
+            isReaded={message.isRead}
+            messageId={message.id}
+            messageUserName={message.username}
+            messageContent={message.content}
+            messageDate={message.messageDate}
+          />
+        ))
+      )}
     </Box>
   );
 };
