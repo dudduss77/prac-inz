@@ -17,8 +17,13 @@ import { changeModalState, setModalData } from "./../../features/AppSlice";
 import { ReactComponent as PlusSVG } from "./../../assets/plus.svg";
 import styled from "styled-components";
 import ChatTable from "./components/ChatTable";
-import { getMessagesArray, getProtegeEmail, getProtegeName } from "../../firebase/dataFirebase";
+import {
+  getMessagesArray,
+  getProtegeEmail,
+  getProtegeName,
+} from "../../firebase/dataFirebase";
 import { selectUserId } from "../../features/UserSlice";
+import { useInput } from "../../hooks/useInput";
 
 const StyledPlusSVG = styled.svg.attrs({
   width: "11px",
@@ -30,6 +35,7 @@ const StyledPlusSVG = styled.svg.attrs({
 const BrowseChat = () => {
   const userId = useSelector(selectUserId);
   const modalDispatch = useDispatch();
+  const [searchValue, setSearchValue] = useState("");
 
   const [messagesData, setMessagesData] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -55,7 +61,7 @@ const BrowseChat = () => {
           username: username,
           content: lastMessage.content,
           messageDate: lastMessage.date,
-          email: email
+          email: email,
         };
 
         setMessages((old) => [...old, arr]);
@@ -67,6 +73,8 @@ const BrowseChat = () => {
     modalDispatch(changeModalState());
     modalDispatch(setModalData("newprotege"));
   };
+
+  console.log(messages);
   return (
     <ReusableViewWrapper isColumnLayout={true}>
       <Box width="100%" isGap>
@@ -78,15 +86,22 @@ const BrowseChat = () => {
           isPadding
           isGap
         >
-          <SearchInput placeholder="Szukaj..." mediaQueryPoint="620px" />
+          <SearchInput
+            onSearch={setSearchValue}
+            placeholder="Szukaj..."
+            mediaQueryPoint="620px"
+          />
         </Row>
 
         <Row isPadding isOverflow>
           <ChatTable
-            data={messages.slice(
-              maxItem * (paginateValue - 1),
-              maxItem * paginateValue
-            )}
+            data={messages
+              .filter(
+                (item) =>
+                  new RegExp(searchValue, "i").test(item.username) ||
+                  new RegExp(searchValue, "i").test(item.email)
+              )
+              .slice(maxItem * (paginateValue - 1), maxItem * paginateValue)}
           ></ChatTable>
         </Row>
 
