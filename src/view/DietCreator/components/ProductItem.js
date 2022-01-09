@@ -42,6 +42,13 @@ const ProductNutritional = styled.h5`
   color: ${({ theme }) => theme.CharacterSecoundary};
 `;
 
+const ProductHeader = styled.h4`
+  @media screen and (max-width: 900px) {
+    width: 155px;
+    text-align: center;
+  }
+`
+
 const ProductItem = ({
   dayId,
   mealId,
@@ -86,7 +93,7 @@ const ProductItem = ({
   };
   return (
     <StyledProductItem>
-      {productName}
+      <ProductHeader>{productName}</ProductHeader>
       <ProductNutritional>{nutritionalValue}</ProductNutritional>
       <Spacer />
       <ClickedInput primaryColor {...inputMealWeight} />
