@@ -140,6 +140,7 @@ const DietCreator = ({ isEdit = false }) => {
           <ClickedInput {...dietNameInput} title="Zmień nazwę diety" />
           <ClickedInput {...kcalValueInput} title="Nadaj kaloryczność diety" />
           <Select
+            width="100px"
             initialValue={mealValue}
             customHeight="30px"
             onChange={handleSelect}
