@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { selectUserId } from "../../../features/UserSlice";
 import { getCalendarDay } from "../../../firebase/dataFirebase";
+import { selectModalData } from "../../../features/AppSlice";
 
 const ColorMap = {
   ordinary: "#C4C4C4",
@@ -14,6 +15,7 @@ const ColorMap = {
 };
 
 const Calendar = () => {
+  const modalData = useSelector(selectModalData)
   const userId = useSelector(selectUserId);
   const navigate = useNavigate();
   const [calItem, setCalItem] = useState([]);
@@ -34,7 +36,7 @@ const Calendar = () => {
       );
       setCalItem(caleItem);
     })();
-  }, []);
+  }, [modalData.config.isSave]);
 
   return (
     <Box width="30%">

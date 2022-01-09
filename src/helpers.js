@@ -11,6 +11,7 @@ const getDateddmmyyy = (a) => {
 const getLastMondayTime = () => {
     const a = new Date();
     const day = a.getDay();
+    console.log('helpers', a.setDate(a.getDate() - a.getDay() + 1))
     return a.setDate(a.getDate() - a.getDay() + 1)
     // return a.getTime() - (7+ day-1)*ONE_DAY_MS //*24*3600*1000
 }

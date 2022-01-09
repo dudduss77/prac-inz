@@ -44,13 +44,7 @@ const WeekChanger = ({
   numberOfDays = 1,
   onChange = (e) => console.log(e),
 }) => {
-  const [date, setDate] = useState({
-    from: new Date(getLastMondayTime()),
-    to: new Date(
-      new Date(getLastMondayTime()).getTime() + (numberOfDays - 1) * ONE_DAY_MS
-    ),
-  });
-  // const [dateTo, setDateTo] = useState();
+  const [date, setDate] = useState(null);
 
   const handlerOnPlusClick = () => {
     setDate(({ from, to }) => ({
@@ -67,7 +61,7 @@ const WeekChanger = ({
   };
 
   useEffect(() => {
-    onChange(date);
+    if (date) onChange(date);
   }, [date]);
 
   useEffect(() => {
@@ -86,22 +80,31 @@ const WeekChanger = ({
         from: before,
         to: after,
       });
-    } else
-      setDate({
-        from: new Date(getLastMondayTime()),
-        to: new Date(
-          new Date(getLastMondayTime()).getTime() +
-            (numberOfDays - 1) * ONE_DAY_MS
-        ),
-      });
+    } else {
+      var currDate = new Date();
+      if (currDate.getDay() === 0) {
+        setDate({
+          from: new Date(currDate.setDate(currDate.getDate() - 6)),
+          to: new Date(),
+        });
+      } else {
+        setDate({
+          from: new Date(getLastMondayTime()),
+          to: new Date(
+            new Date(getLastMondayTime()).getTime() +
+              (numberOfDays - 1) * ONE_DAY_MS
+          ),
+        });
+      }
+    }
   }, [numberOfDays]);
 
   return (
     <StyledContainer>
       <StyledArrowLeftSVG as={ArrowSVG} onClick={handlerOnMinusClick} />
       <StyledContent>
-        {numberOfDays !== 1 && getDateddmmyyy(date.from) + " - "}{" "}
-        {getDateddmmyyy(date.to)}
+        {date && numberOfDays !== 1 && getDateddmmyyy(date.from) + " - "}{" "}
+        {date && getDateddmmyyy(date.to)}
       </StyledContent>
 
       <StyledArrowRightSVG as={ArrowSVG} onClick={handlerOnPlusClick} />
