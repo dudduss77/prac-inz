@@ -24,7 +24,6 @@ const ProtegeView = () => {
 
   useEffect(async () => {
     const user = await getUserData(protegeId);
-    console.log(user)
     dispatch(putActualProtege(user));
   }, [])
 

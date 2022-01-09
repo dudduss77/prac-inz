@@ -63,18 +63,19 @@ const CreatorDay = ({
 }) => {
   const isProtege = useSelector(selectUserType);
   const modalDispatch = useDispatch();
-  const creatorDietDispatch = useDispatch();
+  const dispatch = useDispatch();
   const dayCount = useSelector(selectCurrentDayCount);
   const [nutritional, setNutritional] = useState("0kcal 0B 0T 0F");
 
   const deleteDay = () => {
-    creatorDietDispatch(deleteDietItems(dayId));
+    dispatch(deleteDietItems(dayId));
   };
 
   const sendNote = () => {
+    const text = `Cześć. Mam uwagę dotyczącą aktualnej diety do "${dayHeaderTitle}": `
     modalDispatch(changeModalState());
     modalDispatch(
-      setModalData({ name: "sendnote", config: { type: "diet", dayId: dayId } })
+      setModalData({ name: "sendnote", config: { text, type: "diet", dayId: dayId } })
     );
   };
 

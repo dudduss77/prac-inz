@@ -23,6 +23,7 @@ const MenuWrapper = styled.div`
 const Center = styled.div`
   width: 100%;
   text-align: center;
+  padding: 10px;
 `;
 
 const ImageRaport = () => {
@@ -37,7 +38,7 @@ const ImageRaport = () => {
     if(gettedImg != null) setGettedImg(null);
     const res = await getLastBodyPhotos(userId);
     console.log(res)
-    setBodyPhoto(res);
+    setBodyPhoto(res.length <1 ? undefined : res);
     setGettedImg(Array.from(Array(res.length), () => null));
   };
 
@@ -54,10 +55,10 @@ const ImageRaport = () => {
 
   useEffect(fetchBodyPhoto, [])
 
-  return bodyPhoto == null ||  gettedImg == null?
+  return bodyPhoto === null ||  gettedImg == null?
    <LoaderFullPage /> 
     : 
-    bodyPhoto === undefined ? 
+    bodyPhoto == undefined ? 
    <Center>Brak raportów zdjęciowych</Center>
     :
     bodyPhoto.map(({data}, i) => (

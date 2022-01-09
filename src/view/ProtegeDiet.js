@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import BoxHeader from "../components/Box/components/BoxHeader";
 import GridSlider from "../components/GridSlider/GridSlider";
 import GridSliderArrow from "../components/GridSlider/GridSliderArrow";
+import LoaderFullPage from "../components/LoaderFullPage";
 import {
   Box,
   NoDataHeader,
@@ -10,32 +12,19 @@ import {
   Spacer,
 } from "../components/Reusable";
 import { DayData } from "../data/DietCreator";
+import { getLastDiet } from "../firebase/dataFirebase";
 import { useGridSlider } from "../hooks/useGridSlider";
 import CreatorDay from "./DietCreator/components/CreatorDay";
 
 const ProtegeDiet = () => {
-  const [dietData, setDietData] = useState([
-    // {
-    //   id: 1,
-    //   meals: [
-    //     {
-    //       id: 1,
-    //       products: [
-    //         {
-    //           id: 1,
-    //           name: "Bułka",
-    //           weight: 100,
-    //           proteinOnHundredGrams: 10,
-    //           carbohydratesOnHundredGrams: 2,
-    //           fatOnHundredGrams: 1,
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
-  ]);
+  const [dietData, setDietData] = useState({
+    items: [],
+    name: null,
+  });
+  const { userId } = useSelector(({ user }) => user);
+
   const grid = useGridSlider({
-    data: dietData,
+    data: dietData.items,
     viewItems: 4,
     mediaQueries: [
       {
@@ -48,6 +37,12 @@ const ProtegeDiet = () => {
       },
     ],
   });
+
+  useEffect(async () => {
+    const res = await getLastDiet(userId);
+    if(res) setDietData(res.data);
+    else setDietData({items: [], name: undefined});
+  }, [])
   return (
     <ReusableViewWrapper flexValue="1" minHeight="0">
       <Box width="100%" minHeight="100%">
@@ -58,8 +53,10 @@ const ProtegeDiet = () => {
           <GridSliderArrow direction="right" arrowConfig={grid} />
         </BoxHeader>
         <GridSlider minHeight="0" gridConfig={grid}>
-          {dietData.length > 0 ? (
-            dietData.map((item, index) => (
+          {dietData.name=== null ? <LoaderFullPage /> : 
+          dietData.name==undefined ? 
+          <NoDataHeader>Nie masz jeszcze diety</NoDataHeader> : (
+            dietData.items.map((item, index) => (
               <CreatorDay
                 key={item.id}
                 dayId={item.id}
@@ -67,8 +64,6 @@ const ProtegeDiet = () => {
                 dayHeaderTitle={DayData[index]}
               />
             ))
-          ) : (
-            <NoDataHeader>Brak danych</NoDataHeader>
           )}
         </GridSlider>
       </Box>

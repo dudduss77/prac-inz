@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import BoxHeader from "../../../components/Box/components/BoxHeader";
+import LoaderFullPage from "../../../components/LoaderFullPage";
 import { Box, NoDataHeader } from "../../../components/Reusable";
 import { MealsData } from "../../../data/DietCreator";
+import { getLastDiet, updateDiets } from "../../../firebase/dataFirebase";
 import CreatorMeal from "../../DietCreator/components/CreatorMeal";
 
 const Wrapper = styled.div`
@@ -11,49 +15,40 @@ const Wrapper = styled.div`
 `;
 
 const CurrentDiet = () => {
-  const [currentDay, setCurrentDay] = useState([
-    // {
-    //   id: 1,
-    //   products: [
-    //     {
-    //       id: 1,
-    //       name: "Bułka",
-    //       weight: 100,
-    //       proteinOnHundredGrams: 10,
-    //       carbohydratesOnHundredGrams: 2,
-    //       fatOnHundredGrams: 1,
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 2,
-    //   products: [
-    //     {
-    //       id: 1,
-    //       name: "Bułka",
-    //       weight: 100,
-    //       proteinOnHundredGrams: 10,
-    //       carbohydratesOnHundredGrams: 2,
-    //       fatOnHundredGrams: 1,
-    //     },
-    //   ],
-    // },
-  ]);
+  const {userId} = useSelector(({user}) => user)
+  const [currentDay, setCurrentDay] = useState(null);
 
-  const dietEnd = () => {
-    alert("Dzień wykonany");
+  const dietEnd = async () => {
+    const actualDay = ((currentDay.data.actualDay ?? 0) + 1) % currentDay.data.items.length;
+    setCurrentDay(prev => ({
+      ...prev,
+      data: {
+        ...prev.data,
+        actualDay
+      }
+      
+    }));
+    const res = await updateDiets(userId, currentDay.id, {actualDay});
+    console.log(res);
   };
+
+  useEffect(async item => {
+    const res = await getLastDiet(userId);
+    console.log(res);
+    setCurrentDay(res);
+  }, [])
 
   return (
     <Box width="50%" minHeight="600px">
       <BoxHeader
         headerTitle="Dieta na dziś"
-        headerButtonTitle="Dieta wykonana"
+        headerButtonTitle="Następny Dzień"
         headerOnClick={() => dietEnd()}
       />
       <Wrapper>
-        {currentDay > 0 ? (
-          currentDay.map((item, index, arr) => (
+        {currentDay === null ? <LoaderFullPage /> :
+        currentDay === undefined ? <NoDataHeader>Brak diety na dziś</NoDataHeader> : (
+          currentDay.data.items[currentDay.data.actualDay ?? 0].meals.map((item, index, arr) => (
             <CreatorMeal
               key={item.id}
               mealId={item.id}
@@ -62,8 +57,6 @@ const CurrentDiet = () => {
               productsData={item.products}
             />
           ))
-        ) : (
-          <NoDataHeader>Brak diety na dziś</NoDataHeader>
         )}
       </Wrapper>
     </Box>

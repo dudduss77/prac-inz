@@ -1,8 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import BoxHeader from "../../components/Box/components/BoxHeader";
 import { Box, ReusableViewWrapper, Row } from "../../components/Reusable";
-import TrainingRaportItem from "../../components/TrainingRaportItem";
 import ImageRaport from "./components/ImageRaport";
 import MeasurmentRaport from "./components/MeasurmentRaport";
 import TrainingRaport from "./components/TrainingRaport";

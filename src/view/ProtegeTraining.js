@@ -10,49 +10,20 @@ import {
   Spacer,
 } from "../components/Reusable";
 import TrainingDay from "./TrainingCreator/components/TrainingDay";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getLastTraining } from "../firebase/dataFirebase";
+import LoaderFullPage from "../components/LoaderFullPage";
 
 const ProtegeTraining = () => {
-  const [trainingData, setTrainingData] = useState([
-    // {
-    //   id: 1,
-    //   types: [
-    //     {
-    //       id: 1,
-    //       name: "Rozgrzewka",
-    //       exercises: [
-    //         {
-    //           id: 1,
-    //           name: "wyciskanie",
-    //           series: [
-    //             {
-    //               id: 1,
-    //               weight: 1,
-    //               repeat: 10,
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       id: 2,
-    //       name: "Trening właściwy",
-    //       exercises: [],
-    //     },
-    //     {
-    //       id: 3,
-    //       name: "Kardio",
-    //       exercises: [],
-    //     },
-    //     {
-    //       id: 4,
-    //       name: "Rozciąganie",
-    //       exercises: [],
-    //     },
-    //   ],
-    // },
-  ]);
+  const [trainingData, setTrainingData] = useState({
+    trainingDays: [],
+    name: null,
+  });
+  const { userId } = useSelector(({ user }) => user);
+
   const grid = useGridSlider({
-    data: trainingData,
+    data: trainingData.trainingDays,
     viewItems: 4,
     mediaQueries: [
       {
@@ -65,6 +36,14 @@ const ProtegeTraining = () => {
       },
     ],
   });
+
+  useEffect(async () => {
+    const res = await getLastTraining(userId);
+    console.log(res);
+    if(res) setTrainingData(res.data);
+    else setTrainingData({trainingDays: [], name: undefined});
+  }, []);
+  
   return (
     <ReusableViewWrapper flexValue="1" minHeight="0">
       <Box width="100%" minHeight="100%">
@@ -75,8 +54,10 @@ const ProtegeTraining = () => {
           <GridSliderArrow direction="right" arrowConfig={grid} />
         </BoxHeader>
         <GridSlider minHeight="0" gridConfig={grid}>
-          {trainingData.length > 0 ? (
-            trainingData.map((item, index) => (
+          {trainingData.name=== null ? <LoaderFullPage /> : 
+          trainingData.name==undefined ? 
+          <NoDataHeader>Nie masz jeszcze Treningu</NoDataHeader> : (
+            trainingData.trainingDays.map((item, index) => (
               <TrainingDay
                 key={item.id}
                 dayId={item.id}
@@ -84,8 +65,6 @@ const ProtegeTraining = () => {
                 trainingTypesData={item.types}
               />
             ))
-          ) : (
-            <NoDataHeader>Brak danych</NoDataHeader>
           )}
         </GridSlider>
       </Box>

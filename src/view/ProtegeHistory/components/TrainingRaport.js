@@ -12,6 +12,7 @@ import { Column, Row } from "../../../components/Reusable";
 const Center = styled.div`
   width: 100%;
   text-align: center;
+  padding: 10px;
 `;
 
 
@@ -67,12 +68,12 @@ const TrainingRaport = ({ protegeId }) => {
 
   const fetchReports = async () => {
     const res = await getTrainingReports(protegeId ?? userId);
-    setReports(res);
+    setReports(res.length <1 ? undefined : res);
   };
 
   useEffect(fetchReports, [])
 
-  return reports == null?
+  return reports === null?
    <LoaderFullPage /> 
     : 
     reports === undefined ? 

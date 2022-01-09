@@ -130,6 +130,18 @@ export const getDiets = async (userId, setter = () => {}) => {
   return diets;
 };
 
+export const getLastDiet = async (userId) => {
+  const dietCollectionRef = await getDocs(
+    query(
+      collection(db, "users", userId, "diets"),
+      orderBy("time", "desc"),
+      limit(1),
+    )  
+  );
+  console.log(dietCollectionRef);
+  return dietCollectionRef.docs.length>0 ?{ id: dietCollectionRef.docs[0].id, data: dietCollectionRef.docs[0].data() } : undefined;
+};
+
 export const setProtegeDocInCollection = async (
   protegeId,
   payload,
@@ -246,15 +258,15 @@ export const getAllProteges = async (userId) => {
   return trainerProteges;
 };
 
-export const getMessageId = async (protegeId, setter) => {
+export const getMessageId = async (protegeId, setter = () => {}) => {
   const q = query(
     collection(db, "messages"),
     where("protegeId", "==", protegeId)
   );
   const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    setter(doc.id);
-  });
+
+  setter(querySnapshot.docs[0].id);
+  return querySnapshot.docs[0].id;
 };
 
 export const createNewMessageDoc = async (userId, protegeId) => {
@@ -531,4 +543,9 @@ export const updateTrainings = async (userId, docId, payload) => {
     payload
   );
   return res;
-};
+}
+
+export const updateDiets = async (userId, docId, payload) => {
+  const res = await updateDoc(doc(db, "users", userId, "diets", docId), payload);
+  return res;
+}

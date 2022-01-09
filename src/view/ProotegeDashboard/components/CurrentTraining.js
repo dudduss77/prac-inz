@@ -26,10 +26,14 @@ const CurrentTraining = () => {
   const userId = useSelector(({user}) => user.userId)
 
   const handleChange = async () => {
-    const actualDay = (currentTraining.actualDay == undefined ? 1 : currentTraining.actualDay+ 1) % currentTraining.data.trainingDays.length;
+    const actualDay = ((currentTraining.data.actualDay ?? 0) + 1) % currentTraining.data.trainingDays.length;
     setCurrentTraining(prev => ({
       ...prev,
-      actualDay
+      data: {
+        ...prev.data,
+        actualDay
+      }
+      
     }));
     const res = await updateTrainings(userId, currentTraining.id, {actualDay});
     console.log(res);
@@ -57,7 +61,7 @@ const CurrentTraining = () => {
       <Wrapper>
         { currentTraining == null ? <LoaderFullPage /> :
         currentTraining == false ? <NoDataHeader>Brak treningu na dziś</NoDataHeader> : (
-          currentTraining.data.trainingDays[currentTraining.actualDay ?? 0].types.map((type) => (
+          currentTraining.data.trainingDays[currentTraining.data.actualDay ?? 0].types.map((type) => (
             <TrainingType
               key={type.name}
               typeId={type.id}
