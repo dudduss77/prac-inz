@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { selectUserId } from "../../../features/UserSlice";
 import { getAllProteges } from "../../../firebase/dataFirebase";
+import LoaderFullPage from "../../../components/LoaderFullPage";
 
 const Item = styled.div`
   width: calc(100% - 20px);
@@ -33,7 +34,7 @@ const DateFormat = (val) => {
 const NewProtege = () => {
   const userId = useSelector(selectUserId);
   const navigate = useNavigate();
-  const [newProtege, setNewProtege] = useState([]);
+  const [newProtege, setNewProtege] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -56,18 +57,22 @@ const NewProtege = () => {
         }}
       />
       <Column isGap isOverflow>
-        {newProtege.map((protege) => (
-          <Item onClick={() => navigate(`/trainer/protege/${protege.id}`)}>
-            <UserLink
-              customColor
-              haveMinWidth
-              imgSrc={avatar}
-              userName={protege.name}
-            />
-            <Spacer />
-            <h4>{DateFormat(protege.registerTime.seconds)}</h4>
-          </Item>
-        ))}
+        {newProtege === null ? (
+          <LoaderFullPage />
+        ) : (
+          newProtege.map((protege) => (
+            <Item onClick={() => navigate(`/trainer/protege/${protege.id}`)}>
+              <UserLink
+                customColor
+                haveMinWidth
+                imgSrc={avatar}
+                userName={protege.name}
+              />
+              <Spacer />
+              <h4>{DateFormat(protege.registerTime.seconds)}</h4>
+            </Item>
+          ))
+        )}
       </Column>
     </Box>
   );
