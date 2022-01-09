@@ -59,11 +59,12 @@ const TrainingDay = ({ dayId, dayIndex, trainingTypesData = [] }) => {
   };
 
   const sendNote = () => {
+    const text = `Cześć. Mam uwagę dotyczącą aktualnego treningu do "${`Trening ${String.fromCharCode(64 + dayIndex + 1)}`}": `
     modalDispatch(changeModalState());
     modalDispatch(
       setModalData({
         name: "sendnote",
-        config: { type: "training", dayId: dayId },
+        config: { type: "training", dayId: dayId, text },
       })
     );
   };

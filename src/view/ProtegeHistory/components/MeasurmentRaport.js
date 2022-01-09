@@ -19,6 +19,7 @@ const MenuWrapper = styled.div`
 const Center = styled.div`
   width: 100%;
   text-align: center;
+  padding: 10px
 `;
 
 const MeasurementRaport = () => {
@@ -34,7 +35,7 @@ const MeasurementRaport = () => {
 
   useEffect(fetchMeasurment, []);
 
-  return measurement == null ?
+  return measurement === null ?
    <LoaderFullPage /> 
     : 
    measurement === undefined ? 

@@ -56,9 +56,11 @@ const Layout = ({ children }) => {
     } else {
       if ([
         "/message/", 
+        "/protege/message/", 
         "dietcreator",
         "trainingcreator",
         "questionnaire/new",
+        "/protege",
         "questionnaire/edit",
       ].some(v => pathname.includes(v))) return
       else return <PageHeader isProtege={userType} />;
