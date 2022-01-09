@@ -25,6 +25,12 @@ const StyledTrainingAddExerciseItem = styled.div`
   }
 `;
 
+const RedCenter = styled.h4`
+  color: #ff0000;
+  width: 100%;
+  text-align: center;
+`;
+
 const IsOpen = styled.div`
   display: flex;
   flex-direction: column;
@@ -37,6 +43,7 @@ const TrainingAddExerciseItem = ({ itemName }) => {
   const trainingCreatorDispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [exerciseData, setExerciseData] = useState([{ id: 1 }]);
+  const [errMsg, setErrMsg] = useState("");
 
   const modExerciseData = () => {
     setExerciseData([
@@ -51,23 +58,38 @@ const TrainingAddExerciseItem = ({ itemName }) => {
   };
 
   const add = () => {
-    trainingCreatorDispatch(
-      addExercise({
-        dayId: modalData.config.dayId,
-        typeId: modalData.config.typeId,
-        name: itemName,
-        data: exerciseData,
-      })
-    );
+    let error = false;
+    exerciseData.forEach((item) => {
+      if (isNaN(item.weight) || isNaN(item.repeat)) {
+        console.log(item);
+        error = true;
+        setErrMsg("Uzupełni pola");
+        return;
+      }
+    });
+    if (!error) {
+      setErrMsg("");
+      trainingCreatorDispatch(
+        addExercise({
+          dayId: modalData.config.dayId,
+          typeId: modalData.config.typeId,
+          name: itemName,
+          data: exerciseData,
+        })
+      );
+    }
   };
+  console.log(exerciseData);
   return (
     <StyledTrainingAddExerciseItem
       isOpen={isOpen}
       onClick={() => setIsOpen(!isOpen)}
     >
       {itemName}
+
       {isOpen && (
         <IsOpen onClick={(evt) => evt.stopPropagation()}>
+          <RedCenter>{errMsg}</RedCenter>
           {exerciseData.map((exercise, i, arr) => {
             if (arr.length - 1 === i)
               return (
