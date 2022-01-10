@@ -76,8 +76,8 @@ const BrowseChat = () => {
 
   console.log(messages);
   return (
-    <ReusableViewWrapper isColumnLayout={true}>
-      <Box width="100%" isGap>
+    <ReusableViewWrapper isColumnLayout={true} flexValue="1">
+      <Box width="100%" height="100%" isGap>
         <BoxHeader headerTitle="Wiadomości" />
 
         <Row
