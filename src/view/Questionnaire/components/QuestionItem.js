@@ -88,12 +88,12 @@ const QuestionItem = ({
         setAnswer(<LongAnswer indx={indx} isDisabled={!isProtege} />);
         break;
       case 2:
-        setAnswer(<CheckBoxAnswer indx={indx} isDisabled={!isProtege} />);
-        break;
-      case 3:
         setAnswer(
           <CheckBoxAnswer indx={indx} isDisabled={!isProtege} isRadio />
         );
+        break;
+      case 3:
+        setAnswer(<CheckBoxAnswer indx={indx} isDisabled={!isProtege} />);
         break;
       case 4:
         setAnswer(<FileUpload indx={indx} isDisabled={!isProtege} />);
