@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box, Column, Spacer } from "../../../components/Reusable";
+import {
+  Box,
+  Column,
+  NoDataHeader,
+  Spacer,
+} from "../../../components/Reusable";
 import BoxHeader from "../../../components/Box/components/BoxHeader";
 import styled from "styled-components";
 import UserLink from "../../../components/UserLink";
@@ -59,7 +64,7 @@ const NewProtege = () => {
       <Column isGap isOverflow>
         {newProtege === null ? (
           <LoaderFullPage />
-        ) : (
+        ) : newProtege.length > 0 ? (
           newProtege.map((protege) => (
             <Item onClick={() => navigate(`/trainer/protege/${protege.id}`)}>
               <UserLink
@@ -72,6 +77,8 @@ const NewProtege = () => {
               <h4>{DateFormat(protege.registerTime.seconds)}</h4>
             </Item>
           ))
+        ) : (
+          <NoDataHeader>Brak podopiecznych</NoDataHeader>
         )}
       </Column>
     </Box>

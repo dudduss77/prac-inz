@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "../../../components/Reusable";
+import { Box, NoDataHeader } from "../../../components/Reusable";
 import BoxHeader from "../../../components/Box/components/BoxHeader";
 import CalendarItem from "../../../components/CalendarItem";
 import { useNavigate } from "react-router";
@@ -49,7 +49,7 @@ const Calendar = () => {
       {calItem === null ? (
         <LoaderFullPage />
       ) : (
-        calItem.length > 0 &&
+        calItem.length > 0 ?
         calItem.map((item) => (
           <CalendarItem
             id={item.id}
@@ -58,8 +58,8 @@ const Calendar = () => {
             description={item.data.desc}
             color={ColorMap[item.data.type]}
           />
-        ))
-      )}
+        )) : <NoDataHeader>Brak zadań na dziś</NoDataHeader>
+      ) }
     </Box>
   );
 };
