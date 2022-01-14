@@ -11,6 +11,9 @@ align-items: center;
 position: absolute;
 top: 0px;
 left: 0px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
 `;
 
 const Container = styled.div`
