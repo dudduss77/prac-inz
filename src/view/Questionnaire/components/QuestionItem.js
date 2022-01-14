@@ -16,7 +16,7 @@ import ShortAnswer from "./types/ShortAnswer";
 import FileUpload from "./types/FileUpload";
 
 const CustomBox = styled(Box)`
-  overflow: clip;
+  overflow: visible;
 `;
 
 const StyledClose = styled.svg.attrs({
