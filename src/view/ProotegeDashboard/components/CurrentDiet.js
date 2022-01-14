@@ -7,6 +7,7 @@ import LoaderFullPage from "../../../components/LoaderFullPage";
 import { Box, NoDataHeader } from "../../../components/Reusable";
 import { MealsData } from "../../../data/DietCreator";
 import { getLastDiet, updateDiets } from "../../../firebase/dataFirebase";
+import { useNotification } from "../../../hooks/useNotification";
 import CreatorMeal from "../../DietCreator/components/CreatorMeal";
 
 const Wrapper = styled.div`
@@ -15,28 +16,30 @@ const Wrapper = styled.div`
 `;
 
 const CurrentDiet = () => {
-  const {userId} = useSelector(({user}) => user)
+  const { userId } = useSelector(({ user }) => user);
   const [currentDay, setCurrentDay] = useState(null);
+  const notification = useNotification();
 
   const dietEnd = async () => {
-    const actualDay = ((currentDay.data.actualDay ?? 0) + 1) % currentDay.data.items.length;
-    setCurrentDay(prev => ({
+    const actualDay =
+      ((currentDay.data.actualDay ?? 0) + 1) % currentDay.data.items.length;
+    setCurrentDay((prev) => ({
       ...prev,
       data: {
         ...prev.data,
-        actualDay
-      }
-      
+        actualDay,
+      },
     }));
-    const res = await updateDiets(userId, currentDay.id, {actualDay});
+    const res = await updateDiets(userId, currentDay.id, { actualDay });
     console.log(res);
+    notification.show("Dzień zakończony");
   };
 
-  useEffect(async item => {
+  useEffect(async (item) => {
     const res = await getLastDiet(userId);
     console.log(res);
     setCurrentDay(res);
-  }, [])
+  }, []);
 
   return (
     <Box width="50%" minHeight="600px">
@@ -46,17 +49,22 @@ const CurrentDiet = () => {
         headerOnClick={() => dietEnd()}
       />
       <Wrapper>
-        {currentDay === null ? <LoaderFullPage /> :
-        currentDay === undefined ? <NoDataHeader>Brak diety na dziś</NoDataHeader> : (
-          currentDay.data.items[currentDay.data.actualDay ?? 0].meals.map((item, index, arr) => (
-            <CreatorMeal
-              key={item.id}
-              mealId={item.id}
-              isMinHeight={arr.length > 2}
-              mealsHeaderTitle={MealsData[index]}
-              productsData={item.products}
-            />
-          ))
+        {currentDay === null ? (
+          <LoaderFullPage />
+        ) : currentDay === undefined ? (
+          <NoDataHeader>Brak diety na dziś</NoDataHeader>
+        ) : (
+          currentDay.data.items[currentDay.data.actualDay ?? 0].meals.map(
+            (item, index, arr) => (
+              <CreatorMeal
+                key={item.id}
+                mealId={item.id}
+                isMinHeight={arr.length > 2}
+                mealsHeaderTitle={MealsData[index]}
+                productsData={item.products}
+              />
+            )
+          )
         )}
       </Wrapper>
     </Box>
