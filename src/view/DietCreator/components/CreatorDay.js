@@ -38,14 +38,6 @@ const Header = styled.div`
   border-bottom: 2px solid ${({ theme }) => theme.naturalFive};
   position: relative;
 
-  ${AbsoluteIconWrapper} {
-    visibility: hidden;
-  }
-
-  &:hover ${AbsoluteIconWrapper} {
-    visibility: visible;
-  }
-
   h5 {
     color: ${({ theme }) => theme.CharacterSecoundary};
   }
