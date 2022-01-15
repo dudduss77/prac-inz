@@ -249,13 +249,16 @@ export const deleteDocFun = async (userId, docId, subCollecion) => {
 
 export const getAllProteges = async (userId) => {
   let trainerProteges = (await getUserData(userId)).proteges;
-  trainerProteges = await Promise.all(
-    trainerProteges.map(async (item) => {
-      return await getUserData(item);
-    })
-  );
-
-  return trainerProteges;
+  if(trainerProteges) {
+    trainerProteges = await Promise.all(
+      trainerProteges.map(async (item) => {
+        return await getUserData(item);
+      })
+    );
+  
+    return trainerProteges;
+  }
+  
 };
 
 export const getMessageId = async (protegeId, setter = () => {}) => {
