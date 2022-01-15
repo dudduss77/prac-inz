@@ -21,18 +21,22 @@ const CurrentDiet = () => {
   const notification = useNotification();
 
   const dietEnd = async () => {
-    const actualDay =
-      ((currentDay.data.actualDay ?? 0) + 1) % currentDay.data.items.length;
-    setCurrentDay((prev) => ({
-      ...prev,
-      data: {
-        ...prev.data,
-        actualDay,
-      },
-    }));
-    const res = await updateDiets(userId, currentDay.id, { actualDay });
-    console.log(res);
-    notification.show("Dzień zakończony");
+    if (currentDay) {
+      const actualDay =
+        ((currentDay.data.actualDay ?? 0) + 1) % currentDay.data.items.length;
+      setCurrentDay((prev) => ({
+        ...prev,
+        data: {
+          ...prev.data,
+          actualDay,
+        },
+      }));
+      const res = await updateDiets(userId, currentDay.id, { actualDay });
+      console.log(res);
+      notification.show("Dzień zakończony");
+    } else {
+      notification.show("Brak diety");
+    }
   };
 
   useEffect(async (item) => {
