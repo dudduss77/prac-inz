@@ -11,7 +11,7 @@ import UserLink from "../../../components/UserLink";
 import avatar from "../../../assets/user.png";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
-import { selectUserId } from "../../../features/UserSlice";
+import { selectUserId, selectUserType } from "../../../features/UserSlice";
 import { getAllProteges } from "../../../firebase/dataFirebase";
 import LoaderFullPage from "../../../components/LoaderFullPage";
 
@@ -38,19 +38,22 @@ const DateFormat = (val) => {
 
 const NewProtege = () => {
   const userId = useSelector(selectUserId);
+  const isProtege = useSelector(selectUserType);
   const navigate = useNavigate();
   const [newProtege, setNewProtege] = useState(null);
 
   useEffect(() => {
     (async () => {
-      const protege = await getAllProteges(userId);
-      const sortAndLimit = protege
-        .sort((a, b) => b.registerTime.seconds - a.registerTime.seconds)
-        .slice(0, 10);
-      setNewProtege(sortAndLimit);
-      console.log(sortAndLimit);
+      if (isProtege === false) {
+        const protege = await getAllProteges(userId);
+        const sortAndLimit = protege
+          .sort((a, b) => b.registerTime.seconds - a.registerTime.seconds)
+          .slice(0, 10);
+        setNewProtege(sortAndLimit);
+        console.log(sortAndLimit);
+      }
     })();
-  }, []);
+  }, [isProtege]);
 
   return (
     <Box width="40%" height="450px">
