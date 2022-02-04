@@ -63,6 +63,7 @@ const RegisterForm = ({ handleForgotClick, id = false, qustionaireId = false }) 
         width="360px"
         placeholder="Hasło"
         icon={passSVG}
+        type="password"
       />
       <Input
         useInput={nameInput}
