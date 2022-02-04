@@ -50,7 +50,7 @@ import {
     return (
       <>
         <Input useInput={emailInput} placeholder="Email" icon={UserSVG} />  
-        <Input useInput={passInput} placeholder="Hasło" icon={passSVG} />  
+        <Input type="password" useInput={passInput} placeholder="Hasło" icon={passSVG} />  
   
         <RememberLost>
           <RememberLost__item>
