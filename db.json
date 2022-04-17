@@ -1,0 +1,29 @@
+{
+  "product": [
+    {
+      "id": 1,
+      "name": "Mąka",
+      "weight": 100,
+      "proteinGrams": 10,
+      "carbohydratesGrams": 10,
+      "fatGrams": 1
+    },
+    {
+      "id": 2,
+      "name": "Mąka 2",
+      "weight": 100,
+      "proteinGrams": 3,
+      "carbohydratesGrams": 5,
+      "fatGrams": 0
+    },
+    {
+      "id": 3,
+      "name": "Jajko L",
+      "type": "unit",
+      "weight": 60,
+      "proteinGrams": 3,
+      "carbohydratesGrams": 5,
+      "fatGrams": 1
+    }
+  ]
+}

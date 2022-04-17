@@ -12,6 +12,8 @@ import { useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/authFirebase";
 import { userDocRef } from "./firebase/dataFirebase";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const StyledApp = styled.div`
   color: ${({ theme }) => theme.CharacterPrimary};
@@ -44,10 +46,12 @@ function App() {
   const routing = useRoutes(routes(false, userState));
   return (
     <StyledApp>
+      <DndProvider backend={HTML5Backend}>
       <Theme>
         {routing}
         <Notification />
       </Theme>
+      </DndProvider>
     </StyledApp>
   );
 }

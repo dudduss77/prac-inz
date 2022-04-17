@@ -21,6 +21,8 @@ import QuestionnaireNew from "./view/Questionnaire/QuestionnaireNew";
 import ProtegeQuestionnaire from "./view/Questionnaire/ProtegeQuestionnaire";
 import PrivateRoute from "./PrivateRoute";
 import Logout from "./view/Logout";
+import DietCreatorNew from "./view/DietCreatorNew/DietCreatorNew";
+import TempLayout from "./view/DietCreatorNew/TempLayout";
 
 
 
@@ -29,6 +31,7 @@ const routes = (auth, isProtege = false) => {
   return [
     { path: "*", element: <ErrorView /> },
     { path: "/login", element: <Login /> },
+    { path: "/dietcreatornew", element: <TempLayout /> },
     { path: "/login/:id/:qustionaireId", element: <Login/> },
     { path: "/logout", element: <Logout /> },
     { path: "/protege/questionnaire", element: (
