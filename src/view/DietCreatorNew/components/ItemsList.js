@@ -36,19 +36,16 @@ const ListWeapper = styled.div`
 
 const ItemsList = () => {
   const [selectedItems, setSelectedItems] = useState("product");
-  const [state, setState] = useState([
-  ]);
+  const [productList, setProdutList] = useState([]);
 
   useEffect(() => {
     (async () => {
-       let response = await fetch('http://localhost:3000/product');
-       let productList = await response.json();
-       console.log(productList)
-       setState(productList);
-    })()
-    
-  }, [])
-  
+      let productResponse = await fetch("http://localhost:3000/product");
+      let productList = await productResponse.json();
+      console.log(productList);
+      setProdutList(productList);
+    })();
+  }, []);
 
   return (
     <StyledItemsList>
@@ -67,16 +64,8 @@ const ItemsList = () => {
         </MenuButton>
       </Menu>
       <ListWeapper>
-        {state.map((item) => (
-          <Item
-            id={item.id}
-            name={item.name}
-            weight={item.weight}
-            protein={item.proteinGrams}
-            fat={item.fatGrams}
-            carbohydrates={item.carbohydratesGrams}
-            type={item.type}
-          />
+        {productList.map((item) => (
+          <Item key={item.id} {...item} />
         ))}
       </ListWeapper>
     </StyledItemsList>

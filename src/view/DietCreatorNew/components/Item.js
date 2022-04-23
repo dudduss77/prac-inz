@@ -1,8 +1,7 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import { useDrag } from "react-dnd";
+import React from "react";
 import styled from "styled-components";
 import OptionsItem from "./OptionsItem";
+import unitTypes from "../../../data/UnitTypes.json";
 
 const StyledListItem = styled.div`
   padding: 10px;
@@ -10,7 +9,6 @@ const StyledListItem = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  cursor: ${({ isGrabCursor }) => (isGrabCursor ? "grab" : "default")};
   border: ${({ isDrag }) => (isDrag ? "1px solid #000" : "none")};
   position: relative;
 `;
@@ -35,87 +33,43 @@ const OptionsWrapper = styled.div`
   width: 100%;
 `;
 
-const calculateKcalValue = (protein, fat, carbohydrates) => {
-  return protein * 4 + fat * 9 + carbohydrates * 4;
-};
-
-const calculateForHundredGrams = (weight, protein, fat, carbohydrates) => {
-  let proportionValue = (100 * 100) / weight / 100;
-  let newProtein = (protein * proportionValue).toFixed(2);
-  let newFat = (fat * proportionValue).toFixed(2);
-  let newCarbohydrates = (carbohydrates * proportionValue).toFixed(2);
-  let kcalValue = calculateKcalValue(
-    newProtein,
-    newFat,
-    newCarbohydrates
-  ).toFixed(2);
-  return { newProtein, newFat, newCarbohydrates, kcalValue };
-};
-
-const Item = ({ id, name, weight, protein, fat, carbohydrates, type }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: "dietCreator",
-    item: {
-      id: id,
-    },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  }));
-
-  let onHundredGrams = calculateForHundredGrams(
-    weight,
-    protein,
-    fat,
-    carbohydrates
-  );
-
+const calculateKcalValue = (protein, fat, carbohydrates, proportions) => {
   return (
-    <StyledListItem
-      key={id}
-      ref={type ? null : drag}
-      isGrabCursor={type ? false : true}
-      isDrag={isDragging}
-    >
+    protein * proportions * 4 +
+    fat * proportions * 9 +
+    carbohydrates * proportions * 4
+  ).toFixed(2);
+};
+
+const Item = ({ id, name, protein, fat, carbohydrates, types, kind }) => {
+  return (
+    <StyledListItem key={id}>
       <ListItemHeader>
         <ListItemMiddle>
           <StyledListItemTitle>{name}</StyledListItemTitle>
-          {type ? (
-            ""
-          ) : (
-            <>
-              <h5>{weight} gram</h5>
-              <h5>
-                {calculateKcalValue(protein, fat, carbohydrates)}
-                kcal {protein}B {fat}T {carbohydrates}W
-              </h5>
-            </>
-          )}
         </ListItemMiddle>
       </ListItemHeader>
-
-      {type && (
-        <OptionsWrapper>
+      <OptionsWrapper>
+        {types.map((item) => (
           <OptionsItem
+            key={item.type}
             id={id}
-            protein={protein}
-            fat={fat}
-            carbohydrates={carbohydrates}
-            kcalValue={calculateKcalValue(protein, fat, carbohydrates)}
-            weight={weight}
-            type="unit"
+            type={item.type}
+            protein={(protein * item.proportions).toFixed(2)}
+            fat={(fat * item.proportions).toFixed(2)}
+            carbohydrates={(carbohydrates * item.proportions).toFixed(2)}
+            kcalValue={calculateKcalValue(
+              protein,
+              fat,
+              carbohydrates,
+              item.proportions
+            )}
+            weight={100 * item.proportions}
+            name={unitTypes[item.type].name.pl}
+            unit={unitTypes[item.type].unit[kind]}
           />
-          <OptionsItem
-            id={id}
-            protein={onHundredGrams.newProtein}
-            fat={onHundredGrams.newFat}
-            carbohydrates={onHundredGrams.newCarbohydrates}
-            kcalValue={onHundredGrams.kcalValue}
-          />
-        </OptionsWrapper>
-      )}
+        ))}
+      </OptionsWrapper>
     </StyledListItem>
   );
 };

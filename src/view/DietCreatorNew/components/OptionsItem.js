@@ -26,6 +26,8 @@ const OptionsItem = ({
   fat,
   carbohydrates,
   kcalValue,
+  name,
+  unit,
   weight,
   type,
 }) => {
@@ -39,14 +41,13 @@ const OptionsItem = ({
       isDragging: !!monitor.isDragging(),
     }),
   }));
-
   return (
     <StyledOptionsItem ref={drag}>
       <h5>
         {kcalValue}
         kcal {protein}B {fat}T {carbohydrates}W
       </h5>{" "}
-      {type ? `1 sztuka (${weight}g)` : "100g"}
+      {name + " " + weight + unit}
     </StyledOptionsItem>
   );
 };

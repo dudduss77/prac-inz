@@ -1,0 +1,32 @@
+{
+  "1": {
+    "name": {
+      "pl": "Sztuka",
+      "en": "Unit"
+    },
+    "unit": {
+      "weight": "g",
+      "volume": "ml"
+    }
+  },
+  "2": {
+    "name": {
+      "pl": "",
+      "en": ""
+    },
+    "unit": {
+      "weight": "g",
+      "volume": "ml"
+    }
+  },
+  "3": {
+    "name": {
+      "pl": "Łyżka",
+      "en": "Spoon"
+    },
+    "unit": {
+      "weight": "g",
+      "volume": "ml"
+    }
+  }
+}

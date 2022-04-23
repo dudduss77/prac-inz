@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { useDrop } from "react-dnd";
 import styled from "styled-components";
 
+import unitTypes from "../../../data/UnitTypes.json";
+import InputTypeNumber from "./InputTypeNumber";
+
 const StyledMeal = styled.div`
   width: 100%;
   background: #6d768a;
@@ -68,6 +71,8 @@ const MealProductMiddle = styled.div`
 
 const MealProductWeight = styled.h4`
   margin-right: 10px;
+  display: flex;
+  gap: 5px;
 `;
 
 const calculateForHundredGrams = (weight, protein, fat, carbohydrates) => {
@@ -89,36 +94,29 @@ const Meal = () => {
       (async () => {
         let response = await fetch(`http://localhost:3000/product/${item.id}`);
         let product = await response.json();
-        if (item.type) {
-          setProducts((prev) => [...prev, product]);
-        } else {
-          console.log("else");
-          let newValue = calculateForHundredGrams(
-            product.weight,
-            product.proteinGrams,
-            product.fatGrams,
-            product.carbohydratesGrams
-          );
-          let tempProduct = {
-            ...product,
-            proteinGrams: newValue.newProtein,
-            fatGrams: newValue.newFat,
-            carbohydratesGrams: newValue.newCarbohydrates,
-            weight: 100,
-            type: undefined,
-          };
-          console.log(tempProduct);
-          setProducts((prev) => [...prev, tempProduct]);
-        }
+        let proportions = product.types.filter((i) => i.type === item.type)[0]
+          .proportions;
+
+        let tempObj = {
+          ...product,
+          id: new Date().getTime(),
+          productId: item.id,
+          types: item.type,
+          protein: (product.protein * proportions).toFixed(2),
+          carbohydrates: (product.carbohydrates * proportions).toFixed(2),
+          fat: (product.fat * proportions).toFixed(2),
+          weight: (100 * proportions).toFixed(2),
+          multiplier: 1,
+        };
+        console.log("pro", products);
+        setProducts((prev) => [...prev, tempObj]);
       })();
-      console.log("item", item);
-      // setProducts((prev) => [...prev, item]);
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   }));
-
+  console.log(products);
   return (
     <StyledMeal>
       <MealHeader>
@@ -158,35 +156,40 @@ const Meal = () => {
             </MealButton>
           </MealContentButtonWrapper>
           <MealProductList ref={drop}>
-            {products.map((item) => (
-              <MealProduct>
-                <MealIcon>
-                  <FontAwesomeIcon icon="trash-alt" />
-                </MealIcon>
-                <MealProductMiddle>
-                  <h4>{item.name}</h4>
-                  <h5>
-                    {item.proteinGrams}B {item.fatGrams}T{" "}
-                    {item.carbohydratesGrams}W
-                  </h5>
-                </MealProductMiddle>
-                <MealProductWeight>
-                  {item.type
-                    ? `1 sztuka (${item.weight} gram)`
-                    : `${item.weight} gram`}
-                </MealProductWeight>
-              </MealProduct>
-            ))}
-            {/* <MealProduct>
-              <MealIcon>
-                <FontAwesomeIcon icon="trash-alt" />
-              </MealIcon>
-              <MealProductMiddle>
-                <h4>Mąka</h4>
-                <h5>10B 1T 20W</h5>
-              </MealProductMiddle>
-              <MealProductWeight>100 gram</MealProductWeight>
-            </MealProduct> */}
+            {products &&
+              products.map((item) => (
+                <MealProduct key={item.id}>
+                  <MealIcon>
+                    <FontAwesomeIcon icon="trash-alt" />
+                  </MealIcon>
+                  <MealProductMiddle>
+                    <h4>{item.name}</h4>
+                    <h5>
+                      {item.protein}B {item.fat}T {item.carbohydrates}W
+                    </h5>
+                  </MealProductMiddle>
+                  <MealProductWeight>
+                    {item.types !== 2 && (
+                      <InputTypeNumber defaultValue={item.multiplier} isButton/>
+                    )}
+
+
+                    {item.types !== 2 &&
+                      unitTypes[item.types].name.pl +
+                        " " +
+                        item.weight +
+                        unitTypes[item.types].unit[item.kind]}
+
+                    {item.types === 2 && unitTypes[item.types].name.pl + " "}
+
+                    {item.types === 2 && (
+                      <InputTypeNumber defaultValue={item.weight} />
+                    )}
+
+                    {item.types === 2 && unitTypes[item.types].unit[item.kind]}
+                  </MealProductWeight>
+                </MealProduct>
+              ))}
           </MealProductList>
         </MealContent>
       )}

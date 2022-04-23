@@ -18,6 +18,7 @@ import {
   faFileImage,
   faHistory,
   faIndent,
+  faMinus,
   faMinusCircle,
   faOutdent,
   faPaperPlane,
@@ -65,5 +66,6 @@ library.add(
   faExclamation,
   faHistory,
   faComment,
-  faCopy
+  faCopy,
+  faMinus
 );

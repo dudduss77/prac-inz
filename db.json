@@ -3,27 +3,70 @@
     {
       "id": 1,
       "name": "Mąka",
-      "weight": 100,
-      "proteinGrams": 10,
-      "carbohydratesGrams": 10,
-      "fatGrams": 1
+      "kind": "weight",
+      "protein": 10,
+      "carbohydrates": 10,
+      "fat": 1,
+      "types": [
+        {
+          "type": 2,
+          "proportions": 1
+        },
+        {
+          "type": 3,
+          "proportions": 0.1
+        }
+      ]
     },
     {
       "id": 2,
-      "name": "Mąka 2",
-      "weight": 100,
-      "proteinGrams": 3,
-      "carbohydratesGrams": 5,
-      "fatGrams": 0
-    },
-    {
-      "id": 3,
       "name": "Jajko L",
-      "type": "unit",
-      "weight": 60,
-      "proteinGrams": 3,
-      "carbohydratesGrams": 5,
-      "fatGrams": 1
+      "kind": "weight",
+      "protein": 3,
+      "carbohydrates": 5,
+      "fat": 1,
+      "types": [
+        {
+          "type": 1,
+          "proportions": 0.6
+        },
+        {
+          "type": 2,
+          "proportions": 1
+        }
+      ]
     }
-  ]
+  ],
+  "types": {
+    "1": {
+      "name": {
+        "pl": "Sztuka",
+        "en": "Unit"
+      },
+      "shortcut": {
+        "weight": "g",
+        "volume": "ml"
+      }
+    },
+    "2": {
+      "name": {
+        "pl": "100 gram",
+        "en": "100 grams"
+      },
+      "shortcut": {
+        "weight": "g",
+        "volume": "ml"
+      }
+    },
+    "3": {
+      "name": {
+        "pl": "Łyżka",
+        "en": "Spoon"
+      },
+      "shortcut": {
+        "weight": "g",
+        "volume": "ml"
+      }
+    }
+  }
 }
